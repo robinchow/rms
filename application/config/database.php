@@ -70,9 +70,9 @@ return array(
 		'mysql' => array(
 			'driver'   => 'mysql',
 			'host'     => 'localhost',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
+			'database' => 'rms',
+			'username' => 'rms',
+			'password' => 'rms',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),
