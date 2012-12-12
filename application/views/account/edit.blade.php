@@ -19,13 +19,13 @@
         {{ Form::text('image', $user->profile->image)}}<br>
 
         {{ Form::label('phone', 'Phone') }}
-        {{ Form::text('phone', $user->profile->phone)}}<br>
+        {{ Form::telephone('phone', $user->profile->phone)}}<br>
 
         {{ Form::label('privacy', 'Privacy') }}
         {{ Form::checkbox('privacy', 'privacy') }}<br>
 
         {{ Form::label('dob', 'DOB') }}
-        {{ Form::text('dob', $user->profile->dob)}}<br>
+        {{ Form::date('dob', $user->profile->dob)}}<br>
 
 
 
@@ -38,10 +38,10 @@
         {{ Form::label('student_number', 'Student Number') }}
         {{ Form::text('student_number', $user->profile->student_number)}}<br>
         {{ Form::label('start_year', 'Start Year') }}
-        {{ Form::text('start_year', $user->profile->start_year)}}<br>
+        {{ Form::date('start_year', $user->profile->start_year)}}<br>
 
         {{ Form::label('arc', 'Arc') }}
-        {{ Form::checkbox('arc', $user->profile->arc) }}<br>
+        {{ Form::checkbox('arc', 'arc',$user->profile->arc) }}<br>
 
         {{ Form::label('gender', 'Gender') }}
         {{ Form::select('gender', array('?'=>':S','M' => 'Male', 'F' => 'Female'), $user->profile->gender) }}<br>
