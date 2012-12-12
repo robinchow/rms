@@ -5,16 +5,18 @@
 @endsection
 
 @section('content')
-<legend>My Profile</legend>
+<h4>My Profile</h4>
+{{ $user->profile->image }}
 <h5>Email:</h5>
 <p>{{ $user->email }}</p>
-{{ $user->profile->id}}
+<h5>Full Name:</h5>
+<p>{{ $user->profile->full_name }}</p>
+<h5>Display Name:</h5>
+<p>{{ $user->profile->display_name }}</p>
 
 
-
-<div class="form-actions">
-    {{HTML::link('rms/account/edit','Edit Profile')}}
-</div>
+{{HTML::link('rms/account/edit','Edit Profile')}} - 
+{{HTML::link('rms/account/logout','Logout')}}
 
 
 
