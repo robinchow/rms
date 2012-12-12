@@ -22,7 +22,7 @@
         {{ Form::telephone('phone', $user->profile->phone)}}<br>
 
         {{ Form::label('privacy', 'Privacy') }}
-        {{ Form::checkbox('privacy', 'privacy') }}<br>
+        {{ Form::checkbox('privacy', 1 ,$user->profile->privacy) }}<br>
 
         {{ Form::label('dob', 'DOB') }}
         {{ Form::date('dob', $user->profile->dob)}}<br>
@@ -41,7 +41,7 @@
         {{ Form::date('start_year', $user->profile->start_year)}}<br>
 
         {{ Form::label('arc', 'Arc') }}
-        {{ Form::checkbox('arc', 'arc',$user->profile->arc) }}<br>
+        {{ Form::checkbox('arc', 1 ,$user->profile->arc) }}<br>
 
         {{ Form::label('gender', 'Gender') }}
         {{ Form::select('gender', array('?'=>':S','M' => 'Male', 'F' => 'Female'), $user->profile->gender) }}<br>
