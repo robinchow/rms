@@ -42,6 +42,7 @@
 {{HTML::link('rms/account/edit','Edit Profile')}} - 
 {{HTML::link('rms/account/logout','Logout')}}
 
+{{HTML::link('rms/teams/','Teams')}}
 
 
 @endsection
