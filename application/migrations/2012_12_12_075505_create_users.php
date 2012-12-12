@@ -9,7 +9,12 @@ class Create_Users {
 	 */
 	public function up()
 	{
-		//
+		Schema::create('users', function($table) {
+		    $table->increments('id');
+		    $table->string('email', 128)->unique();
+		    $table->string('password', 64);
+		    $table->timestamps();
+		});
 	}
 
 	/**
@@ -19,7 +24,7 @@ class Create_Users {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('users');
 	}
 
 }
