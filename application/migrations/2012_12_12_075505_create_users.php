@@ -13,6 +13,7 @@ class Create_Users {
 		    $table->increments('id');
 		    $table->string('email', 128)->unique();
 		    $table->string('password', 64);
+		    $table->boolean('admin');
 		    $table->timestamps();
 		});
 	}
