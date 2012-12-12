@@ -49,7 +49,7 @@
 
 
         {{ Form::submit('Save changes') }}
-        {{ HTML::link('/account','Cancel') }}
+        {{ HTML::link('/rms/account','Cancel') }}
 
 
 
