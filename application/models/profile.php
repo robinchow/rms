@@ -3,9 +3,9 @@
 class Profile extends Eloquent {
 	public static $timestamps = true;
 
-	public function profile()
+	public function user()
 	{
-		return $this->belongs_to('Profile');
+		return $this->belongs_to('User');
 	}
 
 }

@@ -13,6 +13,13 @@ class Create_Seeds {
 		    'email'  => 'example@example.com',
 		    'password'  => Hash::make('example')
 		));
+
+		DB::table('profiles')->insert(array(
+			'user_id' => 1,
+		    'full_name'  => 'Example',
+		    'display_name' => 'ex',
+		    'image' => 'image.png'
+		));
 	}
 
 	/**
