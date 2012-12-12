@@ -56,6 +56,19 @@ class Rms_Account_Controller extends Base_Controller
         $profile->full_name    = Input::get('full_name');
         $profile->display_name    = Input::get('display_name');
 
+        $profile->gender = Input::get('gender');
+        $profile->dob = Input::get('dob');
+        $profile->image   = Input::get('image');          
+
+        $profile->privacy = Input::get('privacy');
+        $profile->phone = Input::get('phone');
+        $profile->university = Input::get('university');
+        $profile->program = Input::get('program');
+        $profile->student_number = Input::get('student_number');
+        $profile->start_year = Input::get('start_year');
+        $profile->arc = Input::get('arc');
+
+
         $profile->save();
 
         return Redirect::to('rms/account')
