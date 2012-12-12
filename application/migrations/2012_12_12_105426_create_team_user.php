@@ -1,6 +1,6 @@
 <?php
 
-class Create_Teams {
+class Create_Team_User {
 
 	/**
 	 * Make changes to the database.
@@ -9,12 +9,12 @@ class Create_Teams {
 	 */
 	public function up()
 	{
-		Schema::create('teams', function($table) {
+		Schema::create('team_user', function($table) {
 		    $table->increments('id');
-		    $table->string('name');
-		    $table->string('alias');
-		    $table->boolean('privacy');
-		    $table->text('description');
+		    $table->integer('team_id');
+		    $table->integer('user_id');
+		    $table->integer('year_id');
+		    $table->string('status');
 		    $table->timestamps();
 		});
 	}
@@ -26,8 +26,7 @@ class Create_Teams {
 	 */
 	public function down()
 	{
-		Schema::drop('teams');
-
+		Schema::drop('team_user');
 	}
 
 }
