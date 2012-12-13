@@ -38,7 +38,7 @@
 <h5>Gender:</h5>
 <p>{{ $user->profile->gender }}</p>
 
-
+{{HTML::link('rms/account/renew','Renew')}} - 
 {{HTML::link('rms/account/edit','Edit Profile')}} - 
 {{HTML::link('rms/account/logout','Logout')}}
 

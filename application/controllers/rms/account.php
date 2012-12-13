@@ -76,6 +76,20 @@ class Rms_Account_Controller extends Base_Controller
     }
 
 
+    public function get_renew() {
+        $years = Year::lists('year', 'id');
+
+        return View::make('account.renew')
+            ->with('years', $years);
+    }
+
+    public function post_renew() {
+        $user = Auth::user();
+        $user->years()->attach(Input::get('year_id'));
+
+        return Redirect::to('rms/account')
+                ->with('status', 'Changes Successful');
+    }
 
     public function get_logout()
     {
