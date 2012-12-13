@@ -25,14 +25,33 @@ class Rms_Teams_Controller extends Base_Controller
     public function post_add()
     {
 
-
         $team = Team::create(Input::get());
-
 
         return Redirect::to('rms/teams')
                 ->with('status', 'Successful Added New Team');
     }
 
+    public function get_edit($id)
+    {
+        $team = Team::find($id);
+        return View::make('teams.edit')->with('team',$team);
+    }
+
+    public function post_edit($id)
+    {
+
+        $team = Team::update($id, Input::get());
+
+        return Redirect::to('rms/teams')
+                ->with('status', 'Successful Edited Team');
+    }
+
+    public function get_delete($id)
+    {
+        $team = Team::find($id)->delete();
+        return Redirect::to('rms/teams')
+                ->with('status', 'Successful Removed Team');
+    }
 
 
 
