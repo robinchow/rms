@@ -11,7 +11,8 @@ class Create_Seeds {
 	{
 		DB::table('users')->insert(array(
 		    'email'  => 'example@example.com',
-		    'password'  => Hash::make('example')
+		    'password'  => Hash::make('example'),
+		    'admin' => true
 		));
 
 		DB::table('profiles')->insert(array(

@@ -19,9 +19,21 @@ class Rms_Teams_Controller extends Base_Controller
 
     public function get_add()
     {
-        $teams = Team::all();
-        return View::make('teams.index')->with('teams', $teams);
+        return View::make('teams.add');
     }
+
+    public function post_add()
+    {
+
+
+        $team = Team::create(Input::get());
+
+
+        return Redirect::to('rms/teams')
+                ->with('status', 'Successful Added New Team');
+    }
+
+
 
 
     

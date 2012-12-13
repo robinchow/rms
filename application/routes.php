@@ -115,5 +115,5 @@ Route::filter('auth', function()
 
 Route::filter('admin', function()
 {
-	if (!Auth::User()->admin) return Redirect::to('rms/account/login');
+	if (!Auth::User()->admin) return Redirect::to('rms/account/login'); //todo
 });
