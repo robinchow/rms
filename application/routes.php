@@ -33,6 +33,7 @@
 */
 
 Route::controller('rms.account');
+Route::controller('rms.teams');
 
 Route::get('/', function()
 {
@@ -110,4 +111,9 @@ Route::filter('csrf', function()
 Route::filter('auth', function()
 {
 	if (Auth::guest()) return Redirect::to('rms/account/login');
+});
+
+Route::filter('admin', function()
+{
+	if (!Auth::User()->admin) return Redirect::to('rms/account/login');
 });
