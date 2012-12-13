@@ -8,10 +8,16 @@
 
 @if ( count($teams) > 0 )
 	@foreach ($teams as $team)
-    	<p><strong>{{ $team->name }}</strong> - {{ HTML::link('/rms/teams/edit/'.$team->id,'Edit') }}  - {{ HTML::link('/rms/teams/delete/'.$team->id,'Delete') }}</p>
+    	<p><strong>{{ $team->name }}</strong> - {{ HTML::link('/rms/teams/edit/'.$team->id,'Edit') }}  - {{ HTML::link('/rms/teams/delete/'.$team->id,'Delete')}}
+
+    		@if (!$team->privacy) 
+    			- {{ HTML::link('/rms/teams/join/'.$team->id,'Join') }}
+    		@endif
+    		</p>
     	<p>{{ $team->alias }}</p>
     	<p>{{ $team->privacy }}</p>
     	<p>{{ nl2br($team->description) }}</p>
+    	<p>Number of members Ever: {{ count($team->users)}}</p>
     	<hr>
 	@endforeach
 @else
