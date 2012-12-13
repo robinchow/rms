@@ -34,6 +34,8 @@
 
 Route::controller('rms.account');
 Route::controller('rms.teams');
+Route::controller('rms.years');
+
 
 Route::get('/', function()
 {
