@@ -39,7 +39,7 @@ Route::controller('rms.years');
 
 Route::get('/', function()
 {
-	return View::make('home.index');
+	return Redirect::to('rms/account');
 });
 
 /*

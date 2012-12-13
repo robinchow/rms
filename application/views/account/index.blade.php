@@ -49,6 +49,7 @@
 {{HTML::link('rms/account/logout','Logout')}}
 
 {{HTML::link('rms/teams/','Teams')}}
+{{HTML::link('rms/years/','Years')}}
 
 
 @endsection
