@@ -9,10 +9,9 @@
 
     <legend>Join a team</legend>
 
-    	{{ Form::hidden('team_id',$team->id)}}
 
-        {{ Form::label('year_id', 'Year') }}
-        {{ Form::select('year_id', $years )}}<br>
+        {{ Form::label('team_id', 'Team') }}
+        {{ Form::select('team_id', $teams )}}<br>
 
 
         {{ Form::submit('Save changes') }}

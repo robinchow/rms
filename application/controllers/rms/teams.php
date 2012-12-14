@@ -46,22 +46,22 @@ class Rms_Teams_Controller extends Base_Controller
                 ->with('status', 'Successful Edited Team');
     }
 
-    public function get_join($id)
+    public function get_join()
     {
-        $team = Team::find($id);
-        $years = Year::lists('year', 'id');
+        $teams = Team::where('privacy', '=', false)->lists('name', 'id');
 
         return View::make('teams.join')
-            ->with('team',$team)
-            ->with('years',$years);
+            ->with('teams',$teams);
     }
 
     public function post_join()
     {
         $user = Auth::User();
         $team = Input::get('team_id');
-        $year = Input::get('year_id');
-        $user->teams()->attach($team, array('status' => 'interested', 'year_id'=>$year));
+        $year = Year::where('year','=',2012)->first();
+
+
+        $user->teams()->attach($team, array('status' => 'interested', 'year_id'=>$year->id));
         
 
         return Redirect::to('rms/teams')

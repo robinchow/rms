@@ -10,6 +10,7 @@
 		<ul>
 			<li>{{HTML::link('rms/account/renew','Renew')}}</li>
 			<li>{{HTML::link('rms/account/edit','Edit Profile')}}</li>
+			<li>{{HTML::link('rms/teams/join','Join A Team')}}</li>
 			<li>{{HTML::link('rms/account/logout','Logout')}}</li>
 		</ul>
 	</nav>

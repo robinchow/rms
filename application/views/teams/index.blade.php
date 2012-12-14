@@ -9,12 +9,7 @@
 <section>
 @if ( count($teams) > 0 )
 	@foreach ($teams as $team)
-    	<p><strong>{{ $team->name }}</strong> - {{ HTML::link('/rms/teams/edit/'.$team->id,'Edit') }}  - {{ HTML::link('/rms/teams/delete/'.$team->id,'Delete')}}
-
-    		@if (!$team->privacy) 
-    			- {{ HTML::link('/rms/teams/join/'.$team->id,'Join') }}
-    		@endif
-    		</p>
+    	<p><strong>{{ $team->name }}</strong> - {{ HTML::link('/rms/teams/edit/'.$team->id,'Edit') }}  - {{ HTML::link('/rms/teams/delete/'.$team->id,'Delete')}}</p>
     	<p>{{ $team->alias }}</p>
     	<p>{{ $team->privacy }}</p>
     	<p>{{ nl2br($team->description) }}</p>
@@ -26,6 +21,8 @@
 @endif
 
 {{HTML::link('rms/teams/add','Add Team',array('class'=>'button'))}}
+{{HTML::link('rms/teams/join','Join A Team',array('class'=>'button'))}}
+
 </section>
 </section>
 
