@@ -1,0 +1,29 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+section.rms-account {
+  *zoom: 1;
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto; }
+  section.rms-account:before, section.rms-account:after {
+    content: " ";
+    display: table; }
+  section.rms-account:after {
+    clear: both; }
+  section.rms-account nav {
+    display: block;
+    float: left;
+    margin-right: 2.35765%;
+    width: 23.23176%; }
+    section.rms-account nav:last-child {
+      margin-right: 0; }
+  section.rms-account section {
+    display: block;
+    float: left;
+    margin-right: 2.35765%;
+    width: 74.41059%; }
+    section.rms-account section:last-child {
+      margin-right: 0; }

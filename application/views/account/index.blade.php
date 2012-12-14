@@ -5,6 +5,15 @@
 @endsection
 
 @section('content')
+<section class="rms-account">
+<nav>
+<ul>
+	<li>{{HTML::link('rms/account/renew','Renew')}}</li>
+	<li>{{HTML::link('rms/account/edit','Edit Profile')}}</li>
+	<li>{{HTML::link('rms/account/logout','Logout')}}</li>
+</ul>
+</nav>
+<section>
 <h4>My Profile</h4>
 {{ $user->profile->image }}
 <h5>Email:</h5>
@@ -44,12 +53,10 @@
 @endforeach
 
 
-{{HTML::link('rms/account/renew','Renew')}} - 
-{{HTML::link('rms/account/edit','Edit Profile')}} - 
-{{HTML::link('rms/account/logout','Logout')}}
+
 
 {{HTML::link('rms/teams/','Teams')}}
 {{HTML::link('rms/years/','Years')}}
-
-
+</section>
+</section>
 @endsection
