@@ -8,7 +8,7 @@
 
 @if ( count($years) > 0 )
 	@foreach ($years as $year)
-    	<p><strong>{{ $year->year }}</strong> - {{ HTML::link('/rms/years/edit/'.$year->id,'Edit') }}  - {{ HTML::link('/rms/years/delete/'.$year->id,'Delete') }}</p>
+    	<p><strong>{{ HTML::link('/rms/years/show/'.$year->id,$year->year) }}</strong> - {{ HTML::link('/rms/years/edit/'.$year->id,'Edit') }}  - {{ HTML::link('/rms/years/delete/'.$year->id,'Delete') }}</p>
     	<p>{{ $year->alias }}</p>
     	<hr>
 	@endforeach

@@ -17,6 +17,13 @@ class Rms_Years_Controller extends Base_Controller
         return View::make('years.index')->with('years', $years);
     }
 
+    public function get_show($id)
+    {
+        $year = Year::find($id);
+        return View::make('years.show')->with('year',$year);
+    }
+
+
     public function get_add()
     {
         return View::make('years.add');
@@ -33,7 +40,7 @@ class Rms_Years_Controller extends Base_Controller
 
     public function get_edit($id)
     {
-        $years = Year::find($id);
+        $year = Year::find($id);
         return View::make('years.edit')->with('year',$year);
     }
 
