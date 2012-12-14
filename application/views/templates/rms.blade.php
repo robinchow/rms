@@ -14,9 +14,22 @@
   </head>
 
   <body>
-
+    <header>
+      <h1>
+        CSE Revue - RMS
+      </h1>
+      <nav>
+        <ul class="menu">
+          <li>{{HTML::link('rms/account/','My Account')}}</li>
+          <li>{{HTML::link('rms/teams/','Teams')}}</li>
+          <li>{{HTML::link('rms/years/','Years')}}</li>
+        </ul>
+      </nav>
+    </header>
     @yield('content')
+    <footer>
 
+    </footer>
 
   </body>
 </html>

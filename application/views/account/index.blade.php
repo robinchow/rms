@@ -6,57 +6,42 @@
 
 @section('content')
 <section class="rms-account">
-<nav>
-<ul>
-	<li>{{HTML::link('rms/account/renew','Renew')}}</li>
-	<li>{{HTML::link('rms/account/edit','Edit Profile')}}</li>
-	<li>{{HTML::link('rms/account/logout','Logout')}}</li>
-</ul>
-</nav>
-<section>
-<h4>My Profile</h4>
-{{ $user->profile->image }}
-<h5>Email:</h5>
-<p>{{ $user->email }}</p>
-<h5>Full Name:</h5>
-<p>{{ $user->profile->full_name }}</p>
-<h5>Display Name:</h5>
-<p>{{ $user->profile->display_name }}</p>
+	<nav>
+		<ul>
+			<li>{{HTML::link('rms/account/renew','Renew')}}</li>
+			<li>{{HTML::link('rms/account/edit','Edit Profile')}}</li>
+			<li>{{HTML::link('rms/account/logout','Logout')}}</li>
+		</ul>
+	</nav>
+	<section>
+		<h2>Your Profile</h2>
+		{{ $user->profile->image }}
 
-<h5>Phone:</h5>
-<p>{{ $user->profile->phone }}</p>
+		<hr>
 
-<h5>Privacy:</h5>
-<p>{{ $user->profile->privacy }}</p>
+		<h3>Personal Details:</h3>
 
-<h5>DOB:</h5>
-<p>{{ $user->profile->dob }}</p>
+		<p><strong>Full Name: </strong>{{ $user->profile->full_name }}</p>
+		<p><strong>Display Name: </strong>{{ $user->profile->display_name }}</p>
+		<p><strong>DOB: </strong>{{ $user->profile->dob }}</p>
+		<p><strong>Gender: </strong>{{ $user->profile->gender }}</p>
 
-<h5>University:</h5>
-<p>{{ $user->profile->university }}</p>
-<h5>Program:</h5>
-<p>{{ $user->profile->program }}</p>
-<h5>Student Number:</h5>
-<p>{{ $user->profile->student_number }}</p>
-<h5>Start Year:</h5>
-<p>{{ $user->profile->start_year }}</p>
+		<hr>
 
-<h5>Arc:</h5>
-<p>{{ $user->profile->arc }}</p>
+		<h3>Contact Details:</h3>
+		<p><strong>Email: </strong>{{ $user->email }}</p>
+		<p><strong>Phone: </strong>{{ $user->profile->phone }}</p>
+		<p><strong>Privacy: </strong>{{ $user->profile->privacy }}</p>
 
-<h5>Gender:</h5>
-<p>{{ $user->profile->gender }}</p>
+		<hr>
 
-<h5>Member in Year:</h5>
-@foreach ($user->years as $year)
-    	<p>{{ $year->year }}</p>
-@endforeach
+		<h3>University Details:</h3>
+		<p><strong>University: </strong>{{ $user->profile->university }}</p>
+		<p><strong>Program: </strong>{{ $user->profile->program }}</p>
+		<p><strong>Student Number: </strong>{{ $user->profile->student_number }}</p>
+		<p><strong>Start Year: </strong>{{ $user->profile->start_year }}</p>
+		<p><strong>Arc: </strong>{{ $user->profile->arc }}</p>
 
-
-
-
-{{HTML::link('rms/teams/','Teams')}}
-{{HTML::link('rms/years/','Years')}}
-</section>
+	</section>
 </section>
 @endsection
