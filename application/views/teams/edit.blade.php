@@ -22,7 +22,7 @@
         {{ Form::textarea('description', $team->description)}}<br>
 
         {{ Form::submit('Save changes') }}
-        {{ HTML::link('/rms/teams','Cancel') }}
+        {{HTML::link('rms/teams/show/'. $team->id,'Cancel',array('class'=>'button'))}}
 
 
 
