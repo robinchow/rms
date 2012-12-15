@@ -23,13 +23,13 @@ class Team extends Eloquent {
 		return implode('<br>', $mailing);
 	}
 
-	public function get_members($year_id) 
+	public function get_members($year_id, $status) 
 	{
 		$all_users = $this->users;
 		$year_users = array();
 		foreach($all_users as $user) 
 		{
-			if ($user->pivot->year_id == $year_id)
+			if ($user->pivot->year_id == $year_id && $user->pivot->status == $status )
 			{
 				$year_users[] = $user;
 			}

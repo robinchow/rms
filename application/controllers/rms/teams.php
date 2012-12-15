@@ -65,7 +65,7 @@ class Rms_Teams_Controller extends Base_Controller
     {
         $user = Auth::User();
         $team = Input::get('team_id');
-        $year = Year::where('year','=',2013)->first();//todo
+        $year = Year::where('year','=',2013)->first();//Hardocded should search current year from somewhere
 
 
         $user->teams()->attach($team, array('status' => 'interested', 'year_id'=>$year->id));

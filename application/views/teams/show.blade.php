@@ -17,12 +17,30 @@
     	<p>{{ nl2br($team->description) }}</p>
     	<strong>Members:</strong><br>
     	@foreach($years as $year)
-    		<strong>{{$year->year}}</strong>
+    	    <hr>
+    		<strong>{{$year->year}}</strong><br>
+    		@if (!$team->privacy)
+    		<strong>Head</strong>
     		<ul>
-    		@foreach($team->get_members($year->id) as $user)
+    		@foreach($team->get_members($year->id,'head') as $user)
     			<li>{{$user->profile->full_name}}</li>
     		@endforeach
     		</ul>
+    		@endif
+    		<strong>Members</strong>
+    		<ul>
+    		@foreach($team->get_members($year->id,'') as $user)
+    			<li>{{$user->profile->full_name}}</li>
+    		@endforeach
+    		</ul>
+    		@if (!$team->privacy)
+    		<strong>Interested</strong>
+    		<ul>
+    		@foreach($team->get_members($year->id,'interested') as $user)
+    			<li>{{$user->profile->full_name}}</li>
+    		@endforeach
+    		</ul>
+    		@endif
     	@endforeach
 
 
