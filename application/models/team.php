@@ -20,7 +20,7 @@ class Team extends Eloquent {
 		foreach($alias as $a ) {
 			$mailing[] = $a . '@cserevue.org.au';
 		}
-		return implode('<br>', $mailing);
+		return implode('<br>', $mailing);//probably should just return the list not convert it to a string
 	}
 
 	public function get_members($year_id, $status) 

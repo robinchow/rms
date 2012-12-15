@@ -90,6 +90,27 @@ section.rms-teams {
 	}
 }
 
+section.rms-executives {
+	@include outer-container;
+  	background: yellow;
+	section { 
+	  	@include span-columns(12); 
+	  	@include pad;
+	  	background: blue;
+	  	h2 {
+			margin:0;
+		}
+		td,th {
+			@include pad;
+			border:1px solid red;
+		}
+
+  	}
+	.button{
+		@include button(pill);
+	}
+}
+
 footer {
 	height: 40px;
 	background:#298ec3;
