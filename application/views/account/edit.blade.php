@@ -5,9 +5,23 @@
 @endsection
 
 @section('content')
-    {{ Form::open('rms/account/edit')}}
+<section class="rms-account">
+    <nav>
+        <ul>
+            <li>{{HTML::link('rms/account/renew','Renew')}}</li>
+            <li>{{HTML::link('rms/account/edit','Edit Profile')}}</li>
+            <li>{{HTML::link('rms/teams/join','Join A Team')}}</li>
+            <li>{{HTML::link('rms/account/logout','Logout')}}</li>
+        </ul>
+    </nav>
+    <section>
+    <h2>Edit User Profile</h2>
 
-    <legend>Edit User Profile</legend>
+    {{ Form::open('rms/account/edit')}}
+        <fieldset>
+        <legend>Personal Details:</legend>
+        {{ Form::label('image', 'Image') }}
+        {{ Form::text('image', $user->profile->image)}}<br>
 
         {{ Form::label('full_name', 'Full Name') }}
         {{ Form::text('full_name', $user->profile->full_name )}}<br>
@@ -15,20 +29,25 @@
         {{ Form::label('display_name', 'Display Name') }}
         {{ Form::text('display_name', $user->profile->display_name)}}<br>
 
-        {{ Form::label('image', 'Image') }}
-        {{ Form::text('image', $user->profile->image)}}<br>
+        {{ Form::label('dob', 'DOB') }}
+        {{ Form::date('dob', $user->profile->dob)}}<br>
 
+        {{ Form::label('gender', 'Gender') }}
+        {{ Form::select('gender', array('O'=>'Other','M' => 'Male', 'F' => 'Female'), $user->profile->gender) }}<br>
+
+        </fieldset>
+
+        <fieldset>
+        <legend>Contact Details:</legend>
         {{ Form::label('phone', 'Phone') }}
         {{ Form::telephone('phone', $user->profile->phone)}}<br>
 
         {{ Form::label('privacy', 'Privacy') }}
         {{ Form::checkbox('privacy', 1 ,$user->profile->privacy) }}<br>
+        </fieldset>
 
-        {{ Form::label('dob', 'DOB') }}
-        {{ Form::date('dob', $user->profile->dob)}}<br>
-
-
-
+        <fieldset>
+        <legend>University Details:</legend>
         {{ Form::label('university', 'University') }}
         {{ Form::text('university', $user->profile->university)}}<br>
 
@@ -42,17 +61,15 @@
 
         {{ Form::label('arc', 'Arc') }}
         {{ Form::checkbox('arc', 1 ,$user->profile->arc) }}<br>
-
-        {{ Form::label('gender', 'Gender') }}
-        {{ Form::select('gender', array('?'=>':S','M' => 'Male', 'F' => 'Female'), $user->profile->gender) }}<br>
+        </fieldset>
 
 
-
-        {{ Form::submit('Save changes') }}
-        {{ HTML::link('/rms/account','Cancel') }}
+        {{ Form::submit('Save changes', array('class'=>'button')) }}
+        {{ HTML::link('/rms/account','Cancel',array('class'=>'button')) }}
 
 
 
     {{ Form::close() }}
-      
+    </section>
+</section>    
 @endsection

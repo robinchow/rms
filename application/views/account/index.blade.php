@@ -32,7 +32,7 @@
 		<h3>Contact Details:</h3>
 		<p><strong>Email: </strong>{{ $user->email }}</p>
 		<p><strong>Phone: </strong>{{ $user->profile->phone }}</p>
-		<p><strong>Privacy: </strong>{{ $user->profile->privacy }}</p>
+		<p><strong>Privacy: </strong>{{ $user->profile->privacy_string }}</p>
 
 		<hr>
 
@@ -41,7 +41,7 @@
 		<p><strong>Program: </strong>{{ $user->profile->program }}</p>
 		<p><strong>Student Number: </strong>{{ $user->profile->student_number }}</p>
 		<p><strong>Start Year: </strong>{{ $user->profile->start_year }}</p>
-		<p><strong>Arc: </strong>{{ $user->profile->arc }}</p>
+		<p><strong>Arc: </strong>{{ $user->profile->arc_string }}</p>
 
 	</section>
 </section>

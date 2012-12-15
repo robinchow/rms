@@ -50,6 +50,22 @@ section.rms-account {
   	h2 {
 		margin:0;
 	}
+
+
+	form {
+		label {
+			@include inline-block;
+			width:150px;
+			padding:5px;
+		}
+		input {
+			border-radius:5px;
+			border:1px black solid;
+		}
+		.button{
+			@include button(pill);
+		}
+	}
   }
 }
 
