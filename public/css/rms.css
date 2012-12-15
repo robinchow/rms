@@ -379,6 +379,9 @@ section.rms-teams {
       margin-right: 0; }
     section.rms-teams section h2 {
       margin: 0; }
+    section.rms-teams section td, section.rms-teams section th {
+      padding: 2.35765%;
+      border: 1px solid red; }
   section.rms-teams .button {
     border: 1px solid #3371b2;
     border-color: #3371b2 #2457a3 #164297;

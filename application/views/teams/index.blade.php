@@ -8,14 +8,20 @@
 <section class="rms-teams">
 <section>
 @if ( count($teams) > 0 )
+    <table>
+        <thead>
+            <th>Team Name</th><th>Mailing Lists</th><th>Privacy</th>
+        </thead>
+        <tbody>
 	@foreach ($teams as $team)
-    	<p><strong>{{ HTML::link('/rms/teams/show/'.$team->id,$team->name) }}</strong> - {{ HTML::link('/rms/teams/edit/'.$team->id,'Edit') }}  - {{ HTML::link('/rms/teams/delete/'.$team->id,'Delete')}}</p>
-    	<p>{{ $team->alias }}</p>
-    	<p>{{ $team->privacy }}</p>
-    	<p>{{ nl2br($team->description) }}</p>
-    	<p>Number of members Ever: {{ count($team->users)}}</p>
-    	<hr>
+        <tr>
+    	<th>{{ HTML::link('/rms/teams/show/'.$team->id,$team->name) }}</td>
+    	<td>{{ $team->mailing_lists }}</td>
+    	<td>{{ $team->privacy_string }}</td>
+    	<tr>
 	@endforeach
+        </tbody>
+    </table>
 @else
 	No Teams
 @endif

@@ -70,8 +70,8 @@ section.rms-account {
 }
 
 section.rms-teams {
-	  @include outer-container;
-  background: yellow;
+	@include outer-container;
+  	background: yellow;
 	section { 
 	  	@include span-columns(12); 
 	  	@include pad;
@@ -79,6 +79,11 @@ section.rms-teams {
 	  	h2 {
 			margin:0;
 		}
+		td,th {
+			@include pad;
+			border:1px solid red;
+		}
+
   	}
 	.button{
 		@include button(pill);
