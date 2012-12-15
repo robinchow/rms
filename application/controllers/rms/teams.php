@@ -34,7 +34,7 @@ class Rms_Teams_Controller extends Base_Controller
     public function get_show($id)
     {
         $team = Team::find($id);
-        $years = Year::all();
+        $years = Year::order_by('year', 'desc')->get();
         return View::make('teams.show')->with('team',$team)->with('years',$years);
     }
 
@@ -65,7 +65,7 @@ class Rms_Teams_Controller extends Base_Controller
     {
         $user = Auth::User();
         $team = Input::get('team_id');
-        $year = Year::where('year','=',2013)->first();
+        $year = Year::where('year','=',2013)->first();//todo
 
 
         $user->teams()->attach($team, array('status' => 'interested', 'year_id'=>$year->id));
