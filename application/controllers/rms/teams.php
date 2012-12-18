@@ -106,6 +106,28 @@ class Rms_Teams_Controller extends Base_Controller
                 ->with('status', 'Successful added member Team');
     }
 
+    //should be changed to a ajax post
+    public function get_member_remove($user_id,$team_id, $year_id, $status = '')
+    {
+        $user = User::find($user_id);
+        $user->teams()->where('team_id','=',$team_id)->where('status', '=', $status)->where('year_id','=',$year_id)->first()->pivot->delete();
+
+        return Redirect::to('rms/teams/manage/' . $team_id)
+                ->with('status', 'Successful added member Team');
+    }
+
+    public function get_member_move($user_id,$team_id, $year_id, $status = '')
+    {
+        $user = User::find($user_id);
+        $join = $user->teams()->where('team_id','=',$team_id)->where('year_id','=',$year_id)->first()->pivot;
+        $join->status = $status;
+        $join->save();
+
+        return Redirect::to('rms/teams/manage/' . $team_id)
+               ->with('status', 'Successful added member Team');
+    }
+
+
     public function get_delete($id)
     {
         $team = Team::find($id)->delete();

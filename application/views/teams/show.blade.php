@@ -19,14 +19,12 @@
     	@foreach($years as $year)
     	    <hr>
     		<strong>{{$year->year}}</strong><br>
-    		@if (!$team->privacy)
     		<strong>Head</strong>
     		<ul>
     		@foreach($team->get_members($year->id,'head') as $user)
     			<li>{{$user->profile->full_name}}</li>
     		@endforeach
     		</ul>
-    		@endif
     		<strong>Members</strong>
     		<ul>
     		@foreach($team->get_members($year->id,'') as $user)

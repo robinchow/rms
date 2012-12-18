@@ -30,7 +30,10 @@
 	<h3>Heads</h3>
 	<ul>
 	@foreach($team->get_members($year->id,'head') as $user)
-		<li>{{$user->profile->full_name}}</li>
+		<li>{{$user->profile->full_name}} 
+			- {{HTML::link('rms/teams/member_remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/head' ,'Remove')}}
+			- {{HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '' ,'Member')}}
+		</li>
 	@endforeach
 	</ul>
 </div>
@@ -38,7 +41,12 @@
 	<h3>Members</h3>
 	<ul>
 	@foreach($team->get_members($year->id,'') as $user)
-		<li>{{$user->profile->full_name}}</li>
+		<li>{{$user->profile->full_name}} 
+			- {{HTML::link('rms/teams/member_remove/' . $user->id . '/' . $team->id .'/' . $year->id . '' ,'Remove')}}
+			- {{HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '/head' ,'Head')}}
+			- {{HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '/interested' ,'Interested')}}
+
+		</li>
 	@endforeach
 	</ul>
 </div>
@@ -46,7 +54,11 @@
 	<h3>Interested</h3>
 	<ul>
 	@foreach($team->get_members($year->id,'interested') as $user)
-		<li>{{$user->profile->full_name}}</li>
+		<li>{{$user->profile->full_name}} 
+			- {{HTML::link('rms/teams/member_remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/interested' ,'Remove')}}
+			- {{HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '' ,'Member')}}
+
+		</li>
 	@endforeach
 	</ul>
 </div>
