@@ -65,7 +65,7 @@ class Rms_Teams_Controller extends Base_Controller
     {
         $user = Auth::User();
         $team = Input::get('team_id');
-        $year = Year::where('year','=',2013)->first();//Hardocded should search current year from somewhere
+        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();//Hardocded should search current year from somewhere
 
 
         $user->teams()->attach($team, array('status' => 'interested', 'year_id'=>$year->id));
@@ -73,6 +73,11 @@ class Rms_Teams_Controller extends Base_Controller
 
         return Redirect::to('rms/teams')
                 ->with('status', 'Successful joined Team');
+    }
+
+    public function get_manage()
+    {
+        
     }
 
     public function get_delete($id)

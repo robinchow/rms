@@ -77,7 +77,7 @@ class Rms_Account_Controller extends Base_Controller
 
 
     public function get_renew() {
-        $years = Year::order_by('year','desc')->lists('year', 'id');//should just get current year or something
+        $years = Year::order_by('year','desc')->lists('year', 'id');
 
         return View::make('account.renew')
             ->with('years', $years);

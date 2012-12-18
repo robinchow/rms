@@ -65,7 +65,7 @@ class Rms_Executives_Controller extends Base_Controller
     {
         $user = Auth::User();
         $executive = Input::get('executive_id');
-        $year = Year::where('year','=',2013)->first();//Hardocded should search current year from somewhere
+        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();//Hardocded should search current year from somewhere
 
 
         $user->executives()->attach($executive, array('non_executive' => Input::get('non_executive',0), 'year_id'=>$year->id));
