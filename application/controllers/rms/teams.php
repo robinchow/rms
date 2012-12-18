@@ -78,8 +78,32 @@ class Rms_Teams_Controller extends Base_Controller
     public function get_manage($id)
     {
         $team = Team::find($id);
+        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $users = array();
+        foreach($year->users as $a ) {
+            $users[] = $a->profile->full_name;
+        }
+
         return View::make('teams.manage')
-            ->with('team',$team); 
+            ->with('team',$team)
+            ->with('users',$users)
+            ->with('year',$year); 
+    }
+
+    public function post_manage()
+    {
+
+        $user_fullname = Input::get('user');
+        $profile = Profile::where('full_name','=',$user_fullname)->first();
+        $user = $profile->user;
+        $year_id = Input::get('year_id');
+        $team_id = Input::get('team_id');
+        $status = Input::get('status');
+
+        $user->teams()->attach($team_id, array('status' => $status, 'year_id'=>$year_id));
+        
+        return Redirect::to('rms/teams/manage/' . $team_id)
+                ->with('status', 'Successful added member Team');
     }
 
     public function get_delete($id)
