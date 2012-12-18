@@ -5,16 +5,19 @@
 @endsection
 
 @section('content')
-<section class="rms-account">
-	<nav>
-		<ul>
+	<div class="span3">
+	<div class="well sidebar-nav">
+		<ul class="nav nav-list">
+			<li class="nav-header">My Account</li>
 			<li>{{HTML::link('rms/account/renew','Renew')}}</li>
 			<li>{{HTML::link('rms/account/edit','Edit Profile')}}</li>
 			<li>{{HTML::link('rms/teams/join','Join A Team')}}</li>
 			<li>{{HTML::link('rms/account/logout','Logout')}}</li>
 		</ul>
-	</nav>
-	<section>
+	</div>
+</div>
+	<div class="span9">
+		<div class="well">
 		<h2>Your Profile</h2>
 		{{ $user->profile->image }}
 
@@ -42,7 +45,6 @@
 		<p><strong>Student Number: </strong>{{ $user->profile->student_number }}</p>
 		<p><strong>Start Year: </strong>{{ $user->profile->start_year }}</p>
 		<p><strong>Arc: </strong>{{ $user->profile->arc_string }}</p>
-
-	</section>
-</section>
+	</div>
+	</div>
 @endsection
