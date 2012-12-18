@@ -75,9 +75,11 @@ class Rms_Teams_Controller extends Base_Controller
                 ->with('status', 'Successful joined Team');
     }
 
-    public function get_manage()
+    public function get_manage($id)
     {
-        
+        $team = Team::find($id);
+        return View::make('teams.manage')
+            ->with('team',$team); 
     }
 
     public function get_delete($id)

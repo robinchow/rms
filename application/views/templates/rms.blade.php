@@ -11,6 +11,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     {{HTML::style('css/rms.css')}}
+    {{Asset::container('bootstrapper')->styles()}}
+    {{Asset::container('bootstrapper')->scripts()}}
   </head>
 
   <body>

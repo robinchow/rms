@@ -43,7 +43,7 @@
     		@endif
     	@endforeach
 
-
+{{HTML::link('rms/teams/manage/'. $team->id,'Manage Team',array('class'=>'button'))}}
 {{HTML::link('rms/teams/edit/'. $team->id,'Edit Team',array('class'=>'button'))}}
 {{HTML::link('rms/teams','Back',array('class'=>'button'))}}
 
