@@ -49,24 +49,42 @@ class Rms_Account_Controller extends Base_Controller
         return View::make('account.edit')->with('user', $user);
     }
 
+    // POST /rms/account/edit
     public function post_edit() {
         $user = Auth::user();
         $profile = $user->profile;
 
-        if(Input::has_file('image')) {
-            
-            File::delete(path('base').'/public/img/profile/' . $profile->image);
+        //Validate Input have to validate the image still
+        $rules = array(
+            'full_name'  => 'required|max:128',
+            'display_name' => 'alpha_dash|required|max:128|unique:profiles,display_name,' . $profile->id,
+            'gender' => 'required|in:O,M,F',
+            'dob' => 'required',
+        );
 
-            Input::upload('image', path('base').'/public/img/profile',Input::file('image.name'));
-            Input::merge(array('image' => Input::file('image.name')));
+        $validation = Validator::make(Input::all(), $rules);
 
+        if (!$validation->fails())
+        {
+            //Update Profile
+            if(Input::has_file('image')) {
+                File::delete(path('base').'/public/img/profile/' . $profile->image);
+                Input::upload('image', path('base').'/public/img/profile',Input::file('image.name'));
+                Input::merge(array('image' => Input::file('image.name')));
+            }
+
+            Profile::update($profile->id,Input::get());
+
+
+            return Redirect::to('rms/account')
+                ->with('status', 'Changes Successful');
+        }
+        else 
+        {
+            return $validation->errors;
         }
 
-        Profile::update($profile->id,Input::get());
 
-
-        return Redirect::to('rms/account')
-                ->with('status', 'Changes Successful');
     }
 
 

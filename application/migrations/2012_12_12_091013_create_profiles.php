@@ -12,7 +12,7 @@ class Create_Profiles {
 		Schema::create('profiles', function($table) {
 		    $table->increments('id');
     		$table->string('full_name', 128);
-    		$table->string('display_name', 128);
+    		$table->string('display_name', 128)->unique();
     		$table->string('gender',1);
     		$table->date('dob');
     		$table->string('image')->unique();
