@@ -19,7 +19,7 @@
 	<div class="span9">
 		<div class="well">
 		<h2>Your Profile</h2>
-		{{ $user->profile->image }}
+		<img src="/img/profile/{{ $user->profile->image }}" width="100px" height="100px"/>
 
 		<hr>
 

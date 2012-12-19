@@ -17,11 +17,11 @@
     <section>
     <h2>Edit User Profile</h2>
 
-    {{ Form::open('rms/account/edit')}}
+    {{ Form::open_for_files('rms/account/edit')}}
         <fieldset>
         <legend>Personal Details:</legend>
         {{ Form::label('image', 'Image') }}
-        {{ Form::text('image', $user->profile->image)}}<br>
+        {{ Form::file('image')}}<br>
 
         {{ Form::label('full_name', 'Full Name') }}
         {{ Form::text('full_name', $user->profile->full_name )}}<br>

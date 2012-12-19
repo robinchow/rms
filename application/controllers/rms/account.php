@@ -53,23 +53,17 @@ class Rms_Account_Controller extends Base_Controller
         $user = Auth::user();
         $profile = $user->profile;
 
-        $profile->full_name    = Input::get('full_name');
-        $profile->display_name    = Input::get('display_name');
+        if(Input::has_file('image')) {
+            
+            File::delete(path('base').'/public/img/profile/' . $profile->image);
 
-        $profile->gender = Input::get('gender');
-        $profile->dob = Input::get('dob');
-        $profile->image   = Input::get('image');          
+            Input::upload('image', path('base').'/public/img/profile',Input::file('image.name'));
+            Input::merge(array('image' => Input::file('image.name')));
 
-        $profile->privacy = Input::get('privacy');
-        $profile->phone = Input::get('phone');
-        $profile->university = Input::get('university');
-        $profile->program = Input::get('program');
-        $profile->student_number = Input::get('student_number');
-        $profile->start_year = Input::get('start_year');
-        $profile->arc = Input::get('arc');
+        }
 
+        Profile::update($profile->id,Input::get());
 
-        $profile->save();
 
         return Redirect::to('rms/account')
                 ->with('status', 'Changes Successful');
