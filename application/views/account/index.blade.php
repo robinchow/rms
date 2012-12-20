@@ -5,11 +5,24 @@
 @endsection
 
 @section('content')
+	
+	@if($user->needs_to_renew)
+	<div class="row-fluid">
+	<div class="alert alert-warning">
+		<h1>You Need to renew</h1>
+		<p>Click renew in the sidebar</p>
+	</div>
+	</div>
+	@endif
+
+	<div class="row-fluid">
 	<div class="span3">
 	<div class="well sidebar-nav">
 		<ul class="nav nav-list">
 			<li class="nav-header">My Account</li>
+			@if($user->needs_to_renew)
 			<li>{{HTML::link('rms/account/renew','Renew')}}</li>
+			@endif
 			<li>{{HTML::link('rms/account/edit','Edit Profile')}}</li>
 			<li>{{HTML::link('rms/teams/join','Join A Team')}}</li>
 			<li>{{HTML::link('rms/account/logout','Logout')}}</li>
@@ -47,4 +60,5 @@
 		<p><strong>Arc: </strong>{{ $user->profile->arc_string }}</p>
 	</div>
 	</div>
+</div>
 @endsection

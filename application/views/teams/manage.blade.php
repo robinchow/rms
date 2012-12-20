@@ -20,7 +20,7 @@
         {{ Typeahead::create($users, null,array('name'=>'user'))}}
 
         {{ Form::label('status', 'Status') }}
-        {{ Form::select('status',array('interested' => 'Interested', '' => 'Member', 'head'=>'Head'))}}<br>
+        {{ Form::select('status',$statuses) }}<br>
 
         {{ Form::submit('Add')}}
     {{ Form::close() }}
@@ -50,6 +50,8 @@
 	@endforeach
 	</ul>
 </div>
+
+@if(!$team->privacy)
 <div class="span3">
 	<h3>Interested</h3>
 	<ul>
@@ -62,7 +64,7 @@
 	@endforeach
 	</ul>
 </div>
-
+@endif
 
 
 

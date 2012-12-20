@@ -8,12 +8,8 @@
     {{ Form::open('rms/account/renew')}}
 
     <legend>Renew For Year</legend>
-
-        {{ Form::label('year_id', 'Year') }}
-        {{ Form::select('year_id', $years )}}<br>
-
-
-        {{ Form::submit('Save changes') }}
+    	Click this if you would like to renew for {{$year->year}}
+        {{ Form::submit('Renew') }}
         {{ HTML::link('/rms/account','Cancel') }}
 
 

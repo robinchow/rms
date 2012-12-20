@@ -84,10 +84,17 @@ class Rms_Teams_Controller extends Base_Controller
             $users[] = $a->profile->full_name;
         }
 
+        $statuses = array('' => 'Member', 'head'=>'Head');
+        if(!$team->privacy) {
+            $statuses = array('interested' => 'Interested', '' => 'Member', 'head'=>'Head');
+        } 
+
+
         return View::make('teams.manage')
             ->with('team',$team)
             ->with('users',$users)
-            ->with('year',$year); 
+            ->with('year',$year)
+            ->with('statuses',$statuses); 
     }
 
     public function post_manage()

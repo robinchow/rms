@@ -89,15 +89,16 @@ class Rms_Account_Controller extends Base_Controller
 
 
     public function get_renew() {
-        $years = Year::order_by('year','desc')->lists('year', 'id');
-
+        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        
         return View::make('account.renew')
-            ->with('years', $years);
+            ->with('year', $year);
     }
 
     public function post_renew() {
         $user = Auth::user();
-        $user->years()->attach(Input::get('year_id'));
+        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $user->years()->attach($year->id);
 
         return Redirect::to('rms/account')
                 ->with('status', 'Changes Successful');
