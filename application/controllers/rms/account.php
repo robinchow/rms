@@ -6,7 +6,7 @@ class Rms_Account_Controller extends Base_Controller
 
     public function __construct() 
     {
-        $this->filter('before', 'auth')->except(array('login'));
+        $this->filter('before', 'auth')->except(array('login','signup'));
     }
 
     public function get_index()
@@ -44,13 +44,15 @@ class Rms_Account_Controller extends Base_Controller
         }
     }
 
-    public function get_edit() {
+    public function get_edit() 
+    {
         $user = Auth::user();
         return View::make('account.edit')->with('user', $user);
     }
 
     // POST /rms/account/edit
-    public function post_edit() {
+    public function post_edit() 
+    {
         $user = Auth::user();
         $profile = $user->profile;
 
@@ -87,15 +89,48 @@ class Rms_Account_Controller extends Base_Controller
 
     }
 
+    public function get_signup() 
+    {
+        return View::make('account.signup');
+    }
 
-    public function get_renew() {
+    public function post_signup() 
+    {
+        //should do validation first
+        
+        //Create Account
+        $user = new User;
+        $user->email = Input::get('email');
+        $user->password = Hash::make(Input::get('password'));
+        $user->save();
+
+        Auth::login($user->id);
+        //Create Profile
+        $profile = new Profile();
+
+        $user->profile()->insert($profile);
+        $user->save();
+
+        //Automatic renew them for current year
+        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $user->years()->attach($year->id);
+
+
+        return Redirect::to('rms/account')->with('status', 'Succesfully signed up');
+
+    }
+
+
+    public function get_renew()
+    {
         $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
         
         return View::make('account.renew')
             ->with('year', $year);
     }
 
-    public function post_renew() {
+    public function post_renew() 
+    {
         $user = Auth::user();
         $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
         $user->years()->attach($year->id);
