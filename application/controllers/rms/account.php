@@ -108,39 +108,62 @@ class Rms_Account_Controller extends Base_Controller
 
     public function post_signup() 
     {
-        //should do validation first
+
+        $input = Input::all();
+
+        $rules = array(
+            'email'  => 'required|email|max:128|unique:users',
+            'password' => 'required|max:128',
+            'full_name' => 'required|max:128',
+            'display_name' => 'required|alpha_dash|max:128|unique:profiles',
+            'dob' => 'required',
+            'gender' => 'required|in:O,M,F',
+            'phone' => 'required|max:10',
+            'university' => 'required|12',
+            'program' => 'required',
+            'start_year' => 'required',
+        );
+
+        $validation = Validator::make($input, $rules);
         
-        //Create Account
-        $user = new User;
-        $user->email = Input::get('email');
-        $user->password = Hash::make(Input::get('password'));
-        $user->save();
 
-        Auth::login($user->id);
-        //Create Profile
+        if($validation->passes())
+        {
+            //Create Account
+            $user = new User;
+            $user->email = Input::get('email');
+            $user->password = Hash::make(Input::get('password'));
+            $user->save();
 
-        if(Input::has_file('image')) {
-            Input::upload('image', path('base').'/public/img/profile',Input::file('image.name'));
-            Input::merge(array('image' => Input::file('image.name')));
-        }
+            Auth::login($user->id);
+            //Create Profile
 
-        $profile_data = Input::get();
-        unset($profile_data['email']);
-        unset($profile_data['password']);
+            if(Input::has_file('image')) {
+                Input::upload('image', path('base').'/public/img/profile',Input::file('image.name'));
+                Input::merge(array('image' => Input::file('image.name')));
+            }
 
-
-        $profile = new Profile($profile_data);
-
-        $user->profile()->insert($profile);
-        $user->save();
+            $profile_data = Input::get();
+            unset($profile_data['email']);
+            unset($profile_data['password']);
 
 
-        //Automatic renew them for current year
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
-        $user->years()->attach($year->id);
+            $profile = new Profile($profile_data);
+
+            $user->profile()->insert($profile);
+            $user->save();
 
 
-        return Redirect::to('rms/account')->with('status', 'Succesfully signed up');
+            //Automatic renew them for current year
+            $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+            $user->years()->attach($year->id);
+
+
+            return Redirect::to('rms/account')->with('status', 'Succesfully signed up'); 
+        } else {
+            print '<pre>';
+            print_r($validation->errors);
+        }      
 
     }
 
@@ -193,7 +216,7 @@ class Rms_Account_Controller extends Base_Controller
 
         $validation = Validator::make($input, $rules, $messages);
 
-        if (!$validation->fails())
+        if ($validation->passes())
         {
 
             $user = Auth::user();
@@ -229,7 +252,7 @@ class Rms_Account_Controller extends Base_Controller
 
         $validation = Validator::make($input, $rules, $messages);
 
-        if (!$validation->fails())
+        if ($validation->passes())
         {
             $user = Auth::user();
             $user->email = Input::get('email');
