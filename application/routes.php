@@ -36,6 +36,8 @@ Route::controller('rms.account');
 Route::controller('rms.teams');
 Route::controller('rms.years');
 Route::controller('rms.executives');
+Route::controller('rms.users');
+
 
 
 
