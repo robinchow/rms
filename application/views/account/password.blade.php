@@ -14,8 +14,8 @@
 
     {{ Form::label('password', 'New Password') }}
     {{ Form::password('password') }}<br>
-    {{ Form::label('confirm_password', 'Confirm New Password') }}
-    {{ Form::password('confirm_password') }}<br>
+    {{ Form::label('password_confirmation', 'Confirm New Password') }}
+    {{ Form::password('password_confirmation') }}<br>
 
 
     

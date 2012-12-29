@@ -7,6 +7,13 @@ class Rms_Account_Controller extends Base_Controller
     public function __construct() 
     {
         $this->filter('before', 'auth')->except(array('login','signup'));
+
+        Validator::register('matches', function($attribute, $value, $parameters)
+        {
+            if($attribute =='old_password'){
+                return Hash::check($value, Auth::user()->password);
+            }
+        });
     }
 
     public function get_index()
@@ -159,12 +166,35 @@ class Rms_Account_Controller extends Base_Controller
 
     public function post_change_password()
     {
-        $user = Auth::user();
-        $user->password = Hash::make(Input::get('password'));
-        $user->save();
+        $input = Input::all();
 
-        return Redirect::to('rms/account')
+        $rules = array(
+            'password'  => 'required|max:128|confirmed|different:old_password',
+            'old_password' => 'required|max:128|matches',
+        );
+
+        $messages = array(
+            'old_password_matches' => 'The old password field must match your current password'
+        );
+        
+        
+
+        $validation = Validator::make($input, $rules, $messages);
+
+        if (!$validation->fails())
+        {
+
+            $user = Auth::user();
+            $user->password = Hash::make(Input::get('password'));
+            $user->save();
+
+            return Redirect::to('rms/account')
                 ->with('status', 'Changes Successful');
+        }
+        else 
+        {
+            return var_dump($validation->errors);
+        }
     }
 
     public function get_change_email()

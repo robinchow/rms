@@ -14,8 +14,8 @@
 
     {{ Form::label('email', 'New Email') }}
     {{ Form::email('email') }}<br>
-    {{ Form::label('confirm_email', 'Confirm New Email') }}
-    {{ Form::email('confirm_email') }}<br>
+    {{ Form::label('email_confirmation', 'Confirm New Email') }}
+    {{ Form::email('email_confirmation') }}<br>
 
 
     
