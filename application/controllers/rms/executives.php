@@ -7,7 +7,7 @@ class Rms_Executives_Controller extends Base_Controller
     public function __construct() 
     {
         $this->filter('before', 'auth');
-        $this->filter('before', 'admin')->except(array('index'));
+        $this->filter('before', 'admin')->except(array('index','show'));
 
     }
 
@@ -24,11 +24,28 @@ class Rms_Executives_Controller extends Base_Controller
 
     public function post_add()
     {
+        $input = Input::get();
 
-        $executive = Executive::create(Input::get());
+        $rules = array(
+            'position'  => 'required',
+            'alias' => 'required|max:128',
+        );
 
-        return Redirect::to('rms/executives')
-                ->with('status', 'Successful Added New Executive');
+        $validation = Validator::make($input, $rules);
+        
+
+        if($validation->passes())
+        {
+            $executive = Executive::create(Input::get());
+
+            return Redirect::to('rms/executives')
+                    ->with('status', 'Successful Added New Executive');
+        }
+        else
+        {
+            var_dump($validation->errors);
+        }
+
     }
 
     public function get_show($id)
@@ -46,11 +63,27 @@ class Rms_Executives_Controller extends Base_Controller
 
     public function post_edit($id)
     {
+        $input = Input::get();
 
+        $rules = array(
+            'position'  => 'required',
+            'alias' => 'required|max:128',
+        );
+
+        $validation = Validator::make($input, $rules);
+        
+
+        if($validation->passes())
+        {
         $executive = Executive::update($id, Input::get());
 
         return Redirect::to('rms/executives')
                 ->with('status', 'Successful Edited Executive');
+        }
+        else
+        {
+            var_dump($validation->errors);
+        }
     }
 
     public function get_join()
@@ -65,14 +98,21 @@ class Rms_Executives_Controller extends Base_Controller
     {
         $user = Auth::User();
         $executive = Input::get('executive_id');
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();//Hardocded should search current year from somewhere
+        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
 
-
-        $user->executives()->attach($executive, array('non_executive' => Input::get('non_executive',0), 'year_id'=>$year->id));
-        
-
-        return Redirect::to('rms/executives')
+        // print '<pre>';
+        // var_dump ($user->executives()->pivot()->get(array('executive_id','year_id')));
+        if($user)
+        {
+            $user->executives()->attach($executive, array('non_executive' => Input::get('non_executive',0), 'year_id'=>$year->id));
+            return Redirect::to('rms/executives')
                 ->with('status', 'Successful joined Executive');
+        }
+        else 
+        {
+            return Redirect::to('rms/executives')
+                ->with('status', 'You are already a member of that executive');
+        }
     }
 
     public function get_delete($id)
