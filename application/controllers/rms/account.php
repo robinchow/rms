@@ -8,10 +8,15 @@ class Rms_Account_Controller extends Base_Controller
     {
         $this->filter('before', 'auth')->except(array('login','signup'));
 
+        //Validator for old email and old pasword
         Validator::register('matches', function($attribute, $value, $parameters)
         {
             if($attribute =='old_password'){
                 return Hash::check($value, Auth::user()->password);
+            }
+
+            if($attribute =='old_email'){
+                return $value == Auth::user()->email;
             }
         });
     }
@@ -176,8 +181,6 @@ class Rms_Account_Controller extends Base_Controller
         $messages = array(
             'old_password_matches' => 'The old password field must match your current password'
         );
-        
-        
 
         $validation = Validator::make($input, $rules, $messages);
 
@@ -204,12 +207,32 @@ class Rms_Account_Controller extends Base_Controller
 
     public function post_change_email()
     {
-        $user = Auth::user();
-        $user->email = Input::get('email');
-        $user->save();
+        $input = Input::all();
 
-        return Redirect::to('rms/account')
-                ->with('status', 'Changes Successful');
+        $rules = array(
+            'email'  => 'required|max:128|confirmed|different:old_email',
+            'old_email' => 'required|max:128|matches',
+        );
+
+        $messages = array(
+            'old_email_matches' => 'The old email field must match your current email'
+        );
+
+        $validation = Validator::make($input, $rules, $messages);
+
+        if (!$validation->fails())
+        {
+            $user = Auth::user();
+            $user->email = Input::get('email');
+            $user->save();
+
+            return Redirect::to('rms/account')
+                    ->with('status', 'Changes Successful');
+        }
+        else 
+        {
+            return var_dump($validation->errors);
+        }
     }
 
     public function get_logout()
