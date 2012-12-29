@@ -106,10 +106,22 @@ class Rms_Account_Controller extends Base_Controller
 
         Auth::login($user->id);
         //Create Profile
-        $profile = new Profile();
+
+        if(Input::has_file('image')) {
+            Input::upload('image', path('base').'/public/img/profile',Input::file('image.name'));
+            Input::merge(array('image' => Input::file('image.name')));
+        }
+
+        $profile_data = Input::get();
+        unset($profile_data['email']);
+        unset($profile_data['password']);
+
+
+        $profile = new Profile($profile_data);
 
         $user->profile()->insert($profile);
         $user->save();
+
 
         //Automatic renew them for current year
         $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
