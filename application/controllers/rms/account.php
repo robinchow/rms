@@ -157,10 +157,19 @@ class Rms_Account_Controller extends Base_Controller
     {
         $user = Auth::user();
         $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
-        $user->years()->attach($year->id);
 
-        return Redirect::to('rms/account')
-                ->with('status', 'Changes Successful');
+        if($user->needs_to_renew)
+        {
+            $user->years()->attach($year->id);
+
+            return Redirect::to('rms/account')
+                ->with('status', 'You succesfully renewed');
+        }
+        else 
+        {
+            return Redirect::to('rms/account')
+                ->with('status', 'You didnt need to renew');
+        }
     }
 
 
