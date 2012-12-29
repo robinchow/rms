@@ -70,15 +70,19 @@ class Rms_Account_Controller extends Base_Controller
 
         //Validate Input have to validate the image still
         $rules = array(
-            'full_name'  => 'required|max:128',
+            'full_name' => 'required|max:128',
             'display_name' => 'alpha_dash|required|max:128|unique:profiles,display_name,' . $profile->id,
-            'gender' => 'required|in:O,M,F',
             'dob' => 'required',
+            'gender' => 'required|in:O,M,F',
+            'phone' => 'required|max:10',
+            'university' => 'required|12',
+            'program' => 'required',
+            'start_year' => 'required',
         );
 
         $validation = Validator::make(Input::all(), $rules);
 
-        if (!$validation->fails())
+        if ($validation->passes())
         {
             //Update Profile
             if(Input::has_file('image')) {
