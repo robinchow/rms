@@ -151,6 +151,37 @@ class Rms_Account_Controller extends Base_Controller
                 ->with('status', 'Changes Successful');
     }
 
+
+    public function get_change_password()
+    {
+        return View::make('account.password');
+    }
+
+    public function post_change_password()
+    {
+        $user = Auth::user();
+        $user->password = Hash::make(Input::get('password'));
+        $user->save();
+
+        return Redirect::to('rms/account')
+                ->with('status', 'Changes Successful');
+    }
+
+    public function get_change_email()
+    {
+        return View::make('account.email');
+    }
+
+    public function post_change_email()
+    {
+        $user = Auth::user();
+        $user->email = Input::get('email');
+        $user->save();
+
+        return Redirect::to('rms/account')
+                ->with('status', 'Changes Successful');
+    }
+
     public function get_logout()
     {
         Auth::logout();
