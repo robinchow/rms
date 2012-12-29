@@ -31,11 +31,27 @@ class Rms_Years_Controller extends Base_Controller
 
     public function post_add()
     {
+        $input = Input::get();
 
-        $years = Year::create(Input::get());
+        $rules = array(
+            'year'  => 'required|numeric',
+            'alias' => 'required|max:128',
+        );
 
-        return Redirect::to('rms/years')
+        $validation = Validator::make($input, $rules);
+        
+
+        if($validation->passes())
+        {
+            $years = Year::create(Input::get());
+
+            return Redirect::to('rms/years')
                 ->with('status', 'Successful Added New Year');
+        }
+        else
+        {
+            var_dump($validation->errors);
+        }
     }
 
     public function get_edit($id)
@@ -47,10 +63,27 @@ class Rms_Years_Controller extends Base_Controller
     public function post_edit($id)
     {
 
-        $year = Year::update($id, Input::get());
+        $input = Input::all();
 
-        return Redirect::to('rms/years')
+        $rules = array(
+            'year'  => 'required|numeric',
+            'alias' => 'required|max:128',
+        );
+
+        $validation = Validator::make($input, $rules);
+        
+        if($validation->passes())
+        {
+            $year = Year::update($id, Input::all());
+
+            return Redirect::to('rms/years')
                 ->with('status', 'Successful Edited Year');
+        }
+        else 
+        {
+            var_dump($validation->errors);
+
+        }
     }
 
     public function get_delete($id)
