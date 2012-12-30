@@ -53,4 +53,21 @@ class User extends Eloquent {
         return $count!=0;
     }
 
+    public function can_manage_team($year_id, $team_id)
+    {
+        if($this->admin)
+        {
+            return true;
+        }
+        else 
+        {
+            $membership  = DB::table('team_user')
+                    ->where('team_id', '=', $team_id)
+                    ->where('year_id', '=', $year_id)
+                    ->where('user_id', '=', $this->id)
+                    ->first();
+            return $membership->status=="head";
+        }
+    }
+
 }
