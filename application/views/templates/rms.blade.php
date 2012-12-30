@@ -47,27 +47,21 @@
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       @if(Session::get('success'))
-      <div class="row-fluid">
       <div class="alert alert-success">
         <h1>Success</h1>
         <p>{{Session::get('success')}}</p>
       </div>
-      </div>
       @endif
       @if(Session::get('warning'))
-      <div class="row-fluid">
-      <div class="alert alert-warning">
+      <div class="alert alert-error">
         <h1>Warning</h1>
         <p>{{Session::get('warning')}}</p>
       </div>
-      </div>
       @endif
       @if(Session::get('status'))
-      <div class="row-fluid">
       <div class="alert alert-notice">
         <h1>Notice</h1>
         <p>{{Session::get('status')}}</p>
-      </div>
       </div>
       @endif
       <div class="hero-unit">

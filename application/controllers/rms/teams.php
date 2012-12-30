@@ -86,7 +86,7 @@ class Rms_Teams_Controller extends Base_Controller
             $team = Team::update($id, Input::get());
 
             return Redirect::to('rms/teams')
-                ->with('status', 'Successful Edited Team');
+                ->with('success', 'Successful Edited Team');
         }
         else
         {
@@ -119,7 +119,7 @@ class Rms_Teams_Controller extends Base_Controller
         else 
         {
              return Redirect::to('rms/teams/join')
-                 ->with('status', 'You are already a member of that team');
+                 ->with('warning', 'You are already a member of that team');
         }
     }
 
@@ -155,10 +155,19 @@ class Rms_Teams_Controller extends Base_Controller
         $team_id = Input::get('team_id');
         $status = Input::get('status');
 
-        $user->teams()->attach($team_id, array('status' => $status, 'year_id'=>$year_id));
         
-        return Redirect::to('rms/teams/manage/' . $team_id)
-                ->with('status', 'Successful added member Team');
+        if(!$user->is_part_of_team($year_id, $team_id))
+        {
+            $user->teams()->attach($team_id, array('status' => $status, 'year_id'=>$year_id));
+
+            return Redirect::to('rms/teams/manage/' . $team_id)
+                ->with('success', 'Successful added member to Team');
+        }
+        else 
+        {
+             return Redirect::to('rms/teams/manage/' . $team_id)
+                 ->with('warning', 'They are already a member of that team');
+        }
     }
 
     //should be changed to a ajax post
@@ -168,7 +177,7 @@ class Rms_Teams_Controller extends Base_Controller
         $user->teams()->where('team_id','=',$team_id)->where('status', '=', $status)->where('year_id','=',$year_id)->first()->pivot->delete();
 
         return Redirect::to('rms/teams/manage/' . $team_id)
-                ->with('status', 'Successful added member Team');
+                ->with('warning', 'Successful deleted member');
     }
 
     public function get_member_move($user_id,$team_id, $year_id, $status = '')
@@ -179,7 +188,7 @@ class Rms_Teams_Controller extends Base_Controller
         $join->save();
 
         return Redirect::to('rms/teams/manage/' . $team_id)
-               ->with('status', 'Successful added member Team');
+               ->with('success', 'Successful moved team member');
     }
 
 
