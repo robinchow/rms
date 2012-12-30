@@ -97,12 +97,12 @@ class Rms_Executives_Controller extends Base_Controller
     public function post_join()
     {
         $user = Auth::User();
-        $executive = Input::get('executive_id');
+        $executive = Executive::find(Input::get('executive_id'));
         $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
 
-        // print '<pre>';
-        // var_dump ($user->executives()->pivot()->get(array('executive_id','year_id')));
-        if($user)
+        
+
+        if(!$user->is_part_of_exec($year->id, $executive->id))
         {
             $user->executives()->attach($executive, array('non_executive' => Input::get('non_executive',0), 'year_id'=>$year->id));
             return Redirect::to('rms/executives')
@@ -110,8 +110,8 @@ class Rms_Executives_Controller extends Base_Controller
         }
         else 
         {
-            return Redirect::to('rms/executives')
-                ->with('status', 'You are already a member of that executive');
+             return Redirect::to('rms/executives')
+                 ->with('status', 'You are already a member of that executive');
         }
     }
 

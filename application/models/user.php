@@ -37,4 +37,12 @@ class User extends Eloquent {
         return $needs_to_renew;
     }
 
+    public function is_part_of_exec($year_id, $executive_id)
+    {
+        $count = DB::table('executive_user')->where('executive_id', '=', $executive_id)
+                    ->where('year_id', '=', $year_id)
+                    ->where('user_id', '=', $this->id)->count();
+        return $count!=0;
+    }
+
 }
