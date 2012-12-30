@@ -25,10 +25,32 @@ class Rms_Teams_Controller extends Base_Controller
     public function post_add()
     {
 
-        $team = Team::create(Input::get());
+        $input = Input::get();
 
-        return Redirect::to('rms/teams')
+        $rules = array(
+            'name'  => 'required',
+            'alias' => 'required|max:128',
+            'description'  => 'required',
+
+        );
+
+        $validation = Validator::make($input, $rules);
+        
+
+        if($validation->passes())
+        {
+            $team = Team::create(Input::get());
+
+            return Redirect::to('rms/teams')
                 ->with('status', 'Successful Added New Team');
+        }
+        else
+        {
+            print '<pre>';
+            var_dump($validation->errors);
+        }
+
+
     }
 
     public function get_show($id)
@@ -47,10 +69,31 @@ class Rms_Teams_Controller extends Base_Controller
     public function post_edit($id)
     {
 
-        $team = Team::update($id, Input::get());
+        $input = Input::get();
 
-        return Redirect::to('rms/teams')
+        $rules = array(
+            'name'  => 'required',
+            'alias' => 'required|max:128',
+            'description'  => 'required',
+
+        );
+
+        $validation = Validator::make($input, $rules);
+        
+
+        if($validation->passes())
+        {
+            $team = Team::update($id, Input::get());
+
+            return Redirect::to('rms/teams')
                 ->with('status', 'Successful Edited Team');
+        }
+        else
+        {
+            print '<pre>';
+            var_dump($validation->errors);
+        }
+
     }
 
     public function get_join()
@@ -64,15 +107,20 @@ class Rms_Teams_Controller extends Base_Controller
     public function post_join()
     {
         $user = Auth::User();
-        $team = Input::get('team_id');
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();//Hardocded should search current year from somewhere
+        $team = Team::find(Input::get('team_id'));
+        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
 
-
-        $user->teams()->attach($team, array('status' => 'interested', 'year_id'=>$year->id));
-        
-
-        return Redirect::to('rms/teams')
+        if(!$user->is_part_of_team($year->id, $team->id))
+        {
+            $user->teams()->attach($team->id, array('status' => 'interested', 'year_id'=>$year->id));
+            return Redirect::to('rms/teams')
                 ->with('status', 'Successful joined Team');
+        }
+        else 
+        {
+             return Redirect::to('rms/teams/join')
+                 ->with('status', 'You are already a member of that team');
+        }
     }
 
     public function get_manage($id)
