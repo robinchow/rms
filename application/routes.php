@@ -32,18 +32,26 @@
 |
 */
 
+//RMS Routes
 Route::controller('rms.account');
 Route::controller('rms.teams');
 Route::controller('rms.years');
 Route::controller('rms.executives');
 Route::controller('rms.users');
 
+//Front End Routes
+Route::controller('home');
+Route::controller('sponsors');
 
 
+Route::get('/rms', function()
+{
+	return Redirect::to('rms/account');
+});
 
 Route::get('/', function()
 {
-	return Redirect::to('rms/account');
+	return Redirect::to('home');
 });
 
 /*
