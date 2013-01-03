@@ -7,8 +7,10 @@ class Rms_Teams_Controller extends Base_Controller
     public function __construct() 
     {
         $this->filter('before', 'auth');
-        $this->filter('before', 'admin')->except(array('index','join','show'));
-
+        $this->filter('before', 'manage_team')
+            ->only(array('edit','manage'));
+        $this->filter('before', 'admin')
+            ->only(array('delete'));
     }
 
     public function get_index()
@@ -62,6 +64,7 @@ class Rms_Teams_Controller extends Base_Controller
 
     public function get_edit($id)
     {
+
         $team = Team::find($id);
         return View::make('teams.edit')->with('team',$team);
     }
