@@ -12,6 +12,9 @@
         {{ Form::label('year', 'Year') }}
         {{ Form::text('year')}}<br>
 
+        {{ Form::label('name', 'Name') }}
+        {{ Form::text('name')}}<br>
+
         {{ Form::label('alias', 'Alias') }}
         {{ Form::text('alias')}}<br>
 

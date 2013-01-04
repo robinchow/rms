@@ -7,7 +7,7 @@
 @section('content')
 
 
-        <h2>{{ $year->year}}</h2>
+        <h2>{{ $year->year}}: {{ $year->name }} </h2>
 
         alias:{{ $year->alias}}<br>
         

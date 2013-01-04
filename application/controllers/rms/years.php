@@ -35,6 +35,7 @@ class Rms_Years_Controller extends Base_Controller
 
         $rules = array(
             'year'  => 'required|numeric',
+            'name'  => 'required',
             'alias' => 'required|max:128',
         );
 
@@ -67,6 +68,7 @@ class Rms_Years_Controller extends Base_Controller
 
         $rules = array(
             'year'  => 'required|numeric',
+            'name'  => 'required',
             'alias' => 'required|max:128',
         );
 

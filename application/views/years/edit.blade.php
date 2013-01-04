@@ -12,6 +12,9 @@
         {{ Form::label('year', 'Year') }}
         {{ Form::text('year', $year->year)}}<br>
 
+        {{ Form::label('name', 'Name') }}
+        {{ Form::text('name',$year->name)}}<br>
+
         {{ Form::label('alias', 'Alias') }}
         {{ Form::text('alias',$year->alias)}}<br>
 
