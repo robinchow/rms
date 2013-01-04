@@ -12,6 +12,7 @@ class Create_Years {
 		Schema::create('years', function($table) {
 		    $table->increments('id');
 		    $table->integer('year');
+		    $table->string('name');
 		    $table->string('alias');
 		    $table->timestamps();
 		});

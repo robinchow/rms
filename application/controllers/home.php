@@ -31,6 +31,20 @@ class Home_Controller extends Base_Controller {
 	}
 
 
+	//Teams
+	public function get_teams($id=NULL)
+	{
+		if($id)
+		{
+			$team = Team::find($id);
+			return View::make('home.team_individual')->with('team', $team);
+		} 
+		else
+		{
+			$teams = Team::all();
+        	return View::make('home.teams')->with('teams', $teams);
+		}
+	}
 
 
 }
