@@ -8,6 +8,7 @@ class Year extends Eloquent {
         return $this->has_many_and_belongs_to('User');
     }
 
+    //Dont know if this is dodgy
     public function executives()
     {
         return $this->has_many_and_belongs_to('Executive','executive_user')->with('user_id','non_executive');
