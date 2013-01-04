@@ -13,9 +13,11 @@ Route::controller('rms.years');
 Route::controller('rms.executives');
 Route::controller('rms.users');
 
+Route::controller('rms.faqs');
+
+
 //Front End Routes
 Route::controller('home');
-Route::controller('sponsors');
 
 
 Route::get('/rms', function()
