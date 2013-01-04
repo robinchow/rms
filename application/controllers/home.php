@@ -25,9 +25,9 @@ class Home_Controller extends Base_Controller {
        
        	$execs = $year->executives;
 
-       	print '<pre>';
-       	var_dump($execs);
-        return View::make('home.exec')->with('execs', $execs);
+
+        return View::make('home.exec')->with('execs', $execs)
+        ->with('year', $year);
 	}
 
 
