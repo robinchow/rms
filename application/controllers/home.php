@@ -46,5 +46,13 @@ class Home_Controller extends Base_Controller {
 		}
 	}
 
+	//History
+	public function get_history()
+	{
+        $years = Year::all();
+
+        return View::make('home.history')->with('years', $years);
+	}
+
 
 }

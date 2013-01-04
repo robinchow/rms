@@ -13,4 +13,14 @@ class Year extends Eloquent {
     {
         return $this->has_many_and_belongs_to('Executive','executive_user')->with('user_id','non_executive');
     }
+
+    public function producers()
+    {
+        return 'the producers';
+    }
+
+    public function directors()
+    {
+        return 'the directors';     
+    }
 }
