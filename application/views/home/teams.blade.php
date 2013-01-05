@@ -1,16 +1,28 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Teams</title>
-	<meta name="viewport" content="width=device-width">
-	{{ HTML::style('laravel/css/style.css') }}
-</head>
-<body>
-	@foreach($teams as $team)
-		<li>{{HTML::link('/home/teams/'.$team->id,$team->name)}}
+@layout('templates.home')
 
+@section('title')
+    @parent - Teams
+@endsection
+
+@section('content')
+	<div class="row">
+
+    <div class="span10 offset1" id="main-title">
+		<h2>Teams&nbsp;</h2> 
+	</div>
+	</div>
+
+    <div class="row">
+
+    <div class="span10 offset1" id="main-content">
+
+	<p>Click a team name for more information:</p>
+	<ul>
+	@foreach($teams as $team)
+		<li>{{HTML::link('/home/teams/'.$team->id,$team->name)}}</li>
 	@endforeach
-</body>
-</html>
+	</ul>
+</div>
+</div>
+      
+@endsection

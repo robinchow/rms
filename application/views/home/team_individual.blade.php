@@ -1,14 +1,26 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Teams - {{ $team->name }}</title>
-	<meta name="viewport" content="width=device-width">
-	{{ HTML::style('laravel/css/style.css') }}
-</head>
-<body>
-		<h3>{{ $team->name }}</h3>
-		{{$team->description}}
-</body>
-</html>
+@layout('templates.home')
+
+@section('title')
+    @parent - Teams
+@endsection
+
+@section('content')
+	<div class="row">
+
+    <div class="span10 offset1" id="main-title">
+		<h2>Teams&nbsp;</h2> 
+	</div>
+	</div>
+
+    <div class="row">
+
+    <div class="span10 offset1" id="main-content">
+
+	<h3>{{ $team->name }}</h3>
+	
+	<p>{{nl2br($team->description)}}</p>
+
+</div>
+</div>
+      
+@endsection
