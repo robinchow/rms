@@ -8,6 +8,11 @@ class Year extends Eloquent {
         return $this->has_many_and_belongs_to('User');
     }
 
+    public function sponsors()
+    {
+        return $this->has_many_and_belongs_to('Sponsor');
+    }
+
     //Dont know if this is dodgy
     public function executives()
     {
