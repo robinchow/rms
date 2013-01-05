@@ -1,16 +1,29 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>FAQ</title>
-	<meta name="viewport" content="width=device-width">
-	{{ HTML::style('laravel/css/style.css') }}
-</head>
-<body>
-	@foreach($faqs as $faq)
-		<h3>{{ $faq->question }}</h3>
+@layout('templates.home')
+
+@section('title')
+    @parent - FAQ's
+@endsection
+
+@section('content')
+	<div class="row">
+
+    <div class="span10 offset1" id="main-title">
+		<h2>FAQ&nbsp;</h2> 
+	</div>
+	</div>
+
+    <div class="row">
+
+    <div class="span10 offset1" id="main-content">
+    <h3>Frequently Asked Questions</h3>
+
+	<ul id="faq-list">
+		@foreach($faqs as $faq)
+		<li><strong>{{ $faq->question }}</strong></li>
 		<p>{{ nl2br($faq->answer) }}</p>
-	@endforeach
-</body>
-</html>
+		@endforeach    
+	</ul>
+</div>
+</div>
+      
+@endsection

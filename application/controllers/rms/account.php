@@ -123,7 +123,7 @@ class Rms_Account_Controller extends Base_Controller
             'dob' => 'required',
             'gender' => 'required|in:O,M,F',
             'phone' => 'required|max:10',
-            'university' => 'required|12',
+            'university' => 'required',
             'program' => 'required',
             'start_year' => 'required',
         );
