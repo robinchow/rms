@@ -15,16 +15,17 @@ class Executive extends Eloquent {
 		foreach($alias as $a ) {
 			$mailing[] = $a . '@cserevue.org.au';
 		}
-		return implode('<br>', $mailing);//probably should just return the list not convert it to a string
+		return $mailing;
 	}
 
+	//Only "real exec"
 	public function get_members($year_id) 
 	{
 		$all_users = $this->users;
 		$year_users = array();
 		foreach($all_users as $user) 
 		{
-			if ($user->pivot->year_id == $year_id)
+			if ($user->pivot->year_id == $year_id && !$user->pivot->non_executive)
 			{
 				$year_users[] = $user;
 			}

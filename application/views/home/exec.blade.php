@@ -1,19 +1,36 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Executives</title>
-	<meta name="viewport" content="width=device-width">
-	{{ HTML::style('laravel/css/style.css') }}
-</head>
-<body>
+@layout('templates.home')
+
+@section('title')
+    @parent - Executives
+@endsection
+
+@section('content')
+	<div class="row">
+
+    <div class="span10 offset1" id="main-title">
+		<h2>Exec&nbsp;</h2> 
+	</div>
+	</div>
+
+    <div class="row">
+
+    <div class="span10 offset1" id="main-content">
+    <h3>Executives</h3>
+    <p>
+	Email: exec@cserevue.org.au<br>
+	The Executive for {{ $year->year }} are:
+	</p>
+
 	@foreach($execs as $exec)
-		<h3>{{ $exec->position }}</h3>
+		<h4>{{ $exec->position }}</h4>
+		<ul>
 		@foreach($exec->get_members($year->id) as $member)
-			{{$member->profile->full_name}}
+			<li>{{$member->profile->full_name}}</li>
 		@endforeach
-		<p>{{ $exec->mailing_lists}}</p>
+		</ul>
+		<p>Emails: {{ implode(', ', $exec->mailing_lists)}}</p>
 	@endforeach
-</body>
-</html>
+</div>
+</div>
+      
+@endsection
