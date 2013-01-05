@@ -1,57 +1,41 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Laravel: A Framework For Web Artisans</title>
-	<meta name="viewport" content="width=device-width">
-	{{ HTML::style('laravel/css/style.css') }}
-</head>
-<body>
-	<div class="wrapper">
-		<header>
-			<h1>Laravel</h1>
-			<h2>A Framework For Web Artisans</h2>
+@layout('templates.home')
 
-			<p class="intro-text" style="margin-top: 45px;">
-			</p>
-		</header>
-		<div role="main" class="main">
-			<div class="home">
-				<h2>Learn the terrain.</h2>
+@section('title')
+    @parent - History
+@endsection
 
-				<p>
-					You've landed yourself on our default home page. The route that
-					is generating this page lives at:
-				</p>
+@section('content')
+	<div class="row">
+	    <div class="span8 offset1" id="main-title">
+			<h2>What is CSE Revue?&nbsp;</h2> 
+		</div>
 
-				<pre>{{ path('app') }}routes.php</pre>
-
-				<p>And the view sitting before you can be found at:</p>
-
-				<pre>{{ path('app') }}views/home/index.blade.php</pre>
-
-				<h2>Grow in knowledge.</h2>
-
-				<p>
-					Learning to use Laravel is amazingly simple thanks to
-					its {{ HTML::link('docs', 'wonderful documentation') }}.
-				</p>
-
-				<h2>Create something beautiful.</h2>
-
-				<p>
-					Now that you're up and running, it's time to start creating!
-					Here are some links to help you get started:
-				</p>
-
-				<ul class="out-links">
-					<li><a href="http://laravel.com">Official Website</a></li>
-					<li><a href="http://forums.laravel.com">Laravel Forums</a></li>
-					<li><a href="http://github.com/laravel/laravel">GitHub Repository</a></li>
-				</ul>
-			</div>
+		<div class="span2" id="main-title">
+			<h2>Sponsors&nbsp;</h2> 
 		</div>
 	</div>
-</body>
-</html>
+
+	<div class="row">
+		<div class="span8 offset1">
+			<div id="main-content">
+				<p>The Computer Science and Engineering (CSE) Revue is a live comedy sketch show held during September at the University of New South Wales (UNSW). Produced and directed by members of the society, the show serves to highlight the technical and creative talents of UNSW students, as well as an opportunity for students to further develop their university experience.</p>
+				<p>Read more about us here.</p>
+			</div>
+			
+			<div id="main-title">
+				<h2>Latest News&nbsp;</h2> 
+			</div>
+
+
+			<div id="main-content">
+				news
+			</div>
+		</div>
+
+
+		<div class="span2" id="main-content">
+			test
+		</div>
+	</div>
+      
+@endsection

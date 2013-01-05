@@ -54,5 +54,13 @@ class Home_Controller extends Base_Controller {
         return View::make('home.history')->with('years', $years);
 	}
 
+	//History
+	public function get_sponsors()
+	{
+        $years = Year::all();
+
+        return View::make('home.sponsors')->with('years', $years);
+	}
+
 
 }
