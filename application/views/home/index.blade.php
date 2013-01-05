@@ -20,6 +20,13 @@
 			<div id="main-content">
 				<p>The Computer Science and Engineering (CSE) Revue is a live comedy sketch show held during September at the University of New South Wales (UNSW). Produced and directed by members of the society, the show serves to highlight the technical and creative talents of UNSW students, as well as an opportunity for students to further develop their university experience.</p>
 				<p>Read more about us here.</p>
+			<center>
+				<object>
+					<param name="movie" value="http://www.youtube.com/v/-xSsJNpeF1Y">
+					<param name="wmode" value="transparent">
+					<embed src="http://www.youtube.com/v/NK_co7s6Ct4" type="application/x-shockwave-flash" wmode="transparent" width="445" height="310">
+				</object>
+			</center>
 			</div>
 			
 			<div id="main-title">

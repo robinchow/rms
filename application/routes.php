@@ -14,6 +14,7 @@ Route::controller('rms.executives');
 Route::controller('rms.users');
 
 Route::controller('rms.faqs');
+Route::controller('rms.sponsors');
 
 
 //Front End Routes
