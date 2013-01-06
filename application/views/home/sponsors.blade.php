@@ -19,7 +19,10 @@
 	@foreach($years as $year)
 		<h3>{{ $year->year }}</h3>
 		@foreach($year->sponsors as $sponsor)
-			{{ $sponsor->name}}
+			<h4>{{$sponsor->name}}</h4>
+				<p><a href="{{ $sponsor->url}}">
+				<img src="/img/sponsor/{{ $sponsor->image }}" width="100px" height="100px"/>
+			</a></p>
 		@endforeach
 	@endforeach
 </div>

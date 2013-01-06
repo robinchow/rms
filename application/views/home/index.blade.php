@@ -41,11 +41,13 @@
 
 
 		<div class="span2" id="main-content">
+			<center>
 			@foreach($sponsors as $sponsor)
-				<a href="{{ $sponsor->url}}">
+				<p><a href="{{ $sponsor->url}}">
 				<img src="/img/sponsor/{{ $sponsor->image }}" width="100px" height="100px"/>
-				</a>
+				</a><p>
 			@endforeach
+		</center>
 		</div>
 	</div>
       
