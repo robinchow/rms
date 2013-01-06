@@ -94,6 +94,47 @@ class Rms_Executives_Controller extends Base_Controller
             ->with('executives',$executives);
     }
 
+    public function get_manage($id)
+    {
+        $executive = Executive::find($id);
+        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $users = array();
+        foreach($year->users as $a ) {
+            $users[] = $a->profile->full_name;
+        }
+
+
+        return View::make('executives.manage')
+            ->with('executive',$executive)
+            ->with('users',$users)
+            ->with('year',$year);
+    }
+
+    public function post_manage()
+    {
+
+        $user_fullname = Input::get('user');
+        $profile = Profile::where('full_name','=',$user_fullname)->first();
+        $user = $profile->user;
+        $year_id = Input::get('year_id');
+        $executive_id = Input::get('executive_id');
+
+        
+        if(!$user->is_part_of_exec($year_id, $executive_id))
+        {
+            $user->executives()->attach($executive_id, array('non_executive' => Input::get('non_executive',0),'year_id'=>$year_id));
+
+            return Redirect::to('rms/executives/manage/' . $executive_id)
+                ->with('success', 'Successful added member to executive');
+        }
+        else 
+        {
+             return Redirect::to('rms/executives/manage/' . $executive_id)
+                 ->with('warning', 'They are already a member of that executive');
+        }
+    }
+
+
     public function post_join()
     {
         $user = Auth::User();
@@ -113,6 +154,15 @@ class Rms_Executives_Controller extends Base_Controller
              return Redirect::to('rms/executives')
                  ->with('status', 'You are already a member of that executive');
         }
+    }
+
+    public function get_member_remove($user_id,$executive_id, $year_id)
+    {
+        $user = User::find($user_id);
+        $user->executives()->where('executive_id','=',$executive_id)->where('year_id','=',$year_id)->first()->pivot->delete();
+
+        return Redirect::to('rms/executives/manage/' . $executive_id)
+                ->with('warning', 'Successful deleted member');
     }
 
     public function get_delete($id)

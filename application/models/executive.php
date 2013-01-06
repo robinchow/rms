@@ -32,4 +32,34 @@ class Executive extends Eloquent {
 		}
 		return $year_users;
 	}
+
+	public function get_non_members($year_id) 
+	{
+		$all_users = $this->users;
+		$year_users = array();
+		foreach($all_users as $user) 
+		{
+			if ($user->pivot->year_id == $year_id && $user->pivot->non_executive)
+			{
+				$year_users[] = $user;
+			}
+		}
+		return $year_users;
+	}
+
+	public function get_all_members($year_id) 
+	{
+		$all_users = $this->users;
+		$year_users = array();
+		foreach($all_users as $user) 
+		{
+			if ($user->pivot->year_id == $year_id)
+			{
+				$year_users[] = $user;
+			}
+		}
+		return $year_users;
+	}
+
+
 }
