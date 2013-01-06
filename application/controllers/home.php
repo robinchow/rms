@@ -7,7 +7,10 @@ class Home_Controller extends Base_Controller {
 	public function get_index()
 	{
 		$sponsors = Sponsor::all();
-		return View::make('home.index')->with('sponsors',$sponsors);
+		$news = News::order_by('updated_at', 'desc')->first();
+		return View::make('home.index')
+		->with('news',$news)
+		->with('sponsors',$sponsors);
 	}
 
 

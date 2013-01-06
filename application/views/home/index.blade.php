@@ -27,6 +27,7 @@
 					<embed src="http://www.youtube.com/v/NK_co7s6Ct4" type="application/x-shockwave-flash" wmode="transparent" width="445" height="310">
 				</object>
 			</center>
+				<br>
 			</div>
 			
 			<div id="main-title">
@@ -35,7 +36,8 @@
 
 
 			<div id="main-content">
-				news
+				<p>{{nl2br($news->post)}}</p>
+				<br>
 			</div>
 		</div>
 
