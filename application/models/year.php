@@ -13,7 +13,6 @@ class Year extends Eloquent {
         return $this->has_many_and_belongs_to('Sponsor');
     }
 
-    //Dont know if this is dodgy
     public function executives()
     {
         $executives_id = DB::table('executive_user')->where('year_id', '=', $this->id)->get('executive_id');
