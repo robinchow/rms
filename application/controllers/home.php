@@ -24,11 +24,10 @@ class Home_Controller extends Base_Controller {
 	{
         $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
        
-       	$execs = $year->executives;
-
+       	$execs = $year->executives();
 
         return View::make('home.exec')->with('execs', $execs)
-        ->with('year', $year);
+        	->with('year', $year);
 	}
 
 

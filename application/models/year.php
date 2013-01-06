@@ -16,12 +16,36 @@ class Year extends Eloquent {
     //Dont know if this is dodgy
     public function executives()
     {
-        return $this->has_many_and_belongs_to('Executive','executive_user')->with('user_id','non_executive');
+        $executives_id = DB::table('executive_user')->where('year_id', '=', $this->id)->get('executive_id');
+        $exec_id = array();
+        foreach($executives_id as $e) {
+            $exec_id[] = $e->executive_id;
+        }
+
+        $executives = Executive::where_in('id',$exec_id)->get();
+
+        return $executives;
     }
 
     public function producers()
     {
-        return 'the producers';
+
+        $p_id = Executive::where('position','=','Producer')->first();
+
+        $producers_joins = DB::table('executive_user')
+            ->where('year_id', '=', $this->id)
+            ->where('executive_id', '=', $p_id->id)
+            ->where('non_executive', '=', false)
+            ->get();
+        
+        $producers_id = array();
+        foreach($producers_joins as $p) {
+            $producers_id[] = (int)$p->user_id;
+        }
+
+        $producers = User::where_in('id',array(1))->get();   
+
+        return var_dump($producers);
     }
 
     public function directors()
