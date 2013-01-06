@@ -24,6 +24,41 @@ class Rms_Sponsors_Controller extends Base_Controller
         return View::make('sponsors.edit')->with('sponsor',$sponsor);
     }
 
+    public function post_edit($id)
+    {
+        $sponsor = Sponsor::find($id);
+
+        $input = Input::get();
+
+        $rules = array(
+            'name'  => 'required',
+            'url'  => 'required|url',
+
+        );
+
+        $validation = Validator::make($input, $rules);
+        
+
+        if($validation->passes())
+        {
+            if(Input::has_file('image')) {
+                File::delete(path('base').'/public/img/sponsor/' . $sponsor->image);
+                Input::upload('image', path('base').'/public/img/sponsor',Input::file('image.name'));
+                Input::merge(array('image' => Input::file('image.name')));
+            }
+
+            $sponsor =  Sponsor::update($id, Input::get());
+
+            return Redirect::to('rms/sponsors')
+                ->with('status', 'Successful Added New sponsors');
+        }
+        else
+        {
+            print '<pre>';
+            var_dump($validation->errors);
+        }
+    }
+
 
     public function get_add()
     {
@@ -37,7 +72,6 @@ class Rms_Sponsors_Controller extends Base_Controller
 
         $rules = array(
             'name'  => 'required',
-            'image'  => 'required',
             'url'  => 'required|url',
 
         );
@@ -47,6 +81,11 @@ class Rms_Sponsors_Controller extends Base_Controller
 
         if($validation->passes())
         {
+            if(Input::has_file('image')) {
+                Input::upload('image', path('base').'/public/img/sponsor',Input::file('image.name'));
+                Input::merge(array('image' => Input::file('image.name')));
+            }
+
             $sponsor =  Sponsor::create(Input::get());
 
             return Redirect::to('rms/sponsors')

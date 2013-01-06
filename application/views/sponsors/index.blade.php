@@ -15,8 +15,8 @@
 		</tr>
 	@foreach ($sponsors as $sponsor)
 		<tr>
-			<td>{{$sponsor->name}}</td>
-			<td>{{$sponsor->image}}</td>
+			<td>{{ HTML::link($sponsor->url,$sponsor->name)}}</td>
+			<td><img src="/img/sponsor/{{ $sponsor->image }}" width="100px" height="100px"/></td>
 			<td>
 				{{ HTML::link('rms/sponsors/edit/'. $sponsor->id,'Edit')}}
 				{{ HTML::link('rms/sponsors/delete/'. $sponsor->id,'Delete')}}
