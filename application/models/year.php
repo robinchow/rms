@@ -38,18 +38,30 @@ class Year extends Eloquent {
             ->where('non_executive', '=', false)
             ->get();
         
-        $producers_id = array();
+        $producers = array();
         foreach($producers_joins as $p) {
-            $producers_id[] = (int)$p->user_id;
+          $producers[] = User::find($p->user_id);
         }
+  
 
-        $producers = User::where_in('id',array(1))->get();   
-
-        return var_dump($producers);
+        return $producers;
     }
 
     public function directors()
     {
-        return 'the directors';     
+        $d_id = Executive::where('position','=','Director')->first()->id;
+
+        $d_joins = DB::table('executive_user')
+            ->where('year_id', '=', $this->id)
+            ->where('executive_id', '=', $d_id)
+            ->where('non_executive', '=', false)
+            ->get();
+        
+        $directors = array();
+        foreach($d_joins as $d) {
+            $directors[] = User::find($d->user_id);
+        }
+
+        return $directors;    
     }
 }

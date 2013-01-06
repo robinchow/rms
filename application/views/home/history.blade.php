@@ -23,8 +23,15 @@
 	@foreach($years as $year)
 	<p>
 		<strong>{{$year->year}}: {{$year->name}}</strong><br>
-		Directors: {{$year->directors()}}<br>
-		Producers: {{$year->producers()}}
+		Directors:
+		@foreach($year->directors() as $d)
+			{{$d->profile->full_name}}, 
+		@endforeach
+		<br>
+		Producers: 
+		@foreach($year->producers() as $p)
+			{{$p->profile->full_name}}, 
+		@endforeach
 	</p>
 	@endforeach
 </div>
