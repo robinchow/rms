@@ -1,7 +1,7 @@
 @layout('templates.home')
 
 @section('title')
-    @parent - History
+    @parent
 @endsection
 
 @section('content')
