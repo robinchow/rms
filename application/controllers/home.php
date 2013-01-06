@@ -6,7 +6,8 @@ class Home_Controller extends Base_Controller {
 
 	public function get_index()
 	{
-		return View::make('home.index');
+		$sponsors = Sponsor::all();
+		return View::make('home.index')->with('sponsors',$sponsors);
 	}
 
 
