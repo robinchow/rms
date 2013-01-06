@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-<section class="rms-executives">
-<section>
 
     	<h2>{{ $executive->position }}</h2>
     	<strong>Mailing List:</strong>
@@ -29,10 +27,6 @@
 {{HTML::link('rms/executives/manage/'. $executive->id,'Manage Executive',array('class'=>'button'))}}
 {{HTML::link('rms/executives/edit/'. $executive->id,'Edit Executive',array('class'=>'button'))}}
 {{HTML::link('rms/executives','Back',array('class'=>'button'))}}
-
-</section>
-</section>
-
 
 
 @endsection

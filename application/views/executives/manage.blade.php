@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-<section class="rms-executive">
-<section>
 
     	<h2>{{ $executive->name }}</h2>
 
@@ -26,7 +24,6 @@
     {{ Form::close() }}
       
 
-<div class="span9">
 	<h3>Members</h3>
 	<ul>
 	@foreach($executive->get_all_members($year->id) as $user)
@@ -38,13 +35,7 @@
                 </li>
     		@endforeach
 	</ul>
-</div>
 
-
-
-
-</section>
-</section>
 
 
 

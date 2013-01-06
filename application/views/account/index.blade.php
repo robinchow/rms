@@ -4,35 +4,17 @@
     @parent - View Profile
 @endsection
 
-@section('content')
-	
+@section('extra_notice')
 	@if($user->needs_to_renew)
-	<div class="row-fluid">
 	<div class="alert alert-warning">
 		<h1>You Need to renew</h1>
 		<p>Click renew in the sidebar</p>
 	</div>
-	</div>
 	@endif
+@endsection
 
-	<div class="row-fluid">
-	<div class="span3">
-	<div class="well sidebar-nav">
-		<ul class="nav nav-list">
-			<li class="nav-header">My Account</li>
-			@if($user->needs_to_renew)
-			<li>{{HTML::link('rms/account/renew','Renew')}}</li>
-			@endif
-			<li>{{HTML::link('rms/account/edit','Edit Profile')}}</li>
-			<li>{{HTML::link('rms/account/change_password','Change Password')}}</li>
-			<li>{{HTML::link('rms/account/change_email','Change Email')}}</li>
-			<li>{{HTML::link('rms/teams/join','Join A Team')}}</li>
-			<li>{{HTML::link('rms/account/logout','Logout')}}</li>
-		</ul>
-	</div>
-</div>
-	<div class="span9">
-		<div class="well">
+
+@section('content')
 		<h2>Your Profile</h2>
 		<img src="/img/profile/{{ $user->profile->image }}" width="100px" height="100px"/>
 
@@ -60,7 +42,5 @@
 		<p><strong>Student Number: </strong>{{ $user->profile->student_number }}</p>
 		<p><strong>Start Year: </strong>{{ $user->profile->start_year }}</p>
 		<p><strong>Arc: </strong>{{ $user->profile->arc_string }}</p>
-	</div>
-	</div>
-</div>
+
 @endsection

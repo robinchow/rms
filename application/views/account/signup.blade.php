@@ -5,8 +5,7 @@
 @endsection
 
 @section('content')
-<section class="rms-account">
-    <section>
+
     <h2>Signup User Profile</h2>
 
     {{ Form::open_for_files('rms/account/signup')}}
@@ -72,6 +71,5 @@
 
 
     {{ Form::close() }}
-    </section>
-</section>    
+  
 @endsection

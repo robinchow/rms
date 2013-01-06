@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@layout('templates.rms_login')
 
 @section('title')
     @parent - Login

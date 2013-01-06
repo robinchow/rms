@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-<section class="rms-teams">
-<section>
 
     	<h2>{{ $team->name }}</h2>
     	<strong>Mailing List:</strong>
@@ -44,9 +42,6 @@
 {{HTML::link('rms/teams/manage/'. $team->id,'Manage Team',array('class'=>'button'))}}
 {{HTML::link('rms/teams/edit/'. $team->id,'Edit Team',array('class'=>'button'))}}
 {{HTML::link('rms/teams','Back',array('class'=>'button'))}}
-
-</section>
-</section>
 
 
 

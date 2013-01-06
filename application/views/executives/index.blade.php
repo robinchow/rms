@@ -5,8 +5,7 @@
 @endsection
 
 @section('content')
-<section class="rms-executives">
-<section>
+
 @if ( count($executives) > 0 )
     <table>
         <thead>
@@ -27,8 +26,7 @@
 {{HTML::link('rms/executives/add','Add Executive',array('class'=>'button'))}}
 {{HTML::link('rms/executives/join','Join A executive',array('class'=>'button'))}}
 
-</section>
-</section>
+
 
 
 

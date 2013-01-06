@@ -5,10 +5,8 @@
 @endsection
 
 @section('content')
-	
-	<div class="span12">
-		<div class="well">
-		<h2>User Profile</h2>
+
+		<h2>{{$user->profile->full_name}}'s Profile</h2>
 		<img src="/img/profile/{{ $user->profile->image }}" width="100px" height="100px"/>
 
 		<hr>
@@ -36,7 +34,5 @@
 		<p><strong>Student Number: </strong>{{ $user->profile->student_number }}</p>
 		<p><strong>Start Year: </strong>{{ $user->profile->start_year }}</p>
 		<p><strong>Arc: </strong>{{ $user->profile->arc_string }}</p>
-	</div>
-	</div>
-</div>
+
 @endsection

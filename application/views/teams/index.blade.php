@@ -5,8 +5,7 @@
 @endsection
 
 @section('content')
-<section class="rms-teams">
-<section>
+
 @if ( count($teams) > 0 )
     <table>
         <thead>
@@ -28,9 +27,6 @@
 
 {{HTML::link('rms/teams/add','Add Team',array('class'=>'button'))}}
 {{HTML::link('rms/teams/join','Join A Team',array('class'=>'button'))}}
-
-</section>
-</section>
 
 
 

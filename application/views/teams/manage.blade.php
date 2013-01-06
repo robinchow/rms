@@ -5,8 +5,7 @@
 @endsection
 
 @section('content')
-<section class="rms-teams">
-<section>
+
 
     	<h2>{{ $team->name }}</h2>
 
@@ -65,12 +64,6 @@
 	</ul>
 </div>
 @endif
-
-
-
-</section>
-</section>
-
 
 
 @endsection

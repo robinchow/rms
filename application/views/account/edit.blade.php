@@ -5,15 +5,6 @@
 @endsection
 
 @section('content')
-<section class="rms-account">
-    <nav>
-        <ul>
-            <li>{{HTML::link('rms/account/edit','Edit Profile')}}</li>
-            <li>{{HTML::link('rms/teams/join','Join A Team')}}</li>
-            <li>{{HTML::link('rms/account/logout','Logout')}}</li>
-        </ul>
-    </nav>
-    <section>
     <h2>Edit User Profile</h2>
 
     {{ Form::open_for_files('rms/account/edit')}}
@@ -69,6 +60,4 @@
 
 
     {{ Form::close() }}
-    </section>
-</section>    
 @endsection
