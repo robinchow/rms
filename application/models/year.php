@@ -21,9 +21,12 @@ class Year extends Eloquent {
             $exec_id[] = $e->executive_id;
         }
 
-        $executives = Executive::where_in('id',$exec_id)->get();
+        if($exec_id!=null) {
+            return Executive::where_in('id',$exec_id)->get();
 
-        return $executives;
+        } else {
+            return array();
+        }
     }
 
     public function producers()
