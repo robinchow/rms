@@ -30,12 +30,12 @@ class Rms_Sponsors_Controller extends Base_Controller
     {
         $sponsor = Sponsor::find($id);
 
-        $input = Input::get();
+        $input = Input::all();
 
         $rules = array(
             'name'  => 'required',
             'url'  => 'required|url',
-
+            'image' => 'image'
         );
 
         $validation = Validator::make($input, $rules);
@@ -52,7 +52,7 @@ class Rms_Sponsors_Controller extends Base_Controller
             $sponsor =  Sponsor::update($id, Input::get());
 
             return Redirect::to('rms/sponsors')
-                ->with('status', 'Successful Added New sponsors');
+                ->with('status', 'Successful edited sponsors');
         }
         else
         {
@@ -117,11 +117,12 @@ class Rms_Sponsors_Controller extends Base_Controller
     public function post_add()
     {
 
-        $input = Input::get();
+        $input = Input::all();
 
         $rules = array(
             'name'  => 'required',
             'url'  => 'required|url',
+            'image' => 'image'
 
         );
 

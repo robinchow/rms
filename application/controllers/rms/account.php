@@ -78,6 +78,7 @@ class Rms_Account_Controller extends Base_Controller
             'university' => 'required',
             'program' => 'required',
             'start_year' => 'required',
+            'image' => 'image',
         );
 
         $validation = Validator::make(Input::all(), $rules);
@@ -129,6 +130,7 @@ class Rms_Account_Controller extends Base_Controller
             'university' => 'required',
             'program' => 'required',
             'start_year' => 'required',
+            'image' => 'image',
         );
 
         $validation = Validator::make($input, $rules);
