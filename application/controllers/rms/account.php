@@ -6,7 +6,7 @@ class Rms_Account_Controller extends Base_Controller
 
     public function __construct() 
     {
-        $this->filter('before', 'auth')->except(array('login','signup'));
+        $this->filter('before', 'auth')->except(array('login','signup','forgot','reset_password'));
 
         //Validator for old email and old pasword
         Validator::register('matches', function($attribute, $value, $parameters)
@@ -18,6 +18,11 @@ class Rms_Account_Controller extends Base_Controller
             if($attribute =='old_email'){
                 return $value == Auth::user()->email;
             }
+        });
+
+        Validator::register('reset_password', function($attribute, $value, $parameters)
+        {
+            return (User::find($parameters[0])->reset_password_hash == $value);
         });
     }
 
@@ -274,6 +279,68 @@ class Rms_Account_Controller extends Base_Controller
         {
             return var_dump($validation->errors);
         }
+    }
+
+    public function get_forgot()
+    {
+        return View::make('account.forgot');
+    }
+
+    public function post_forgot()
+    {
+        $email = Input::get('email');
+        $user = User::where_email($email)->first();
+        if($user) {
+            $user->reset_password_hash = Str::random(64);
+            $user->save();
+            
+            return print_r($user);
+
+        } else {
+            return "Email does not exist";
+        }
+    }
+
+    public function get_reset_password($id, $reset_password_hash)
+    {
+        return View::make('account.reset')->with('id',$id)
+        ->with('reset_password_hash', $reset_password_hash);
+    }
+
+    public function post_reset_password()
+    {
+        $input = Input::all();
+
+        $rules = array(
+            'id' => 'required',
+            'password'  => 'required|max:128|confirmed',
+            'reset_password_hash' => 'required|reset_password:'.Input::get('id'),
+        );
+
+        $messages = array(
+            'reset_password_hash_reset_password' => 'The reset token is incorrect'
+        );
+
+        $validation = Validator::make($input, $rules, $messages);
+
+        if ($validation->passes())
+        {
+
+            $user = User::find(Input::get('id'));
+            $user->password = Hash::make(Input::get('password'));
+            $user->save();
+
+            Auth::login(Input::get('id'));
+
+            return Redirect::to('rms/account')
+                ->with('status', 'Succesfully reset password');
+        }
+        else 
+        {
+            return var_dump($validation->errors);
+        }
+
+        return Redirect::to('rms/account');
     }
 
     public function get_logout()

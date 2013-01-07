@@ -12,7 +12,8 @@ class Create_Users {
 		Schema::create('users', function($table) {
 		    $table->increments('id');
 		    $table->string('email', 128)->unique();
-		    $table->string('password', 64);
+		    $table->string('password');
+		    $table->string('reset_password_hash')->nullable();
 		    $table->boolean('admin');
 		    $table->timestamps();
 		});

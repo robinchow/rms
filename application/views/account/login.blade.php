@@ -21,5 +21,5 @@
         <!-- submit button -->
         {{ Form::submit('Sign in', array('class'=>'btn btn-large btn-primary')) }}
     {{ Form::close() }}
-      
+    {{ HTML::link('/rms/account/forgot','Forgot Password',array('class'=>'btn'))}}
 @endsection

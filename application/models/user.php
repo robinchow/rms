@@ -3,6 +3,11 @@
 class User extends Eloquent {
 	public static $timestamps = true;
 
+    public static $hidden = array(
+        'password',
+        'reset_password_hash',
+    );
+
 	public function profile()
 	{
 		return $this->has_one('Profile');
