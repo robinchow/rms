@@ -28,6 +28,12 @@ class User extends Eloquent {
         return $this->has_many_and_belongs_to('Executive');
     }
 
+    public function reset_url()
+    {
+        return URL::base() . '/rms/account/reset_password/'.$this->id.'/'.$this->reset_password_hash;
+    }
+    
+
     public function get_needs_to_renew()
     {
         $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
