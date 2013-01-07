@@ -52,7 +52,7 @@ class Home_Controller extends Base_Controller {
 	//History
 	public function get_history()
 	{
-        $years = Year::all();
+        $years = Year::order_by('year', 'desc')->get();
 
         return View::make('home.history')->with('years', $years);
 	}
@@ -60,7 +60,7 @@ class Home_Controller extends Base_Controller {
 	//History
 	public function get_sponsors()
 	{
-        $years = Year::all();
+        $years = Year::order_by('year', 'desc')->get();
 
         return View::make('home.sponsors')->with('years', $years);
 	}
