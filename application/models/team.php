@@ -13,14 +13,9 @@ class Team extends Eloquent {
 		return ($this->privacy ? 'Private' : 'Public');
 	}
 
-	public function get_mailing_lists() 
+	public function get_mailing_list() 
 	{
-		$alias =  explode( ',', $this->alias);
-		$mailing = array();
-		foreach($alias as $a ) {
-			$mailing[] = $a . '@cserevue.org.au';
-		}
-		return implode('<br>', $mailing);//probably should just return the list not convert it to a string
+		return $this->alias . '@cserevue.org.au';
 	}
 
 	public function get_members($year_id, $status) 

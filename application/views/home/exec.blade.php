@@ -28,7 +28,7 @@
 			<li>{{$member->profile->full_name}}</li>
 		@endforeach
 		</ul>
-		<p>Emails: {{ implode(', ', $exec->mailing_lists)}}</p>
+		<p>Emails: {{$exec->mailing_list}}</p>
 	@endforeach
 </div>
 </div>

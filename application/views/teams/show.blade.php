@@ -8,7 +8,7 @@
 
     	<h2>{{ $team->name }}</h2>
     	<strong>Mailing List:</strong>
-    	<p>{{ $team->mailing_lists }}</p>
+    	<p>{{ $team->mailing_list }}</p>
     	<strong>Privacy:</strong>
     	<p>{{ $team->privacy_string }}</p>
     	<strong>Description:</strong>

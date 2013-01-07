@@ -8,7 +8,7 @@
 
     	<h2>{{ $executive->position }}</h2>
     	<strong>Mailing List:</strong>
-    	<p>{{ implode('<br>',$executive->mailing_lists) }}</p>
+    	<p>{{ $executive->mailing_list }}</p>
     	<strong>Members:</strong><br>
     	@foreach($years as $year)
     	    <hr>

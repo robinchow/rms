@@ -15,7 +15,7 @@
 	@foreach ($teams as $team)
         <tr>
     	<th>{{ HTML::link('/rms/teams/show/'.$team->id,$team->name) }}</td>
-    	<td>{{ $team->mailing_lists }}</td>
+    	<td>{{ $team->mailing_list }}</td>
     	<td>{{ $team->privacy_string }}</td>
     	<tr>
 	@endforeach

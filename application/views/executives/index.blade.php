@@ -14,7 +14,7 @@
 	@foreach ($executives as $executive)
         <tr>
     	<th>{{ HTML::link('/rms/executives/show/'.$executive->id,$executive->position) }}</td>
-    	<td>{{ implode('<br>',$executive->mailing_lists) }}</td>
+    	<td>{{ $executive->mailing_list }}</td>
     	<tr>
 	@endforeach
         </tbody>

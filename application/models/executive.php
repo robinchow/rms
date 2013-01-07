@@ -8,14 +8,9 @@ class Executive extends Eloquent {
         return $this->has_many_and_belongs_to('User')->with('year_id','non_executive');
     }
 
-    public function get_mailing_lists() 
+    public function get_mailing_list() 
 	{
-		$alias =  explode( ',', $this->alias);
-		$mailing = array();
-		foreach($alias as $a ) {
-			$mailing[] = $a . '@cserevue.org.au';
-		}
-		return $mailing;
+		return $this->alias . '@cserevue.org.au';
 	}
 
 	//Only "real exec"
