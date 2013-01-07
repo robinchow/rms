@@ -293,6 +293,14 @@ class Rms_Account_Controller extends Base_Controller
         if($user) {
             $user->reset_password_hash = Str::random(64);
             $user->save();
+
+            Message::to($user->email);
+            ->from('webmin.head@cserevue.org.au', 'CSE Revue')
+            ->subject('Reset Account Password')
+            ->body('Hello, You have requested a password reset click 
+                    on this link to continue with the reset
+                    <a href="localhost/rms/account/'.$user->id.'/'.$user->reset_password_hash.'">Link</a>')
+            ->send();
             
             return print_r($user);
 
