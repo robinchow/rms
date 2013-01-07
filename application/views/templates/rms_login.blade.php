@@ -26,9 +26,6 @@
           </a>
           <a class="brand" href="/rms/account">CSE Revue - RMS</a>
           <div class="nav-collapse collapse">
-            <form class="navbar-form pull-right">
-              <a href="/rms/account/logout" class="btn">Logout</a>
-            </form>
           </div><!--/.nav-collapse -->
         </div>
       </div>
