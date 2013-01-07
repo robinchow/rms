@@ -302,7 +302,8 @@ class Rms_Account_Controller extends Base_Controller
                     <a href="localhost/rms/account/'.$user->id.'/'.$user->reset_password_hash.'">Link</a>')
             ->send();
             
-            return print_r($user);
+            return Redirect::to('rms/account/login')
+                ->with('success', 'Succesfully sent reset email');
 
         } else {
             return "Email does not exist";
