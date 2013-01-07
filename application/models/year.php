@@ -32,7 +32,7 @@ class Year extends Eloquent {
     public function producers()
     {
 
-        $p_id = Executive::where('position','=','Producer')->first();
+        $p_id = Executive::where('position','=','Producers')->first();
 
         $producers_joins = DB::table('executive_user')
             ->where('year_id', '=', $this->id)
@@ -51,7 +51,7 @@ class Year extends Eloquent {
 
     public function directors()
     {
-        $d_id = Executive::where('position','=','Director')->first()->id;
+        $d_id = Executive::where('position','=','Directors')->first()->id;
 
         $d_joins = DB::table('executive_user')
             ->where('year_id', '=', $this->id)
