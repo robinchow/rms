@@ -337,6 +337,7 @@ class Rms_Account_Controller extends Base_Controller
 
             $user = User::find(Input::get('id'));
             $user->password = Hash::make(Input::get('password'));
+            $user->reset_password_hash = '';
             $user->save();
 
             Auth::login(Input::get('id'));
