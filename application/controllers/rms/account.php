@@ -75,7 +75,7 @@ class Rms_Account_Controller extends Base_Controller
             'dob' => 'required',
             'gender' => 'required|in:O,M,F',
             'phone' => 'required|max:10',
-            'university' => 'required|12',
+            'university' => 'required',
             'program' => 'required',
             'start_year' => 'required',
         );
@@ -84,6 +84,9 @@ class Rms_Account_Controller extends Base_Controller
 
         if ($validation->passes())
         {
+            Input::merge(array('privacy' => Input::get('privacy',0)));
+            Input::merge(array('arc' => Input::get('arc',0)));
+
             //Update Profile
             if(Input::has_file('image')) {
                 File::delete(path('base').'/public/img/profile/' . $profile->image);
@@ -99,7 +102,7 @@ class Rms_Account_Controller extends Base_Controller
         }
         else 
         {
-            return $validation->errors;
+            return var_dump($validation);
         }
 
 

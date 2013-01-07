@@ -86,6 +86,8 @@ class Rms_Teams_Controller extends Base_Controller
 
         if($validation->passes())
         {
+            Input::merge(array('privacy' => Input::get('privacy',0)));
+            
             $team = Team::update($id, Input::get());
 
             return Redirect::to('rms/teams')
