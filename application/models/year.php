@@ -66,4 +66,9 @@ class Year extends Eloquent {
 
         return $directors;    
     }
+
+    public function get_mailing_list() 
+    {
+        return 'all.' . $this->alias . '@cserevue.org.au';
+    }
 }
