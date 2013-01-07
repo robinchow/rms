@@ -30,6 +30,7 @@ class Rms_News_Controller extends Base_Controller
         $input = Input::get();
 
         $rules = array(
+            'title'  => 'required',
             'post'  => 'required',
 
         );
@@ -62,6 +63,7 @@ class Rms_News_Controller extends Base_Controller
         $input = Input::get();
 
         $rules = array(
+            'title'  => 'required',
             'post'  => 'required',
 
         );

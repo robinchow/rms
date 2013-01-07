@@ -9,14 +9,14 @@
 @if ( count($news) > 0 )
 	<table class="table table-striped table-bordered">
 		<tr>
-			<th>News post</th>
+			<th>News title</th>
 			<th>Last updated</th>
 			<th>Created on </th>
 			<th>Tools</th>
 		</tr>
 	@foreach ($news as $n)
 		<tr>
-			<td>{{$n->post}}</td>
+			<td>{{$n->title}}</td>
 			<td>{{$n->updated_at}}</td>
 			<td>{{$n->created_at}}</td>
 			<td>

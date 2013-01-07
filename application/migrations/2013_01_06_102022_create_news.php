@@ -11,6 +11,7 @@ class Create_News {
 	{
 		Schema::create('news', function($table) {
 		    $table->increments('id');
+		   	$table->string('title');
 		    $table->text('post');
 		    $table->timestamps();
 		});

@@ -36,6 +36,7 @@
 
 
 			<div id="main-content">
+				<p><b>{{$news->title}}</b></p>
 				<p>{{nl2br($news->post)}}</p>
 				<br>
 			</div>

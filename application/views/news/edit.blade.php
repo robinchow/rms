@@ -9,6 +9,9 @@
 
     <legend>Edit news</legend>
 
+    	{{ Form::label('title', 'Title') }}
+        {{ Form::text('title', $news->title)}}<br>
+
 		{{ Form::label('post', 'Post') }}
         {{ Form::textarea('post', $news->post)}}<br>
 

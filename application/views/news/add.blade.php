@@ -9,7 +9,8 @@
 
     <legend>add news</legend>
 
-
+		{{ Form::label('title', 'Title') }}
+        {{ Form::textarea('title')}}<br>
 
 		{{ Form::label('post', 'Post') }}
         {{ Form::textarea('post')}}<br>
