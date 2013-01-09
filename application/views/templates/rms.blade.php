@@ -10,9 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    {{HTML::style('css/rms.css')}}
     {{Asset::container('bootstrapper')->styles()}}
     {{Asset::container('bootstrapper')->scripts()}}
+
+    {{HTML::style('css/rms.css')}}
   </head>
 
   <body>
