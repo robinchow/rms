@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-
+<h2>Users</h2>
 @if ( count($users) > 0 )
 	<table class="table table-striped table-bordered">
 		<tr>
