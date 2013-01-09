@@ -28,6 +28,7 @@
 			<td>
 				<div class="btn-group">
 					<a class="btn btn-primary" href="/rms/users/show/{{$user->id}}"><i class="icon-user icon-white"></i> Profile</a>
+					@if(Auth::User()->admin)
 					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						@if($user->admin)
@@ -36,6 +37,7 @@
 							<li><a href="/rms/users/make_admin/{{$user->id}}"><i class="i"></i> Make admin</a></li>
 						@endif
 					</ul>
+					@endif
 				</div>
 			</td>
 		</tr>
