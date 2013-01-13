@@ -7,20 +7,20 @@
 @section('content')
     {{ Form::open('rms/years/edit/' . $year->id)}}
 
-    <legend>Add a new Year</legend>
+    <legend>Edit Year</legend>
 
         {{ Form::label('year', 'Year') }}
-        {{ Form::text('year', $year->year)}}<br>
+        {{ Form::text('year', $year->year, array('class'=>'input-xlarge'))}}<br>
 
         {{ Form::label('name', 'Name') }}
-        {{ Form::text('name',$year->name)}}<br>
+        {{ Form::text('name',$year->name,array('class'=>'input-xlarge'))}}<br>
 
         {{ Form::label('alias', 'Alias') }}
-        {{ Form::text('alias',$year->alias)}}<br>
+        {{ Form::text('alias',$year->alias,array('class'=>'input-xlarge'))}}<br>
 
-        {{ Form::submit('Save changes') }}
-        {{ HTML::link('/rms/years','Cancel') }}
 
+            {{ Form::submit('Save changes', array('class'=>'btn btn-primary')) }}
+            {{ HTML::link('/rms/years','Cancel', array('class'=>'btn')) }}
 
 
     {{ Form::close() }}

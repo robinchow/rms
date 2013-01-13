@@ -8,11 +8,17 @@
 <h2>Years</h2>
 @if ( count($years) > 0 )
 	@foreach ($years as $year)
-    	<p><strong>{{ HTML::link('/rms/years/show/'.$year->id,$year->year.': '.$year->name ) }}</strong>
-
-    		{{ HTML::link('/rms/years/edit/'.$year->id,'Edit') }}
-    		{{ HTML::link('/rms/years/delete/'.$year->id,'Delete') }}
-    	</p>
+    	<strong>{{ HTML::link('/rms/years/show/'.$year->id,$year->year.': '.$year->name ) }}</strong>
+            @if(Auth::User()->admin)
+                <div class="btn-group pull-right">
+                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                            <li><a href="/rms/years/edit/{{$year->id}}"><i class="i"></i> Edit Year</a></li>
+                            <li><a href="/rms/years/delete/{{$year->id}}"><i class="i"></i> Delete Year</a></li>
+                    </ul>
+                </div>
+            @endif
+    	
     	<p>{{ $year->mailing_list }}</p>
     	<hr>
 	@endforeach
@@ -20,8 +26,8 @@
 	No years
 @endif
 
-
-{{HTML::link('rms/years/add','Add year')}}
-
+ @if(Auth::User()->admin)
+    {{HTML::link('rms/years/add','Add year', array('class'=>'btn btn-primary'))}}
+@endif
 
 @endsection
