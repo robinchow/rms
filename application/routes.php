@@ -102,7 +102,13 @@ Route::filter('csrf', function()
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::to('rms/account/login')->with('warning','You must login in to access this area of the site');
+	if (Auth::guest())
+	{
+		// Save the attempted URL
+		Session::put('pre_login_url', URL::current());
+
+		return Redirect::to('rms/account/login')->with('warning','You must login in to access this area of the site');
+	}
 });
 
 Route::filter('admin', function()

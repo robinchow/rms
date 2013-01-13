@@ -52,7 +52,17 @@ class Rms_Account_Controller extends Base_Controller
         );
         if ( Auth::attempt($credentials) )
         {
-            return Redirect::to('rms/account');
+            // If user attempted to access specific URL before logging in
+            if ( Session::has('pre_login_url') )
+            {
+                $url = Session::get('pre_login_url');
+                Session::forget('pre_login_url');
+                return Redirect::to($url);
+            }
+            else
+            {
+                return Redirect::to('rms/account');
+            }
         }
         else
         {
