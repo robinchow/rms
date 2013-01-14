@@ -32,6 +32,11 @@ class User extends Eloquent {
     {
         return URL::base() . '/rms/account/reset_password/'.$this->id.'/'.$this->reset_password_hash;
     }
+
+    public function profile_url()
+    {
+        return URL::base() . '/rms/users/show/'.$this->id;
+    }
     
 
     public function get_needs_to_renew()

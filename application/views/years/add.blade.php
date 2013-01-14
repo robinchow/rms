@@ -18,8 +18,8 @@
         {{ Form::label('alias', 'Alias') }}
         {{ Form::text('alias')}}<br>
 
-        {{ Form::submit('Save changes') }}
-        {{ HTML::link('/rms/years','Cancel') }}
+        {{ Form::submit('Save changes', array('class'=>'btn btn-primary') }}
+        {{ HTML::link('/rms/years','Cancel', array('class'=>'btn')) }}
 
 
 

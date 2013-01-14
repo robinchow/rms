@@ -13,7 +13,7 @@ class Rms_Years_Controller extends Base_Controller
 
     public function get_index()
     {
-        $years = Year::all();
+        $years = Year::order_by('year', 'desc')->get();
         return View::make('years.index')->with('years', $years);
     }
 
@@ -44,14 +44,16 @@ class Rms_Years_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $years = Year::create(Input::get());
+            $year = Year::create(Input::get());
 
             return Redirect::to('rms/years')
-                ->with('status', 'Successful Added New Year');
+                ->with('success', 'Successfully Added New Year: ' . $year->year . ' - '. $year->name);
         }
         else
         {
-            var_dump($validation->errors);
+            return Redirect::to('rms/years/add/')
+                ->with_errors($validation)
+                ->with_input();
         }
     }
 
@@ -76,14 +78,16 @@ class Rms_Years_Controller extends Base_Controller
         
         if($validation->passes())
         {
-            $year = Year::update($id, Input::all());
-
+            Year::update($id, Input::all());
+            $year = Year::find($id);
             return Redirect::to('rms/years')
-                ->with('status', 'Successful Edited Year');
+                ->with('success', 'Successfully Edited Year: '. $year->year . ' - '. $year->name);
         }
         else 
         {
-            var_dump($validation->errors);
+            return Redirect::to('rms/years/edit/'.$id)
+                ->with_errors($validation)
+                ->with_input();
 
         }
     }
@@ -92,7 +96,7 @@ class Rms_Years_Controller extends Base_Controller
     {
         $year = Year::find($id)->delete();
         return Redirect::to('rms/years')
-                ->with('status', 'Successful Removed Year');
+                ->with('success', 'Successfully Removed Year');
     }
 
 

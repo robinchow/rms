@@ -9,14 +9,13 @@
 
         <h2>{{ $year->year}}: {{ $year->name }} </h2>
 
-        alias:{{ $year->alias}}<br>
+        <h4>Mailing List: </h4>
+        	{{ $year->mailing_list }}
         
-        Members:
+        <h4>Members:</h4>
         <ul>
         @foreach($year->users as $user)
-        	<li>{{$user->profile->full_name}}</li>
-
-
+        	<li><a href="{{$user->profile_url()}}">{{$user->profile->full_name}}</a></li>
         @endforeach
     </ul>
       
