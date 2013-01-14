@@ -10,12 +10,12 @@
     <legend>Edit faq</legend>
 
         {{ Form::label('question', 'Question') }}
-        {{ Form::text('question', $faq->question)}}<br>
+        {{ Form::text('question', Input::old('question',$faq->question))}}<br>
 
 		{{ Form::label('answer', 'Answer') }}
-        {{ Form::textarea('answer', $faq->answer)}}<br>
+        {{ Form::textarea('answer', Input::old('answer',$faq->answer))}}<br>
 
-        {{ Form::submit('Save changes') }}
+        {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
         {{HTML::link('rms/faqs/','Cancel',array('class'=>'btn'))}}
 
 

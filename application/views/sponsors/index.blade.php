@@ -29,14 +29,12 @@
 			<td>
 				<div class="btn-group">
 					<a class="btn btn-primary" href="/rms/sponsors/edit/{{$sponsor->id}}">Edit</a>
-					@if(Auth::User()->admin)
 					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li>{{ HTML::link('rms/sponsors/add_to_year/'. $sponsor->id,'Add to year')}}</li>
 						<li>{{ HTML::link('rms/sponsors/remove_from_year/'. $sponsor->id,'Remove from year')}}</li>
 						<li>{{ HTML::link('rms/sponsors/delete/'. $sponsor->id,'Delete')}}</li>
 					</ul>
-					@endif
 				</div>
 			</td>
 
