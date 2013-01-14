@@ -1,21 +1,21 @@
 @layout('templates.rms')
 
 @section('title')
-    @parent - Add news post
+    @parent - Add a News Post
 @endsection
 
 @section('content')
     {{ Form::open('rms/news/add')}}
 
-    <legend>add news</legend>
+    <legend>Add a News Post</legend>
 
 		{{ Form::label('title', 'Title') }}
-        {{ Form::textarea('title')}}<br>
+        {{ Form::text('title',Input::old('title'))}}<br>
 
 		{{ Form::label('post', 'Post') }}
-        {{ Form::textarea('post')}}<br>
+        {{ Form::textarea('post',Input::old('post'))}}<br>
 
-        {{ Form::submit('Save changes') }}
+        {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
         {{HTML::link('rms/news/','Cancel',array('class'=>'btn'))}}
 
 

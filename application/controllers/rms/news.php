@@ -43,12 +43,13 @@ class Rms_News_Controller extends Base_Controller
             $news = News::update($id, Input::get());
 
             return Redirect::to('rms/news')
-                ->with('success', 'Successful Edited News');
+                ->with('success', 'Successfully Edited News Post');
         }
         else
         {
-            print '<pre>';
-            var_dump($validation->errors);
+            return Redirect::to('rms/news/edit/' . $id)
+                ->with_errors($validation)
+                ->with_input();
         }
     }
 
@@ -76,12 +77,13 @@ class Rms_News_Controller extends Base_Controller
             $news =  News::create(Input::get());
 
             return Redirect::to('rms/news')
-                ->with('status', 'Successful Added New news');
+                ->with('success', 'Successfully Added New News Post');
         }
         else
         {
-            print '<pre>';
-            var_dump($validation->errors);
+            return Redirect::to('rms/news/add')
+                ->with_errors($validation)
+                ->with_input();
         }
 
 
@@ -91,7 +93,7 @@ class Rms_News_Controller extends Base_Controller
     {
         $news = News::find($id)->delete();
         return Redirect::to('rms/news')
-                ->with('status', 'Successful Removed news');
+                ->with('success', 'Successfully Removed news');
     }
     
 }

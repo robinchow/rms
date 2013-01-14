@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
-
+<h2>News</h2>
 @if ( count($news) > 0 )
 	<table class="table table-striped table-bordered">
 		<tr>
-			<th>News title</th>
+			<th>News Title</th>
 			<th>Last updated</th>
 			<th>Created on </th>
 			<th>Tools</th>
@@ -20,8 +20,13 @@
 			<td>{{$n->updated_at}}</td>
 			<td>{{$n->created_at}}</td>
 			<td>
-				{{ HTML::link('rms/news/edit/'. $n->id,'Edit')}}
-				{{ HTML::link('rms/news/delete/'. $n->id,'Delete')}}
+				<div class="btn-group">
+					<a class="btn btn-primary" href="/rms/news/edit/{{$n->id}}">Edit</a>
+					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li>{{ HTML::link('rms/news/delete/'. $n->id,'Delete')}}</li>
+					</ul>
+				</div>
 			</td>
 		</tr>
 	@endforeach
@@ -31,7 +36,7 @@
 @endif
 
 
-{{ HTML::link('rms/news/add/','Add')}}
+{{ HTML::link('rms/news/add/','Add',array('class'=>'btn btn-primary'))}}
 
 
 
