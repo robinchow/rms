@@ -49,15 +49,17 @@ class Rms_Sponsors_Controller extends Base_Controller
                 Input::merge(array('image' => Input::file('image.name')));
             }
 
-            $sponsor =  Sponsor::update($id, Input::get());
+            Sponsor::update($id, Input::get());
+            $sponsor =  Sponsor::find($id);
 
             return Redirect::to('rms/sponsors')
-                ->with('status', 'Successful edited sponsors');
+                ->with('success', 'Successfully Edited Sponsor: ' . $sponsor->name);
         }
         else
         {
-            print '<pre>';
-            var_dump($validation->errors);
+            return Redirect::to('rms/sponsors/edit/'.$id)
+                ->with_errors($validation)
+                ->with_input(); 
         }
     }
 
@@ -83,7 +85,7 @@ class Rms_Sponsors_Controller extends Base_Controller
 
 
         return Redirect::to('rms/sponsors')
-                ->with('status', 'Successful Added to a sponsor to year');
+                ->with('success', 'Successfully Added to a sponsor to year');
     }
     public function get_remove_from_year($id)
     {
@@ -105,7 +107,7 @@ class Rms_Sponsors_Controller extends Base_Controller
 
 
         return Redirect::to('rms/sponsors')
-             ->with('status', 'Successful removed sponsor from year');
+             ->with('success', 'Successfully removed sponsor from year');
     }
 
 
@@ -139,12 +141,13 @@ class Rms_Sponsors_Controller extends Base_Controller
             $sponsor =  Sponsor::create(Input::get());
 
             return Redirect::to('rms/sponsors')
-                ->with('status', 'Successful Added New sponsors');
+                ->with('success', 'Successfully Added New Sponsor: '.$sponsor->name);
         }
         else
         {
-            print '<pre>';
-            var_dump($validation->errors);
+          return Redirect::to('rms/sponsors/add')
+                ->with_errors($validation)
+                ->with_input(); 
         }
 
 
@@ -154,7 +157,7 @@ class Rms_Sponsors_Controller extends Base_Controller
     {
         $sponsors = Sponsor::find($id)->delete();
         return Redirect::to('rms/sponsors')
-                ->with('status', 'Successful Removed sponsor');
+                ->with('success', 'Successfully Removed Sponsor');
     }
     
 }

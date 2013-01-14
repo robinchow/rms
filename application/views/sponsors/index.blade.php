@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-
+<h2>Sponsors</h2>
 @if ( count($sponsors) > 0 )
 	<table class="table table-striped table-bordered">
 		<tr>
@@ -27,21 +27,28 @@
 
 			</td>
 			<td>
-				{{ HTML::link('rms/sponsors/edit/'. $sponsor->id,'Edit')}} - 
-				{{ HTML::link('rms/sponsors/add_to_year/'. $sponsor->id,'Add to year')}} - 
-				{{ HTML::link('rms/sponsors/remove_from_year/'. $sponsor->id,'Remove from year')}} - 
-				{{ HTML::link('rms/sponsors/delete/'. $sponsor->id,'Delete')}}
+				<div class="btn-group">
+					<a class="btn btn-primary" href="/rms/sponsors/edit/{{$sponsor->id}}">Edit</a>
+					@if(Auth::User()->admin)
+					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li>{{ HTML::link('rms/sponsors/add_to_year/'. $sponsor->id,'Add to year')}}</li>
+						<li>{{ HTML::link('rms/sponsors/remove_from_year/'. $sponsor->id,'Remove from year')}}</li>
+						<li>{{ HTML::link('rms/sponsors/delete/'. $sponsor->id,'Delete')}}</li>
+					</ul>
+					@endif
+				</div>
 			</td>
 
 		</tr>
 	@endforeach
 	</table>
 @else
-	No sponsors
+	No Sponsors
 @endif
 
 
-{{ HTML::link('rms/sponsors/add/','Add')}}
+{{ HTML::link('rms/sponsors/add/','Add', array('class'=>'btn btn-primary'))}}
 
 
 

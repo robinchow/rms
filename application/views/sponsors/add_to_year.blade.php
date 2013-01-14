@@ -1,20 +1,20 @@
 @layout('templates.rms')
 
 @section('title')
-    @parent - Add sponsor to year
+    @parent - Add Sponsor to year
 @endsection
 
 @section('content')
     {{ Form::open('rms/sponsors/add_to_year/'.$sponsor->id)}}
 
-    <legend>Add sponsor to year</legend>
+    <legend>Add Sponsor to year</legend>
 
         {{ Form::label('year_id', 'Year') }}
-        {{ Form::select('year_id', $years) }}
+        {{ Form::select('year_id', $years) }}<br>
 
 
-        {{ Form::submit('Save changes') }}
-        {{ HTML::link('/rms/sponsors','Cancel') }}
+        {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
+        {{ HTML::link('/rms/sponsors','Cancel',array('class'=>'btn')) }}
 
 
 

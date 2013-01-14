@@ -10,11 +10,11 @@
     <legend>Remove sponsor from year</legend>
 
         {{ Form::label('year_id', 'Year') }}
-        {{ Form::select('year_id', $years) }}
+        {{ Form::select('year_id', $years) }}<br>
 
 
-        {{ Form::submit('Save changes') }}
-        {{ HTML::link('/rms/sponsors','Cancel') }}
+        {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
+        {{ HTML::link('/rms/sponsors','Cancel',array('class'=>'btn')) }}
 
 
 
