@@ -10,15 +10,15 @@
     <legend>Add a new Year</legend>
 
         {{ Form::label('year', 'Year') }}
-        {{ Form::text('year')}}<br>
+        {{ Form::text('year',Input::old('year'))}}<br>
 
         {{ Form::label('name', 'Name') }}
-        {{ Form::text('name')}}<br>
+        {{ Form::text('name',Input::old('name'))}}<br>
 
         {{ Form::label('alias', 'Alias') }}
-        {{ Form::text('alias')}}<br>
+        {{ Form::text('alias',Input::old('alias'))}}<br>
 
-        {{ Form::submit('Save changes', array('class'=>'btn btn-primary') }}
+        {{ Form::submit('Save changes', array('class'=>'btn btn-primary'))}}
         {{ HTML::link('/rms/years','Cancel', array('class'=>'btn')) }}
 
 

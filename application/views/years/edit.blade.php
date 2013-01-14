@@ -10,13 +10,13 @@
     <legend>Edit Year</legend>
 
         {{ Form::label('year', 'Year') }}
-        {{ Form::text('year', $year->year, array('class'=>'input-xlarge'))}}<br>
+        {{ Form::text('year', Input::old('year',$year->year), array('class'=>'input-xlarge'))}}<br>
 
         {{ Form::label('name', 'Name') }}
-        {{ Form::text('name',$year->name,array('class'=>'input-xlarge'))}}<br>
+        {{ Form::text('name',Input::old('name',$year->name),array('class'=>'input-xlarge'))}}<br>
 
         {{ Form::label('alias', 'Alias') }}
-        {{ Form::text('alias',$year->alias,array('class'=>'input-xlarge'))}}<br>
+        {{ Form::text('alias',Input::old('alias',$year->alias),array('class'=>'input-xlarge'))}}<br>
 
 
             {{ Form::submit('Save changes', array('class'=>'btn btn-primary')) }}
