@@ -39,11 +39,13 @@ class Rms_Executives_Controller extends Base_Controller
             $executive = Executive::create(Input::get());
 
             return Redirect::to('rms/executives')
-                    ->with('status', 'Successful Added New Executive');
+                    ->with('success', 'Successfully Added New Executive Position');
         }
         else
         {
-            var_dump($validation->errors);
+            return Redirect::to('rms/executives/add')
+                ->with_errors($validation)
+                ->with_input(); 
         }
 
     }
@@ -78,21 +80,17 @@ class Rms_Executives_Controller extends Base_Controller
         $executive = Executive::update($id, Input::get());
 
         return Redirect::to('rms/executives')
-                ->with('status', 'Successful Edited Executive');
+                ->with('success', 'Successfully Edited Executive');
         }
         else
         {
-            var_dump($validation->errors);
+            return Redirect::to('rms/executives/edit/'. $id)
+                ->with_errors($validation)
+                ->with_input(); 
         }
     }
 
-    public function get_join()
-    {
-        $executives = Executive::lists('position', 'id');
 
-        return View::make('executives.join')
-            ->with('executives',$executives);
-    }
 
     public function get_manage($id)
     {
@@ -125,34 +123,12 @@ class Rms_Executives_Controller extends Base_Controller
             $user->executives()->attach($executive_id, array('non_executive' => Input::get('non_executive',0),'year_id'=>$year_id));
 
             return Redirect::to('rms/executives/manage/' . $executive_id)
-                ->with('success', 'Successful added member to executive');
+                ->with('success', 'Successfully added member to executive');
         }
         else 
         {
              return Redirect::to('rms/executives/manage/' . $executive_id)
                  ->with('warning', 'They are already a member of that executive');
-        }
-    }
-
-
-    public function post_join()
-    {
-        $user = Auth::User();
-        $executive = Executive::find(Input::get('executive_id'));
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
-
-        
-
-        if(!$user->is_part_of_exec($year->id, $executive->id))
-        {
-            $user->executives()->attach($executive, array('non_executive' => Input::get('non_executive',0), 'year_id'=>$year->id));
-            return Redirect::to('rms/executives')
-                ->with('status', 'Successful joined Executive');
-        }
-        else 
-        {
-             return Redirect::to('rms/executives')
-                 ->with('status', 'You are already a member of that executive');
         }
     }
 
@@ -162,14 +138,44 @@ class Rms_Executives_Controller extends Base_Controller
         $user->executives()->where('executive_id','=',$executive_id)->where('year_id','=',$year_id)->first()->pivot->delete();
 
         return Redirect::to('rms/executives/manage/' . $executive_id)
-                ->with('warning', 'Successful deleted member');
+                ->with('success', 'Successfully deleted member');
     }
+
+    public function get_join()
+    {
+        $executives = Executive::lists('position', 'id');
+
+        return View::make('executives.join')
+            ->with('executives',$executives);
+    }
+
+    public function post_join()
+    {
+        $user = Auth::User();
+        $executive = Executive::find(Input::get('executive_id'));
+        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+
+
+        if(!$user->is_part_of_exec($year->id, $executive->id))
+        {
+            $user->executives()->attach($executive, array('non_executive' => Input::get('non_executive',0), 'year_id'=>$year->id));
+            return Redirect::to('rms/executives')
+                ->with('success', 'Successfully joined Executive Position');
+        }
+        else 
+        {
+             return Redirect::to('rms/executives')
+                 ->with('warning', 'You are already a member of that executive');
+        }
+    }
+
+
 
     public function get_delete($id)
     {
         $executive = Executive::find($id)->delete();
         return Redirect::to('rms/executives')
-                ->with('status', 'Successful Removed Executive');
+                ->with('success', 'Successfully Removed Executive Position');
     }
 
 

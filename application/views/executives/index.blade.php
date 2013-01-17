@@ -5,27 +5,42 @@
 @endsection
 
 @section('content')
-
+<h2>Executives</h2>
 @if ( count($executives) > 0 )
-    <table>
-        <thead>
-            <th>Position</th><th>Mailing Lists</th>        </thead>
-        <tbody>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Position</th>
+            <th>Mailing List</th>
+            <th>Tools</th>
+        </tr>
 	@foreach ($executives as $executive)
         <tr>
-    	<th>{{ HTML::link('/rms/executives/show/'.$executive->id,$executive->position) }}</td>
-    	<td>{{ $executive->mailing_list }}</td>
-    	<tr>
+    	   <td>{{ HTML::link('/rms/executives/show/'.$executive->id,$executive->position) }}</td>
+    	   <td>{{ $executive->mailing_list }}</td>
+           <td>
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="/rms/executives/show/{{$executive->id}}">View</a>
+                    @if(Auth::User()->admin)
+                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>{{HTML::link('rms/executives/manage/'. $executive->id,'Manage Executive',array('class'=>'button'))}}</li>
+                        <li>{{HTML::link('rms/executives/edit/'. $executive->id,'Edit Executive Position',array('class'=>'button'))}}</li>
+                        <li>{{HTML::link('rms/executives/delete/'. $executive->id,'Delete Executive Position',array('class'=>'button'))}}</li>
+
+                    </ul>
+                    @endif
+                </div>
+           </td>
+    	</tr>
 	@endforeach
-        </tbody>
     </table>
 @else
 	No Executives
 @endif
 
-{{HTML::link('rms/executives/add','Add Executive',array('class'=>'button'))}}
-{{HTML::link('rms/executives/join','Join A executive',array('class'=>'button'))}}
-
+@if(Auth::user()->admin)
+    {{HTML::link('rms/executives/add','Add Executive Position',array('class'=>'btn btn-primary'))}}
+@endif
 
 
 

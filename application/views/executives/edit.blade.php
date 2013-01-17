@@ -1,23 +1,22 @@
 @layout('templates.rms')
 
 @section('title')
-    @parent - Edit executive position
+    @parent - Edit Executive Position
 @endsection
 
 @section('content')
     {{ Form::open('rms/executives/edit/' . $executive->id)}}
 
-    <legend>Add a new executive</legend>
+    <legend>Edit Executive Position</legend>
 
         {{ Form::label('position', 'Position') }}
-        {{ Form::text('position', $executive->position)}}<br>
+        {{ Form::text('position',Input::old('position',$executive->position))}}<br>
 
         {{ Form::label('alias', 'Alias') }}
-        {{ Form::text('alias',$executive->alias)}}<br>
+        {{ Form::text('alias',Input::old('alias',$executive->alias))}}<br>
 
-        {{ Form::submit('Save changes') }}
-        {{HTML::link('rms/executives/show/'. $executive->id,'Cancel',array('class'=>'button'))}}
-
+        {{ Form::submit('Save changes', array('class'=>'btn btn-primary')) }}
+        {{ HTML::link('/rms/executives','Cancel', array('class'=>'btn')) }}
 
 
     {{ Form::close() }}
