@@ -15,7 +15,7 @@
     		<strong>{{$year->year}}</strong><br>
     		<ul>
     		@foreach($executive->get_all_members($year->id) as $user)
-    			<li>{{$user->profile->full_name}}
+    			<li><a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a>
                     @if($user->pivot->non_executive)
                         (Assistant)
                         @endif
