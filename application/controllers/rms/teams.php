@@ -44,12 +44,13 @@ class Rms_Teams_Controller extends Base_Controller
             $team = Team::create(Input::get());
 
             return Redirect::to('rms/teams')
-                ->with('status', 'Successful Added New Team');
+                ->with('success', 'Successfully Added New Team');
         }
         else
         {
-            print '<pre>';
-            var_dump($validation->errors);
+            return Redirect::to('rms/teams/add')
+                ->with_errors($validation)
+                ->with_input(); 
         }
 
 
@@ -91,12 +92,13 @@ class Rms_Teams_Controller extends Base_Controller
             $team = Team::update($id, Input::get());
 
             return Redirect::to('rms/teams')
-                ->with('success', 'Successful Edited Team');
+                ->with('success', 'Successfully Edited Team');
         }
         else
         {
-            print '<pre>';
-            var_dump($validation->errors);
+            return Redirect::to('rms/teams/edit/'. $id)
+                ->with_errors($validation)
+                ->with_input(); 
         }
 
     }
@@ -119,7 +121,7 @@ class Rms_Teams_Controller extends Base_Controller
         {
             $user->teams()->attach($team->id, array('status' => 'interested', 'year_id'=>$year->id));
             return Redirect::to('rms/teams')
-                ->with('status', 'Successful joined Team');
+                ->with('success', 'Successfully joined Team');
         }
         else 
         {

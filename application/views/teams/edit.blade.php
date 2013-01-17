@@ -7,22 +7,23 @@
 @section('content')
     {{ Form::open('rms/teams/edit/' . $team->id)}}
 
-    <legend>Add a new Team</legend>
+    <legend>Edit Team</legend>
 
         {{ Form::label('name', 'Name') }}
-        {{ Form::text('name', $team->name)}}<br>
+        {{ Form::text('name', Input::old('name',$team->name))}}<br>
 
         {{ Form::label('alias', 'Alias') }}
-        {{ Form::text('alias',$team->alias)}}<br>
+        {{ Form::text('alias',Input::old('alias',$team->alias))}}<br>
 
-        {{ Form::label('privacy', 'Privacy') }}
-        {{ Form::checkbox('privacy', 1 , $team->privacy) }}<br>
+        <label for="privacy" class="checkbox">
+            {{ Form::checkbox('privacy', 1 , Input::old('privacy',$team->privacy)) }} Privacy
+        </label>
 
 		{{ Form::label('description', 'Description') }}
-        {{ Form::textarea('description', $team->description)}}<br>
+        {{ Form::textarea('description', Input::old('description',$team->description))}}<br>
 
-        {{ Form::submit('Save changes') }}
-        {{HTML::link('rms/teams/show/'. $team->id,'Cancel',array('class'=>'button'))}}
+        {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
+        {{ HTML::link('/rms/teams','Cancel',array('class'=>'btn')) }}
 
 
 

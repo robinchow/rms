@@ -13,9 +13,8 @@
         {{ Form::label('team_id', 'Team') }}
         {{ Form::select('team_id', $teams )}}<br>
 
-
-        {{ Form::submit('Save changes') }}
-        {{ HTML::link('/rms/teams','Cancel') }}
+        {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
+        {{ HTML::link('/rms/teams','Cancel',array('class'=>'btn')) }}
 
 
 
