@@ -114,11 +114,13 @@ class Rms_Account_Controller extends Base_Controller
 
 
             return Redirect::to('rms/account')
-                ->with('status', 'Changes Successful');
+                ->with('success', 'Profile successfully updated');
         }
         else 
         {
-            return var_dump($validation);
+            return Redirect::to('rms/account/edit')
+                ->with_errors($validation)
+                ->with_input(); 
         }
 
 
