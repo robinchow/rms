@@ -14,13 +14,14 @@
 
     {{ Form::label('password', 'New Password') }}
     {{ Form::password('password') }}<br>
+
     {{ Form::label('password_confirmation', 'Confirm New Password') }}
     {{ Form::password('password_confirmation') }}<br>
 
 
     
 
-    {{ Form::submit('Change') }}
+    {{ Form::submit('Save Changes', array('class'=>'btn btn-primary')) }}
     {{ Form::close() }}
       
 @endsection

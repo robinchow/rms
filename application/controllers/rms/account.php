@@ -67,7 +67,7 @@ class Rms_Account_Controller extends Base_Controller
         else
         {
             return Redirect::to('rms/account/login')
-                ->with('login_errors', true);
+                ->with('warning', 'Email or Password incorrect.');
         }
     }
 
@@ -212,12 +212,12 @@ class Rms_Account_Controller extends Base_Controller
             $user->years()->attach($year->id);
 
             return Redirect::to('rms/account')
-                ->with('status', 'You succesfully renewed');
+                ->with('success', 'You succesfully renewed');
         }
         else 
         {
             return Redirect::to('rms/account')
-                ->with('status', 'You didnt need to renew');
+                ->with('warning', 'You didn\'t need to renew');
         }
     }
 
@@ -250,11 +250,12 @@ class Rms_Account_Controller extends Base_Controller
             $user->save();
 
             return Redirect::to('rms/account')
-                ->with('status', 'Changes Successful');
+                ->with('success', 'Successfully changed Password');
         }
         else 
         {
-            return var_dump($validation->errors);
+            return Redirect::to('rms/account/change_password')
+                ->with_errors($validation);
         }
     }
 
@@ -285,11 +286,13 @@ class Rms_Account_Controller extends Base_Controller
             $user->save();
 
             return Redirect::to('rms/account')
-                    ->with('status', 'Changes Successful');
+                    ->with('success', 'Successfully Updated Email');
         }
         else 
         {
-            return var_dump($validation->errors);
+            return Redirect::to('rms/account/change_email')
+                ->with_errors($validation)
+                ->with_input(); 
         }
     }
 
@@ -318,7 +321,8 @@ class Rms_Account_Controller extends Base_Controller
                 ->with('success', 'Succesfully sent reset email');
 
         } else {
-            return "Email does not exist";
+            return Redirect::to('rms/account/forgot')
+                ->with('warning', 'Email does not exist, please enter correct email');
         }
     }
 
@@ -355,11 +359,12 @@ class Rms_Account_Controller extends Base_Controller
             Auth::login(Input::get('id'));
 
             return Redirect::to('rms/account')
-                ->with('status', 'Succesfully reset password');
+                ->with('success', 'Succesfully reset password');
         }
         else 
         {
-            return var_dump($validation->errors);
+            return Redirect::to('rms/account/reset_password/'. Input::get('id'). '/'. Input::get('reset_password_hash'))
+                ->with_errors($validation);
         }
 
         return Redirect::to('rms/account');

@@ -21,7 +21,7 @@
 
     
 
-    {{ Form::submit('Change') }}
+    {{ Form::submit('Save Changes', array('class'=>'btn btn-primary')) }}
     {{ Form::close() }}
       
 @endsection

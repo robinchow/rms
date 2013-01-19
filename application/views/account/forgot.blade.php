@@ -12,7 +12,7 @@
 
         {{ Form::text('email','',array('class'=>'input-block-level','placeholder'=>'Email address' )) }}
 
-        {{ Form::submit('Send me a reminder', array('class'=>'btn btn-large btn-primary')) }}
+        {{ Form::submit('Reset my password', array('class'=>'btn btn-primary')) }}
     {{ Form::close() }}
       
 @endsection

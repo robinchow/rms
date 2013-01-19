@@ -55,6 +55,18 @@
         </div>
       @endif
 
+      @if($errors->has())
+        <div class="alert alert-error">
+          <h1>Errors</h1>
+          <p>Please correct the following errors before submitting</p>
+          <ul>
+            @foreach($errors->all() as $e)
+              <li>{{ $e }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
       @yield('extra_notice')
 
       <div class="hero-unit">
