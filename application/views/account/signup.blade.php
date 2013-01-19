@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@layout('templates.home')
 
 @section('title')
     @parent - Signup Profile
@@ -6,10 +6,23 @@
 
 @section('content')
 
+	<div class="row">
+
+    <div class="span10 offset1" id="main-title">
     <h2>Signup User Profile</h2>
+	</div>
+	</div>
 
+    <div class="row">
+
+    <div class="span6 offset3" style="padding-left:20px;padding-right:20px" id="main-content">
     {{ Form::open_for_files('rms/account/signup')}}
-
+    <style>
+        legend {
+            border:0px;
+            color:#08C;
+        }
+    </style>
      <fieldset>
         <legend>Account Details:</legend>
         {{ Form::text('email','',array('placeholder'=>'Email address' )) }}
