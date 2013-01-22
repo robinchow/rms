@@ -24,6 +24,9 @@
       <header>
         <img src="/img/logo.png"><h1>CSE Revue</h1>
       </header>
+      <ul class="accounts">
+        <li><a href="/rms/account/signup">Sign Up</a></li> - <li><a href="/rms/account/login">Login</a></li>
+      </ul>
      </div>
 
     <div class="row">
