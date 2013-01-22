@@ -187,8 +187,9 @@ class Rms_Account_Controller extends Base_Controller
 
             return Redirect::to('rms/account')->with('status', 'Succesfully signed up'); 
         } else {
-            print '<pre>';
-            print_r($validation->errors);
+            return Redirect::to('rms/account/signup')
+                ->with_errors($validation)
+                ->with_input(); 
         }      
 
     }
