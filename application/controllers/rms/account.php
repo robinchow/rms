@@ -106,7 +106,7 @@ class Rms_Account_Controller extends Base_Controller
             //Update Profile
             if(Input::has_file('image')) {
                 File::delete(path('base').'/public/img/profile/' . $profile->image);
-                Input::upload('image', path('base').'/public/img/profile',Input::file('image.name'));
+                Input::upload('image', path('base').'/public/img/profile', Input::file('image.name'));
                 Input::merge(array('image' => Input::file('image.name')));
             }
 
@@ -165,7 +165,7 @@ class Rms_Account_Controller extends Base_Controller
             //Create Profile
 
             if(Input::has_file('image')) {
-                Input::upload('image', path('base').'/public/img/profile',Input::file('image.name'));
+                Input::upload('image', path('base').'/public/img/profile', Input::file('image.name'));
                 Input::merge(array('image' => Input::file('image.name')));
             }
 

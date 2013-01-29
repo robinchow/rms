@@ -66,7 +66,7 @@
         {{ Form::label('student_number', 'Student Number') }}
         {{ Form::text('student_number', Input::old('student_number',$user->profile->student_number))}}<br>
         {{ Form::label('start_year', 'Start Year') }}
-        {{ Form::date('start_year', Input::old('start_year',$user->profile->start_year))}}<br>
+        {{ Form::text('start_year', Input::old('start_year',$user->profile->start_year))}}<br>
 
 
         <label for="arc" class="checkbox">
