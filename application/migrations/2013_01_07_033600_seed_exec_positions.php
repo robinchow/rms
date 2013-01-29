@@ -26,7 +26,7 @@ class Seed_Exec_Positions {
 		    'alias'  => 'secretary',
 		));
 		DB::table('executives')->insert(array(
-		    'position'  => 'ARC Representative',
+		    'position'  => 'ARC Delegate',
 		    'alias'  => 'arc',
 		));
 	}

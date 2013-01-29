@@ -1,6 +1,6 @@
 <?php
 
-class Create_Teams {
+class Create_Team_Year {
 
 	/**
 	 * Make changes to the database.
@@ -9,12 +9,10 @@ class Create_Teams {
 	 */
 	public function up()
 	{
-		Schema::create('teams', function($table) {
+	    Schema::create('team_year', function($table) {
 		    $table->increments('id');
-		    $table->string('name');
-		    $table->string('alias');
-		    $table->boolean('privacy');
-		    $table->text('description')->nullable();
+		    $table->integer('team_id');
+		    $table->integer('year_id');
 		    $table->timestamps();
 		});
 	}
@@ -26,8 +24,7 @@ class Create_Teams {
 	 */
 	public function down()
 	{
-		Schema::drop('teams');
-
+		Schema::drop('team_year');
 	}
 
 }
