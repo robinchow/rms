@@ -1,7 +1,9 @@
 #!/usr/bin/perl
 use strict;
 use DBI;
+use LWP::Simple;
 
+sub port_imgs($);
 sub connect_to_db($$$$);
 
 
@@ -69,8 +71,8 @@ EOF
                               phone, program, student_number, start_year,
                               arc, user_id)
         VALUES ('$$ref{fname} $$ref{lname}', '$$ref{username}', '$$ref{gender}',
-                $$ref{dob}, '$$ref{email_privacy}', '$phone', '$$ref{program}',
-                '$$ref{student_id}', $$ref{start_year}, $$ref{arc_member},
+                '$$ref{dob}', '$$ref{email_privacy}', '$phone', '$$ref{program}',
+                '$$ref{student_id}', '$$ref{start_year}-01-01', $$ref{arc_member},
                 $user_id)
 EOF
 ;
@@ -242,12 +244,48 @@ sub port_exec($) {
     }
 }
 
+sub port_imgs($) {
+    my $path = shift;
+    $sql = qq{
+        SELECT year, member, member_year.mugshot, email
+        FROM member_year JOIN member ON member_year.member = member.id
+        ORDER BY year
+    };
+
+    $sth = $from_dbh->prepare($sql);
+    $sth->execute() or die "bad qry $sql";
+    while (my $ref = $sth->fetchrow_hashref()) {
+        my $lookup_sql = "SELECT id FROM users WHERE email = '$$ref{email}'";
+        my $lookup_sth = $to_dbh->prepare($lookup_sql);
+        $lookup_sth->execute() or die "bad qry $lookup_sql";
+        my $user_id = $lookup_sth->fetchrow_array();
+
+
+        if ($$ref{mugshot} =~ m/.*\.(.*)/) {
+            my $ext = $1;
+            my $filename = "$user_id.$ext";
+            print "file: $filename\n";
+
+            getstore("http://www.cserevue.org.au/rms/images/mugshots/small/$$ref{mugshot}", "$path/$filename");
+
+            my $update_sql = "UPDATE profiles SET image = '$filename' WHERE user_id = '$user_id'";
+            my $update_sth = $to_dbh->prepare($update_sql);
+            $update_sth->execute();
+        }
+    }
+}
+
+
 port();
 port_exec("Producers");
 port_exec("Directors");
 port_exec("Secretary");
 port_exec("Treasurer");
 port_exec("Arc Delegate");
+
+port_imgs("imgs");
+
+
 
 $from_dbh->disconnect() or die $!;
 $to_dbh->disconnect() or die $!;

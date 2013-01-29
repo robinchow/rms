@@ -3,6 +3,10 @@
 class Profile extends Eloquent {
 	public static $timestamps = true;
 
+    public function test() {
+        return "Blah";
+    }
+
 	public function user()
 	{
 		return $this->belongs_to('User');
