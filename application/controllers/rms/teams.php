@@ -11,6 +11,8 @@ class Rms_Teams_Controller extends Base_Controller
             ->only(array('edit','manage'));
         $this->filter('before', 'admin')
             ->only(array('delete'));
+        $this->filter('before', 'admin')
+            ->only(array('renew'));
     }
 
     public function get_index()
@@ -65,13 +67,29 @@ class Rms_Teams_Controller extends Base_Controller
 
     public function get_edit($id)
     {
-
+        $cancel = '/rms/teams';
+        if (Input::get('renew')) {
+            $cancel = '/rms/teams/renew';
+        }
         $team = Team::find($id);
-        return View::make('teams.edit')->with('team',$team);
+        return View::make('teams.edit')->with('team',$team)->with('cancel', $cancel);
     }
 
     public function post_edit($id)
     {
+        // renew the team if necessary
+        if (Auth::User()->admin) {
+            $team = Team::find($id);
+            if (!$team->is_active()) {
+                if (Input::get('renew')) {
+                    Year::current_year()->teams()->attach($team->id);
+                }
+            } else {
+                if (!Input::get('renew')) {
+                    Year::current_year()->teams()->detach($team->id);
+                }
+            }
+        }
 
         $input = Input::get();
 
@@ -89,7 +107,7 @@ class Rms_Teams_Controller extends Base_Controller
         {
             Input::merge(array('privacy' => Input::get('privacy',0)));
             
-            $team = Team::update($id, Input::get());
+            $team = Team::update($id, Input::except(array('renew')));
 
             return Redirect::to('rms/teams')
                 ->with('success', 'Successfully Edited Team');
@@ -115,7 +133,7 @@ class Rms_Teams_Controller extends Base_Controller
     {
         $user = Auth::User();
         $team = Team::find(Input::get('team_id'));
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $year = Year::current_year();
 
         if(!$user->is_part_of_team($year->id, $team->id))
         {
@@ -207,6 +225,10 @@ class Rms_Teams_Controller extends Base_Controller
     }
 
 
-
+    public function get_renew()
+    {
+        $teams = Team::all();
+        return View::make('teams.renew')->with('teams', $teams);
+    }
     
 }

@@ -8,6 +8,12 @@ class Team extends Eloquent {
         return Year::current_year()->teams();
     }
 
+    public function is_active() 
+    {
+        $result = Year::current_year()->teams()->where('teams.id', '=', $this->id)->get();
+        return !empty($result);
+    }
+
 	public function users()
     {
         return $this->has_many_and_belongs_to('User')->with('year_id','status');

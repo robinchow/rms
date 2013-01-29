@@ -8,6 +8,11 @@
     {{ Form::open('rms/teams/edit/' . $team->id)}}
 
     <legend>Edit Team</legend>
+        @if(Auth::User()->admin)
+        <label for="renew" class="checkbox">
+            {{ Form::checkbox('renew', 1 , Input::old('renew',$team->is_active())) }} Renew for {{ Year::current_year()->year }}
+        </label>
+        @endif
 
         {{ Form::label('name', 'Name') }}
         {{ Form::text('name', Input::old('name',$team->name))}}<br>
@@ -23,7 +28,7 @@
         {{ Form::textarea('description', Input::old('description',$team->description))}}<br>
 
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
-        {{ HTML::link('/rms/teams','Cancel',array('class'=>'btn')) }}
+        {{ HTML::link($cancel,'Cancel',array('class'=>'btn')) }}
 
 
 

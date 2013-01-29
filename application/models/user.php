@@ -77,12 +77,11 @@ class User extends Eloquent {
         }
         else 
         {
-            $membership  = DB::table('team_user')
-                    ->where('team_id', '=', $team_id)
-                    ->where('year_id', '=', $year_id)
-                    ->where('user_id', '=', $this->id)
-                    ->first();
-            return $membership->status=="head";
+            $team = Team::find($team_id);
+            $result = $team->users()->where('users.id', '=', $this->id)
+                                    ->where('status', '=', 'head')
+                                    ->get();
+            return !empty($result);
         }
     }
 

@@ -4,7 +4,7 @@ class Year extends Eloquent {
 	public static $timestamps = true;
     public static function current_year() 
     {
-        return Year::where('year', '=', '2013')->first();
+        return Year::where('year', '=', Config::get('rms_config.current_year'))->first();
     }
 
     public function teams()
