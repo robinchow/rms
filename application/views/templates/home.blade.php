@@ -15,7 +15,7 @@
 
     {{HTML::style('css/home.css')}}
     <link href='http://fonts.googleapis.com/css?family=Cantarell:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-
+    <link rel="icon" type="image/ico" href="/img/favicon32.ico">
   </head>
 
   <body>
