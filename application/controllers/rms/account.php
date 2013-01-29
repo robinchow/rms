@@ -105,12 +105,13 @@ class Rms_Account_Controller extends Base_Controller
 
             //Update Profile
             if(Input::has_file('image')) {
+                $image_name = preg_replace('/.*\.(.+)/', $profile->user_id.".$1", Input::file('image.name'));
                 File::delete(path('base').'/public/img/profile/' . $profile->image);
-                Input::upload('image', path('base').'/public/img/profile', Input::file('image.name'));
-                Input::merge(array('image' => Input::file('image.name')));
+                Input::upload('image', path('base').'/public/img/profile', $image_name);
+                Input::merge(array('image' => $image_name));
             }
 
-            Profile::update($profile->id,Input::get());
+            Profile::update($profile->id, Input::get());
 
 
             return Redirect::to('rms/account')
@@ -165,8 +166,9 @@ class Rms_Account_Controller extends Base_Controller
             //Create Profile
 
             if(Input::has_file('image')) {
-                Input::upload('image', path('base').'/public/img/profile', Input::file('image.name'));
-                Input::merge(array('image' => Input::file('image.name')));
+                $image_name = preg_replace('/.*\.(.+)/', $user->id.".$1", Input::file('image.name'));
+                Input::upload('image', path('base').'/public/img/profile', $image_name);
+                Input::merge(array('image' => $image_name));
             }
 
             $profile_data = Input::get();
