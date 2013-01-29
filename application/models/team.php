@@ -3,6 +3,11 @@
 class Team extends Eloquent {
 	public static $timestamps = true;
 
+    public static function all_active() 
+    {
+        return Year::current_year()->teams();
+    }
+
 	public function users()
     {
         return $this->has_many_and_belongs_to('User')->with('year_id','status');

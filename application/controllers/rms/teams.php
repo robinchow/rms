@@ -15,7 +15,7 @@ class Rms_Teams_Controller extends Base_Controller
 
     public function get_index()
     {
-        $teams = Team::all();
+        $teams = Team::all_active()->get();
         return View::make('teams.index')->with('teams', $teams);
     }
 
@@ -105,7 +105,7 @@ class Rms_Teams_Controller extends Base_Controller
 
     public function get_join()
     {
-        $teams = Team::where('privacy', '=', false)->lists('name', 'id');
+        $teams = Team::all_active()->lists('name', 'id');
 
         return View::make('teams.join')
             ->with('teams',$teams);

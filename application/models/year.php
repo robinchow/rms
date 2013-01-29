@@ -2,6 +2,15 @@
 
 class Year extends Eloquent {
 	public static $timestamps = true;
+    public static function current_year() 
+    {
+        return Year::where('year', '=', '2013')->first();
+    }
+
+    public function teams()
+    {
+        return $this->has_many_and_belongs_to('Team');
+    }
 
 	public function users()
     {
