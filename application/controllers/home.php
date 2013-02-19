@@ -44,7 +44,7 @@ class Home_Controller extends Base_Controller {
 		} 
 		else
 		{
-			$teams = Team::all();
+			$teams = Team::all_active()->get();
         	return View::make('home.teams')->with('teams', $teams);
 		}
 	}
