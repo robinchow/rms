@@ -47,7 +47,7 @@
 	<h3>Members</h3>
 	<table class="table table-bordered table-striped">
 		<tr><td>User</td><td>Tools</td></tr>
-	@foreach($team->get_members($year->id,'') as $user)
+	@foreach($team->get_members($year->id,'member') as $user)
 		<tr>
 			<td>
 				<a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a>
@@ -70,7 +70,7 @@
 	<table class="table table-bordered table-striped">
 			<tr><td>User</td><td>Tools</td></tr>
 
-	@foreach($team->get_members($year->id,'interested') as $user)
+	@foreach($team->get_members($year->id,'interest') as $user)
 		<tr>
 			<td>
 				<a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a>

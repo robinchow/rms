@@ -25,14 +25,14 @@
     		</ul>
     		<strong>Members</strong>
     		<ul>
-    		@foreach($team->get_members($year->id,'') as $user)
+    		@foreach($team->get_members($year->id,'member') as $user)
     			<li><a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a></li>
     		@endforeach
     		</ul>
     		@if (!$team->privacy)
     		<strong>Interested</strong>
     		<ul>
-    		@foreach($team->get_members($year->id,'interested') as $user)
+    		@foreach($team->get_members($year->id,'interest') as $user)
     			<li><a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a></li>
     		@endforeach
     		</ul>
