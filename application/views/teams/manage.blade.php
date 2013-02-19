@@ -36,7 +36,7 @@
 			<td>
 				<div class="btn-group">
 				{{HTML::decode(HTML::link('rms/teams/member_remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/head' ,'<i class="icon-remove"></i>', array('class'=>'btn btn-danger')))}}
-				{{HTML::decode(HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '' ,'<i class="icon-arrow-right"></i>', array('class'=>'btn btn-info')))}}
+				{{HTML::decode(HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '/member' ,'<i class="icon-arrow-right"></i>', array('class'=>'btn btn-info')))}}
 				</div>
 			</td>
 		</tr>
@@ -54,9 +54,9 @@
 			</td>
 			<td>
 				<div class="btn-group">
-				{{HTML::decode(HTML::link('rms/teams/member_remove/' . $user->id . '/' . $team->id .'/' . $year->id . '' ,'<i class="icon-remove"></i>', array('class'=>'btn btn-danger')))}}
+				{{HTML::decode(HTML::link('rms/teams/member_remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/member' ,'<i class="icon-remove"></i>', array('class'=>'btn btn-danger')))}}
 				{{HTML::decode(HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '/head' ,'<i class="icon-arrow-left"></i>', array('class'=>'btn btn-info')))}}
-				{{HTML::decode(HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '/interested' ,'<i class="icon-arrow-right	"></i>', array('class'=>'btn btn-info')))}}
+				{{HTML::decode(HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '/interest' ,'<i class="icon-arrow-right	"></i>', array('class'=>'btn btn-info')))}}
 				</div>
 			</td>
 		</tr>
@@ -77,8 +77,8 @@
 			</td>
 			<td>
 				<div class="btn-group">
-				{{HTML::decode(HTML::link('rms/teams/member_remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/interested' ,'<i class="icon-remove"></i>', array('class'=>'btn btn-danger')))}}
-				{{HTML::decode(HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '' ,'<i class="icon-arrow-left"></i>', array('class'=>'btn btn-info')))}}
+				{{HTML::decode(HTML::link('rms/teams/member_remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/interest' ,'<i class="icon-remove"></i>', array('class'=>'btn btn-danger')))}}
+				{{HTML::decode(HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '/member' ,'<i class="icon-arrow-left"></i>', array('class'=>'btn btn-info')))}}
 				</div>
 			</td>
 		</tr>

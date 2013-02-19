@@ -137,7 +137,7 @@ class Rms_Teams_Controller extends Base_Controller
 
         if(!$user->is_part_of_team($year->id, $team->id))
         {
-            $user->teams()->attach($team->id, array('status' => 'interested', 'year_id'=>$year->id));
+            $user->teams()->attach($team->id, array('status' => 'interest', 'year_id'=>$year->id));
             return Redirect::to('rms/teams')
                 ->with('success', 'Successfully joined Team');
         }
@@ -157,9 +157,9 @@ class Rms_Teams_Controller extends Base_Controller
             $users[] = $a->profile->full_name;
         }
 
-        $statuses = array('' => 'Member', 'head'=>'Head');
+        $statuses = array('member' => 'Member', 'head'=>'Head');
         if(!$team->privacy) {
-            $statuses = array('interested' => 'Interested', '' => 'Member', 'head'=>'Head');
+            $statuses = array('interest' => 'Interested', 'member' => 'Member', 'head'=>'Head');
         } 
 
 
@@ -196,7 +196,7 @@ class Rms_Teams_Controller extends Base_Controller
     }
 
     //should be changed to a ajax post
-    public function get_member_remove($user_id,$team_id, $year_id, $status = '')
+    public function get_member_remove($user_id,$team_id, $year_id, $status = 'member')
     {
         $user = User::find($user_id);
         $user->teams()->where('team_id','=',$team_id)->where('status', '=', $status)->where('year_id','=',$year_id)->first()->pivot->delete();
@@ -205,7 +205,7 @@ class Rms_Teams_Controller extends Base_Controller
                 ->with('warning', 'Successful deleted member');
     }
 
-    public function get_member_move($user_id,$team_id, $year_id, $status = '')
+    public function get_member_move($user_id,$team_id, $year_id, $status = 'member')
     {
         $user = User::find($user_id);
         $join = $user->teams()->where('team_id','=',$team_id)->where('year_id','=',$year_id)->first()->pivot;
