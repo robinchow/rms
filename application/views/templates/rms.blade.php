@@ -26,7 +26,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/rms/account">CSE Revue - RMS</a>
+          <a class="brand" href="/">CSE Revue</a><a class="brand" href="/"> - </a><a class="brand" href="/rms/account/">RMS</a>
           <div class="nav-collapse collapse">
             <form class="navbar-form pull-right">
               <a href="/rms/account/logout" class="btn">Logout</a>

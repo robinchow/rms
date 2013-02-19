@@ -25,7 +25,14 @@
         <img src="/img/logo.png"><h1>CSE Revue</h1>
       </header>
       <ul class="accounts">
-        <li><a href="/rms/account/signup">Sign Up</a></li> - <li><a href="/rms/account/login">Login</a></li>
+        <li><a href="/rms/account/signup">Sign Up</a></li> - 
+        <li>
+          @if(Auth::guest())
+            <a href="/rms/account/login">Login</a>
+          @else
+            <a href="/rms">RMS</a>
+          @endif
+        </li>
       </ul>
      </div>
 

@@ -26,7 +26,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">CSE Revue</a><a class="brand" href="/rms/account/">RMS</a>
+          <a class="brand" href="/">CSE Revue</a><a class="brand" href="/"> - </a><a class="brand" href="/rms/account/">RMS</a>
           <div class="nav-collapse collapse">
           </div><!--/.nav-collapse -->
         </div>
