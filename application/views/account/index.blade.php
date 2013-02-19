@@ -8,7 +8,15 @@
 	@if($user->needs_to_renew)
 	<div class="alert alert-warning">
 		<h1>You Need to renew</h1>
-		<p>Click renew in the sidebar</p>
+		{{ Form::open('rms/account/renew')}}
+
+		Click the button below if you would like to renew for {{$year->year}}<br><br>
+		{{ Form::submit('Renew', array('class'=>'btn btn-primary')) }}
+		{{ HTML::link('/rms/account','Cancel', array('class'=>'btn')) }}
+
+
+
+		{{ Form::close() }}
 	</div>
 	@endif
 @endsection
