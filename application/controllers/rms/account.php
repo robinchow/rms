@@ -327,7 +327,7 @@ class Rms_Account_Controller extends Base_Controller
             }
         }
 
-        if(!$errors) {}
+        if(!$errors) {
             return Redirect::to('rms/account/login')
                 ->with('success', 'Succesfully sent reset emails');
 
