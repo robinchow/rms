@@ -95,7 +95,7 @@ class Rms_Executives_Controller extends Base_Controller
     public function get_manage($id)
     {
         $executive = Executive::find($id);
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $year = Year::current_year();
         $users = array();
         foreach($year->users as $a ) {
             $users[] = $a->profile->full_name;
@@ -153,7 +153,7 @@ class Rms_Executives_Controller extends Base_Controller
     {
         $user = Auth::User();
         $executive = Executive::find(Input::get('executive_id'));
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $year = Year::current_year();
 
 
         if(!$user->is_part_of_exec($year->id, $executive->id))

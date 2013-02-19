@@ -119,7 +119,7 @@ Route::filter('admin', function()
 Route::filter('manage_team', function()
 {
 	$team_id = Request::route()->parameters[1];
-	$year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+	$year = Year::current_year();
 	if (!Auth::User()->can_manage_team($year->id,$team_id)) return Redirect::to('rms/account/login')->with('warning','You are not a admin');
 });
 

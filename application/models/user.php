@@ -41,7 +41,7 @@ class User extends Eloquent {
 
     public function get_needs_to_renew()
     {
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $year = Year::current_year();
         $needs_to_renew = true;
         foreach ($this->years as $y)
         {

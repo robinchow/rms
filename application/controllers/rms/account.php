@@ -183,7 +183,7 @@ class Rms_Account_Controller extends Base_Controller
 
 
             //Automatic renew them for current year
-            $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+            $year = Year::current_year();
             $user->years()->attach($year->id);
 
 
@@ -199,7 +199,7 @@ class Rms_Account_Controller extends Base_Controller
 
     public function get_renew()
     {
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $year = Year::current_year();
         
         return View::make('account.renew')
             ->with('year', $year);
@@ -208,7 +208,7 @@ class Rms_Account_Controller extends Base_Controller
     public function post_renew() 
     {
         $user = Auth::user();
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $year = Year::current_year();
 
         if($user->needs_to_renew)
         {

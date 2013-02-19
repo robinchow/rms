@@ -151,7 +151,7 @@ class Rms_Teams_Controller extends Base_Controller
     public function get_manage($id)
     {
         $team = Team::find($id);
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $year = Year::current_year();
         $users = array();
         foreach($year->users as $a ) {
             $users[] = $a->profile->full_name;

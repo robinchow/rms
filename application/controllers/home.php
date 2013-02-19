@@ -25,7 +25,7 @@ class Home_Controller extends Base_Controller {
 	//Exec
 	public function get_exec()
 	{
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $year = Year::current_year();
        
        	$execs = $year->executives();
 
@@ -60,7 +60,7 @@ class Home_Controller extends Base_Controller {
 	//Sponsors 
 	public function get_sponsors()
 	{
-        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
+        $year = Year::current_year();
 
         return View::make('home.sponsors')->with('year', $year);
 	}
