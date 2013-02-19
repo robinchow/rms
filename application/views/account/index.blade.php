@@ -12,10 +12,6 @@
 
 		Click the button below if you would like to renew for {{Year::current_year()->year}}<br><br>
 		{{ Form::submit('Renew', array('class'=>'btn btn-primary')) }}
-		{{ HTML::link('/rms/account','Cancel', array('class'=>'btn')) }}
-
-
-
 		{{ Form::close() }}
 	</div>
 	@endif
