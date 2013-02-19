@@ -57,12 +57,12 @@ class Home_Controller extends Base_Controller {
         return View::make('home.history')->with('years', $years);
 	}
 
-	//History
+	//Sponsors 
 	public function get_sponsors()
 	{
-        $years = Year::order_by('year', 'desc')->get();
+        $year = Year::where('year','=',Config::get('rms_config.current_year'))->first();
 
-        return View::make('home.sponsors')->with('years', $years);
+        return View::make('home.sponsors')->with('year', $year);
 	}
 
 
