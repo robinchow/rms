@@ -306,26 +306,34 @@ class Rms_Account_Controller extends Base_Controller
 
     public function post_forgot()
     {
-        $email = Input::get('email');
-        $user = User::where_email($email)->first();
-        if($user) {
-            $user->reset_password_hash = Str::random(64);
-            $user->save();
+        $emails = explode(',',Input::get('email'));
+        $errors = false;
+        foreach($emails as $email){
+            $user = User::where_email($email)->first();
+            if($user) {
+                $user->reset_password_hash = Str::random(64);
+                $user->save();
 
-            Message::to($user->email)
-            ->from('webmin.head@cserevue.org.au', 'CSE Revue')
-            ->subject('Reset Account Password')
-            ->body('Hello,<br>You have requested a password reset click on the link to continue with the reset
-                    <a href="'.$user->reset_url().'">Link</a> or copy and paste the url below in your browser<br>'.$user->reset_url())
-            ->html(true)
-            ->send();
-            
+                Message::to($user->email)
+                ->from('webmin.head@cserevue.org.au', 'CSE Revue')
+                ->subject('Reset Account Password')
+                ->body('Hello,<br>You have requested a password reset click on the link to continue with the reset
+                        <a href="'.$user->reset_url().'">Link</a> or copy and paste the url below in your browser<br>'.$user->reset_url())
+                ->html(true)
+                ->send();
+
+            } else {
+                $errors = true;
+            }
+        }
+
+        if(!$errors) {}
             return Redirect::to('rms/account/login')
-                ->with('success', 'Succesfully sent reset email');
+                ->with('success', 'Succesfully sent reset emails');
 
         } else {
             return Redirect::to('rms/account/forgot')
-                ->with('warning', 'Email does not exist, please enter correct email');
+                ->with('warning', 'One or more emails did not exist, the rest were sent');
         }
     }
 
