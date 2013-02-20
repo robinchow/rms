@@ -57,7 +57,7 @@
 
     <div class="row">
       <footer>
-        <p>&copy; CSE Revue. Designed and Developed By Christopher Manouvrier</p>
+        <p>&copy; CSE Revue. Designed and Developed By Christopher Manouvrier, Stephen Sherratt and Maddison Joyce.</p>
       </footer>
     </div>
   </div>
