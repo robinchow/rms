@@ -15,7 +15,7 @@ class User extends Eloquent {
 
 	public function teams()
     {
-        return $this->has_many_and_belongs_to('Team');
+        return $this->has_many_and_belongs_to('Team')->with('year_id','status');
     }
 
     public function years()

@@ -41,4 +41,31 @@
 	<p><strong>Start Year: </strong>{{ $user->profile->start_year }}</p>
 	<p><strong>Arc: </strong>{{ $user->profile->arc_string }}</p>
 
+	<h3>My Revue:</h3>
+	@foreach($user->years as $year)
+	<p><strong>{{$year->year}}: </strong>
+	@forelse($user->teams()->where_year_id($year->id)->get() as $team)
+		@if($team->pivot->status == 'head')
+		<b>
+		{{$team->name}},
+		</b>
+		@elseif($team->pivot->status == 'member')
+		{{$team->name}},
+		@else
+		<i>
+		{{$team->name}},
+		</i>
+		@endif
+	@empty
+	You were not part of any teams that year
+	@endforelse
+
+	</p>
+	@endforeach
+	<p>
+	<b>Bold</b> = Team Head<br>
+	Normal = Member<br>
+	<i>Italics</i> = Interested 
+	</p>
+
 @endsection
