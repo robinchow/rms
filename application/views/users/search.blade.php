@@ -8,12 +8,12 @@
 {{ Form::open('rms/users/search', 'GET') }}
   <h2>Search Members</h2>
   <p>Search for members by name, email or phone number</p>
-  {{ Form::text('query', $query) }}
+  {{ Form::text('q', $query) }}
   {{ Form::submit('Search',array('class'=>'btn btn-primary')) }}
 
 {{ Form::close() }}
 
-<legend>Results</legend>
+<legend>Results <a style='font-size:13px' href='search.csv?q={{ $query }}'>(Download as CSV)</a></legend>
 <table class="table table-striped table-bordered">
   <tr>
     <th>Full Name</th>

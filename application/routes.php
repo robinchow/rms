@@ -11,6 +11,7 @@ Route::controller('rms.account');
 Route::controller('rms.teams');
 Route::controller('rms.years');
 Route::controller('rms.executives');
+Route::get('rms/users/search(:any)', 'rms.users@search');
 Route::controller('rms.users');
 
 Route::controller('rms.faqs');

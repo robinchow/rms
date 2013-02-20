@@ -17,11 +17,11 @@ class Rms_Users_Controller extends Base_Controller
         return View::make('users.index')->with('users', $users);
     }
 
-    public function get_search()
+    public function get_search($format = '.html')
     {
         $input = Input::get();
-        if (array_key_exists('query', $input) && $input['query'] != '') {
-            $query = $input['query'];
+        if (array_key_exists('q', $input) && $input['q'] != '') {
+            $query = $input['q'];
             if (strlen($query) > 8) {
                 $phone_query = $query;
             } else {
@@ -43,9 +43,14 @@ class Rms_Users_Controller extends Base_Controller
             $results = array();
         }
 
-        return View::make('users.search')
-            ->with('query', $query)
-            ->with('results', $results);
+        switch($format) {
+            case '.csv': return View::make('users.search_csv')
+                ->with('results',$results);
+            default: return View::make('users.search')
+                ->with('query', $query)
+                ->with('results', $results);
+        }
+        
     }
 
     public function get_show($id)
