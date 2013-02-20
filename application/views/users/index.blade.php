@@ -6,7 +6,6 @@
 
 @section('content')
 <h2>Users</h2>
-@if ( count($users) > 0 )
 	<table class="table table-striped table-bordered">
 		<tr>
 			<th>Full Name</th>
@@ -14,7 +13,7 @@
 			<th>Admin</th>
 			<th>Tools</th>
 		</tr>
-	@foreach ($users as $user)
+	@foreach ($users->results as $user)
 		<tr>
 			<td>{{$user->profile->full_name}}</td>
 			<td>{{$user->profile->display_name}}</td>
@@ -43,9 +42,8 @@
 		</tr>
 	@endforeach
 	</table>
-@else
-	No Users
-@endif
+	{{$users->links(3, Paginator::ALIGN_LEFT, Paginator::SIZE_SMALL);}}
+
 
 
 
