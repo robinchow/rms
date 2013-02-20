@@ -13,7 +13,7 @@ class Rms_Users_Controller extends Base_Controller
 
     public function get_index()
     {
-        $users = User::order_by('email', 'asc')->paginate(15);
+        $users = User::order_by('email', 'asc')->paginate(10);
         return View::make('users.index')->with('users', $users);
     }
 
