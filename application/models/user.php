@@ -80,6 +80,7 @@ class User extends Eloquent {
             $team = Team::find($team_id);
             $result = $team->users()->where('users.id', '=', $this->id)
                                     ->where('status', '=', 'head')
+                                    ->where('year_id','=',$year_id)
                                     ->get();
             return !empty($result);
         }
