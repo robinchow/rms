@@ -19,6 +19,11 @@ class Team extends Eloquent {
         return $this->has_many_and_belongs_to('User')->with('year_id','status');
     }
 
+    public function years()
+    {
+        return $this->has_many_and_belongs_to('Year');
+    }
+
     public function get_privacy_string()
 	{
 		return ($this->privacy ? 'Private' : 'Public');

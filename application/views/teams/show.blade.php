@@ -14,7 +14,7 @@
     	<strong>Description:</strong>
     	<p>{{ nl2br($team->description) }}</p>
     	<strong>Members:</strong><br>
-    	@foreach($years as $year)
+    	@foreach($team->years as $year)
     	    <hr>
     		<strong>{{$year->year}}:</strong><br>
     		<strong>Head</strong>

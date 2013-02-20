@@ -61,8 +61,7 @@ class Rms_Teams_Controller extends Base_Controller
     public function get_show($id)
     {
         $team = Team::find($id);
-        $years = Year::order_by('year', 'desc')->get();
-        return View::make('teams.show')->with('team',$team)->with('years',$years);
+        return View::make('teams.show')->with('team',$team);
     }
 
     public function get_edit($id)
