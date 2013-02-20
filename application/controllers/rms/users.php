@@ -34,7 +34,7 @@ class Rms_Users_Controller extends Base_Controller
             }
             $results = User::join('profiles', 'users.id', '=', 'profiles.user_id')
                 ->where('full_name','LIKE','%'.$query.'%')
-                ->where('display_name','LIKE','%'.$query.'%')
+                ->or_where('display_name','LIKE','%'.$query.'%')
                 ->or_where('email','LIKE','%'.$email_query.'%')
                 ->or_where('phone','LIKE','%'.$phone_query.'%')
                 ->get();
