@@ -21,7 +21,7 @@ class Team extends Eloquent {
 
     public function years()
     {
-        return $this->has_many_and_belongs_to('Year');
+        return $this->has_many_and_belongs_to('Year')->order_by('year', 'desc');;
     }
 
     public function get_privacy_string()
