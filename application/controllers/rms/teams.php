@@ -122,7 +122,7 @@ class Rms_Teams_Controller extends Base_Controller
 
     public function get_join()
     {
-        $teams = Team::all_active()->lists('name', 'id');
+        $teams = Team::all_active()->where('privacy', '=', false)->lists('name', 'id');
 
         return View::make('teams.join')
             ->with('teams',$teams);
