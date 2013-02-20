@@ -21,7 +21,7 @@
             <ul class="thumbnails">
         		@foreach($team->get_members($year->id,'head') as $user)
         		<li><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
-                    <img src="/img/profile/'{{$user->profile->image}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
+                    <img src="/img/profile/{{$user->profile->image}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
                     <center><caption>{{$user->profile->full_name}}</caption></center>
                 </a></li>
         		@endforeach
@@ -31,7 +31,7 @@
             <ul class="thumbnails">
     		    @foreach($team->get_members($year->id,'member') as $user)
                 <li><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
-                    <img src="/img/profile/'{{$user->profile->image}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
+                    <img src="/img/profile/{{$user->profile->image}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
                     <center><caption>{{$user->profile->full_name}}</caption></center>
                 </a></li>
     		    @endforeach
@@ -42,7 +42,7 @@
             <ul class="thumbnails">
                 @foreach($team->get_members($year->id,'interest') as $user)
                 <li><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
-                    <img src="/img/profile/'{{$user->profile->image}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
+                    <img src="/img/profile/{{$user->profile->image}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
                     <center><caption>{{$user->profile->full_name}}</caption></center>
                 </a></li>
                 @endforeach
