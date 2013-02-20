@@ -42,7 +42,7 @@
 		</tr>
 	@endforeach
 	</table>
-	{{$users->links(3, Paginator::SIZE_SMALL);}}
+	{{$users->links(3, Paginator::ALIGN_CENTER, Paginator::SIZE_SMALL);}}
 
 
 
