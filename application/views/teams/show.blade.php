@@ -16,26 +16,37 @@
     	<strong>Members:</strong><br>
     	@foreach($team->years as $year)
     	    <hr>
-    		<strong>{{$year->year}}:</strong><br>
-    		<strong>Head</strong>
-    		<ul>
-    		@foreach($team->get_members($year->id,'head') as $user)
-    			<li><a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a></li>
-    		@endforeach
+    		<h3>{{$year->year}}:</h3>
+    		<h4>Head</h3>
+            <ul class="thumbnails">
+        		@foreach($team->get_members($year->id,'head') as $user)
+        		<li><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
+                    <img src="/img/profile/'{{$user->profile->image}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
+                    <center><caption>{{$user->profile->full_name}}</caption></center>
+                </a></li>
+        		@endforeach
+            </ul>
+
+    		<h4>Members</h4>
+            <ul class="thumbnails">
+    		    @foreach($team->get_members($year->id,'member') as $user)
+                <li><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
+                    <img src="/img/profile/'{{$user->profile->image}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
+                    <center><caption>{{$user->profile->full_name}}</caption></center>
+                </a></li>
+    		    @endforeach
     		</ul>
-    		<strong>Members</strong>
-    		<ul>
-    		@foreach($team->get_members($year->id,'member') as $user)
-    			<li><a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a></li>
-    		@endforeach
-    		</ul>
+
     		@if (!$team->privacy)
-    		<strong>Interested</strong>
-    		<ul>
-    		@foreach($team->get_members($year->id,'interest') as $user)
-    			<li><a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a></li>
-    		@endforeach
-    		</ul>
+    		<h4>Interested</h4>
+            <ul class="thumbnails">
+                @foreach($team->get_members($year->id,'interest') as $user)
+                <li><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
+                    <img src="/img/profile/'{{$user->profile->image}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
+                    <center><caption>{{$user->profile->full_name}}</caption></center>
+                </a></li>
+                @endforeach
+            </ul>
     		@endif
     	@endforeach
 @endsection
