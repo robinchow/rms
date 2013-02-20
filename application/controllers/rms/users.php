@@ -17,11 +17,40 @@ class Rms_Users_Controller extends Base_Controller
         return View::make('users.index')->with('users', $users);
     }
 
-    
+    public function get_search()
+    {
+        $input = Input::get();
+        if (array_key_exists('query', $input) && $input['query'] != '') {
+            $query = $input['query'];
+            if (strlen($query) > 8) {
+                $phone_query = $query;
+            } else {
+                $phone_query = 'NOTAPHONENUMBER';
+            }
+            if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9+-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i", $query)) {
+                $email_query = $query;
+            } else {
+                $email_query = 'NOTANEMAILADDRESS';
+            }
+            $results = User::join('profiles', 'users.id', '=', 'profiles.user_id')
+                ->where('full_name','LIKE','%'.$query.'%')
+                ->where('display_name','LIKE','%'.$query.'%')
+                ->or_where('email','LIKE','%'.$email_query.'%')
+                ->or_where('phone','LIKE','%'.$phone_query.'%')
+                ->get();
+        } else {
+            $query = '';
+            $results = array();
+        }
+
+        return View::make('users.search')
+            ->with('query', $query)
+            ->with('results', $results);
+    }
 
     public function get_show($id)
     {
-       $user = User::find($id);
+        $user = User::find($id);
         return View::make('users.show')->with('user', $user);
     }
 
