@@ -44,6 +44,13 @@
 	<h3>My Revue:</h3>
 	@foreach($user->years as $year)
 	<p><strong>{{$year->year}}: </strong>
+	@foreach($user->executives()->where_year_id($year->id)->get() as $executive)
+		{{$executive->position}}
+		@if($executive->pivot->non_executive)
+		(Assistant)
+		@endif
+		,
+	@endforeach
 	@forelse($user->teams()->where_year_id($year->id)->get() as $team)
 		@if($team->pivot->status == 'head')
 		<b>
@@ -57,7 +64,7 @@
 		</i>
 		@endif
 	@empty
-	You were not part of any teams that year
+	You were not part of any teams that year.
 	@endforelse
 
 	</p>

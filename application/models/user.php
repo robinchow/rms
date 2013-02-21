@@ -25,7 +25,7 @@ class User extends Eloquent {
 
     public function executives()
     {
-        return $this->has_many_and_belongs_to('Executive');
+        return $this->has_many_and_belongs_to('Executive')->with('year_id','non_executive');
     }
 
     public function reset_url()
