@@ -41,8 +41,8 @@ class User extends Eloquent {
     public function image_url()
     {
         $url = URL::base() . '/img/profile/'.$this->profile->image;
-
-        if(!File::exists('public/img/profile/'.$this->profile->image)) {
+        $file = 'public/img/profile/'.$this->profile->image;
+        if(!(File::exists($file) && File::is( array('jpg','gif','png'),  $file ))) {
             if($this->profile->gender=='M'){
                 $url = URL::base() . '/img/male.jpg';
             } else {
