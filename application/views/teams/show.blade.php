@@ -20,9 +20,9 @@
     		<h4>Head</h3>
             <ul class="thumbnails">
         		@foreach($team->get_members($year->id,'head') as $user)
-        		<li><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
+        		<li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
                     @if($year->id == Year::current_year()->id)
-                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
+                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
                     @endif
                     <center><caption>{{$user->profile->full_name}}</caption></center>
                 </a></li>
@@ -32,9 +32,9 @@
     		<h4>Members</h4>
             <ul class="thumbnails">
     		    @foreach($team->get_members($year->id,'member') as $user)
-                <li><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
+                <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
                     @if($year->id == Year::current_year()->id)
-                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
+                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
                     @endif                    
                     <center><caption>{{$user->profile->full_name}}</caption></center>
                 </a></li>
@@ -45,9 +45,9 @@
     		<h4>Interested</h4>
             <ul class="thumbnails">
                 @foreach($team->get_members($year->id,'interest') as $user)
-                <li><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
+                <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
                     @if($year->id == Year::current_year()->id)
-                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
+                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
                     @endif                    
                     <center><caption>{{$user->profile->full_name}}</caption></center>
                 </a></li>

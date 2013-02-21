@@ -15,8 +15,8 @@
     		<strong>{{$year->year}}</strong><br>
             <ul class="thumbnails">
     		@foreach($executive->get_all_members($year->id) as $user)
-                <li><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
-                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}" width='100px' height='100px' >
+                <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
+                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}" >
                     <center><caption>{{$user->profile->full_name}}
                     @if($user->pivot->non_executive)
                         (Assistant)
