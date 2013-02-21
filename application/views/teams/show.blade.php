@@ -27,7 +27,7 @@
                         @endif
                         <center><caption>{{$user->profile->full_name}}</caption></center>
                     </a></li>
-                    @if($key%5==0 && $key!=0)
+                    @if($key%6==0 && $key!=0)
                     </ul></div>
                     <div class="row-fluid">
                     <ul class="thumbnails">
@@ -46,7 +46,7 @@
                         @endif
                         <center><caption>{{$user->profile->full_name}}</caption></center>
                     </a></li>
-                    @if($key%5==0 && $key!=0)
+                    @if($key%6==0 && $key!=0)
                     </ul></div>
                     <div class="row-fluid">
                     <ul class="thumbnails">
@@ -66,7 +66,7 @@
                         @endif
                         <center><caption>{{$user->profile->full_name}}</caption></center>
                     </a></li>
-                    @if($key%5==0 && $key!=0)
+                    @if($key%6==0 && $key!=0)
                     </ul></div>
                     <div class="row-fluid">
                     <ul class="thumbnails">
