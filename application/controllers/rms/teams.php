@@ -15,9 +15,13 @@ class Rms_Teams_Controller extends Base_Controller
             ->only(array('renew'));
     }
 
-    public function get_index()
+    public function get_index($current='current')
     {
-        $teams = Team::all_active()->get();
+        if($current=='archive') {
+            $teams = Team::all();
+        } else {
+            $teams = Team::all_active()->get();
+        }
         return View::make('teams.index')->with('teams', $teams);
     }
 
