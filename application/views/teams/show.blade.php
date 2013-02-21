@@ -18,41 +18,62 @@
     	    <hr>
     		<h3>{{$year->year}}:</h3>
     		<h4>Head</h3>
-            <ul class="thumbnails">
-        		@foreach($team->get_members($year->id,'head') as $user)
-        		<li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
-                    @if($year->id == Year::current_year()->id)
-                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
+            <div class="row-fluid">
+                <ul class="thumbnails">
+            		@foreach($team->get_members($year->id,'head') as $key => $user)
+            		<li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
+                        @if($year->id == Year::current_year()->id)
+                        <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
+                        @endif
+                        <center><caption>{{$user->profile->full_name}}</caption></center>
+                    </a></li>
+                    @if($key%6==0)
+                    </ul></div>
+                    <div class="row-fluid">
+                    <ul class="thumbnails">
                     @endif
-                    <center><caption>{{$user->profile->full_name}}</caption></center>
-                </a></li>
-        		@endforeach
-            </ul>
+            		@endforeach
+                </ul>
+            </div>
 
     		<h4>Members</h4>
-            <ul class="thumbnails">
-    		    @foreach($team->get_members($year->id,'member') as $user)
-                <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
-                    @if($year->id == Year::current_year()->id)
-                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
-                    @endif                    
-                    <center><caption>{{$user->profile->full_name}}</caption></center>
-                </a></li>
-    		    @endforeach
-    		</ul>
+            <div class="row-fluid">
+                <ul class="thumbnails">
+                    @foreach($team->get_members($year->id,'member') as $key => $user)
+                    <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
+                        @if($year->id == Year::current_year()->id)
+                        <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
+                        @endif
+                        <center><caption>{{$user->profile->full_name}}</caption></center>
+                    </a></li>
+                    @if($key%6==0)
+                    </ul></div>
+                    <div class="row-fluid">
+                    <ul class="thumbnails">
+                    @endif
+                    @endforeach
+                </ul>
+            </div>
 
     		@if (!$team->privacy)
     		<h4>Interested</h4>
-            <ul class="thumbnails">
-                @foreach($team->get_members($year->id,'interest') as $user)
-                <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
-                    @if($year->id == Year::current_year()->id)
-                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
-                    @endif                    
-                    <center><caption>{{$user->profile->full_name}}</caption></center>
-                </a></li>
-                @endforeach
-            </ul>
+            <div class="row-fluid">
+                <ul class="thumbnails">
+                    @foreach($team->get_members($year->id,'interest') as $key => $user)
+                    <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
+                        @if($year->id == Year::current_year()->id)
+                        <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
+                        @endif
+                        <center><caption>{{$user->profile->full_name}}</caption></center>
+                    </a></li>
+                    @if($key%6==0)
+                    </ul></div>
+                    <div class="row-fluid">
+                    <ul class="thumbnails">
+                    @endif
+                    @endforeach
+                </ul>
+            </div>
     		@endif
     	@endforeach
 @endsection
