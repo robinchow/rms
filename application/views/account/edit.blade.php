@@ -20,7 +20,7 @@
         <legend>Personal Details:</legend>
 
         {{ Form::label('image', 'Image') }}
-        {{ Image::polaroid('/img/profile/'.$user->profile->image, $user->profile->display_name,array('width'=>'100px','height'=>'100px')) }}
+        {{ Image::polaroid($user->image_url(), $user->profile->display_name,array('width'=>'100px','height'=>'100px')) }}
         <br>
 
         {{ Form::file('image')}}<br>

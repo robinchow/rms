@@ -19,7 +19,7 @@
 
 
 @section('content')
-	{{ Image::polaroid('/img/profile/'.$user->profile->image, $user->profile->display_name,array('width'=>'200px','height'=>'200px','class'=>'pull-right')) }}
+	{{ Image::polaroid($user->image_url(), $user->profile->display_name,array('width'=>'200px','height'=>'200px','class'=>'pull-right')) }}
 
 	<h2>Your Profile</h2>
 

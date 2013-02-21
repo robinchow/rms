@@ -37,6 +37,21 @@ class User extends Eloquent {
     {
         return URL::base() . '/rms/users/show/'.$this->id;
     }
+
+    public function image_url()
+    {
+        $url = URL::base() . '/img/profile/'.$this->profile->image;
+
+        if(!File::exists('public/img/profile/'.$this->profile->image)) {
+            if($this->profile->gender=='M'){
+                $url = URL::base() . '/img/male.jpg';
+            } else {
+                $url = URL::base() . '/img/female.jpg';
+            }
+        }
+
+        return $url;
+    }
     
 
     public function get_needs_to_renew()
