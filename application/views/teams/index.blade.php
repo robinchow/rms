@@ -11,6 +11,7 @@
         <tr>
             <th>Team</th>
             <th>Mailing List</th>
+            <th>My Membership</th>
             <th>Privacy</th>
             <th>Tools</th>
         </tr>
@@ -18,6 +19,13 @@
         <tr>
     	<th>{{ HTML::link('/rms/teams/show/'.$team->id,$team->name) }}</td>
     	<td>{{ $team->mailing_list }}</td>
+        <td>
+            @if(Auth::user()->is_part_of_team(Year::current_year()->id,$team->id))
+                <i class="icon-ok"></i>
+            @else
+                <i class="icon-remove"></i>
+            @endif
+        </td>
     	<td>{{$team->privacy_string}}</td>
         <td>
             <div class="btn-group">
