@@ -36,8 +36,10 @@
 
 
             	@endforeach
+                @if(count($team->get_members($year->id,'head'))>0)
                     </ul>
                     </div>
+                @endif
 
     		<h4>Members</h4>
                 @foreach($team->get_members($year->id,'member') as $key => $user)
@@ -58,8 +60,10 @@
 
 
                 @endforeach
+                @if(count($team->get_members($year->id,'member'))>0)
                     </ul>
                     </div>
+                @endif
 
     		@if (!$team->privacy)
     		<h4>Interested</h4>
@@ -81,8 +85,10 @@
 
 
                 @endforeach
+                @if(count($team->get_members($year->id,'interest'))>0)
                     </ul>
                     </div>
+                @endif
     		@endif
     	@endforeach
 @endsection
