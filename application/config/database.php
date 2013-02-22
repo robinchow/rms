@@ -69,8 +69,8 @@ return array(
 
 		'mysql' => array(
 			'driver'   => 'mysql',
-			'host'     => 'localhost',
-			'database' => 'rms',
+			'host'     => $_SERVER['db_host'],
+			'database' => $_SERVER['db_name'],
 			'username' => $_SERVER['secret_db_user'],
 			'password' => $_SERVER['secret_db_pass'],
 			'charset'  => 'utf8',
