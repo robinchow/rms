@@ -24,7 +24,7 @@
   @forelse ($results as $result)
     @unless ($result->privacy)
       <tr>
-        <td>{{ $result->full_name }}</td>
+        <td><a href="/rms/users/show/{{$result->id}}">{{ $result->full_name }}</a></td>
         <td>{{ $result->display_name }}</td>
         <td>{{ $result->email }}</td>
         <td>{{ $result->phone }}</td>
