@@ -198,6 +198,35 @@ class Rms_Teams_Controller extends Base_Controller
         }
     }
 
+    //Join and leave team could be merged
+    public function get_member_join($team_id)
+    {
+        $user = Auth::User();
+        $team = Team::find($team_id);
+        $year = Year::current_year();
+
+        if(!$user->is_part_of_team($year->id, $team->id))
+        {
+            $user->teams()->attach($team->id, array('status' => 'interest', 'year_id'=>$year->id));
+            return Redirect::to('rms/teams')
+                ->with('success', 'Successfully joined Team');
+        }
+        else 
+        {
+             return Redirect::to('rms/teams')
+                 ->with('warning', 'You are already a member of that team');
+        }
+    }
+
+    public function get_member_leave($team_id)
+    {
+        $user = Auth::User();
+        $user->teams()->where('team_id','=',$team_id)->where('year_id','=',Year::current_year()->id)->first()->pivot->delete();
+
+        return Redirect::to('rms/teams')
+                ->with('success', 'Successful left team');
+    }
+    
     //should be changed to a ajax post
     public function get_member_remove($user_id,$team_id, $year_id, $status = 'member')
     {

@@ -95,7 +95,6 @@
 
     <li class="nav-header">Teams</li>
     <li>{{HTML::link('rms/teams','View Teams')}}</li>
-    <li>{{HTML::link('rms/teams/join','Join A Team')}}</li>
     @if(Auth::user()->admin)
         <li>{{HTML::link('rms/teams/renew','Renew Teams')}}</li>
     @endif
