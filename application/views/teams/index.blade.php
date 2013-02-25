@@ -49,6 +49,8 @@
 	No Teams
 @endif
 
+@if(Auth::User()->admin )
 {{HTML::link('rms/teams/add','Add Team',array('class'=>'btn btn-primary'))}}
+@endif
 
 @endsection
