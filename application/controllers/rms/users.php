@@ -22,29 +22,32 @@ class Rms_Users_Controller extends Base_Controller
         $input = Input::get();
         $years = Year::lists('year', 'id');
         if (array_key_exists('q', $input) && $input['q'] != '') {
-            $query = $input['q'];
+            $q = $input['q'];
             $year_id = $input['y'];
             $year = Year::find($year_id)->year;
-            if (strlen($query) > 8) {
-                $phone_query = $query;
+            if (strlen($q) > 8) {
+                $phone_query = $q;
             } else {
                 $phone_query = 'NOTAPHONENUMBER';
             }
-            if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9+-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i", $query)) {
-                $email_query = $query;
+            if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9+-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i", $q)) {
+                $email_query = $q;
             } else {
                 $email_query = 'NOTANEMAILADDRESS';
             }
             $results = User::join('profiles', 'users.id', '=', 'profiles.user_id')
                 ->join('user_year','users.id', '=', 'user_year.user_id')
                 ->where('year_id','=',$year_id)
-                ->where('full_name','LIKE','%'.$query.'%')
-                ->or_where('display_name','LIKE','%'.$query.'%')
-                ->or_where('email','LIKE','%'.$email_query.'%')
-                ->or_where('phone','LIKE','%'.$phone_query.'%')
+                ->where(function($query) use ($q, $email_query, $phone_query)
+                {
+                    $query->or_where('full_name','LIKE','%'.$q.'%');
+                    $query->or_where('display_name','LIKE','%'.$q.'%');
+                    $query->or_where('email','LIKE','%'.$email_query.'%');
+                    $query->or_where('phone','LIKE','%'.$phone_query.'%');
+                })
                 ->get();
         } else {
-            $query = '';
+            $q = '';
             $year = Year::current_year()->year;
             $results = array();
         }
@@ -53,7 +56,7 @@ class Rms_Users_Controller extends Base_Controller
             case '.csv': return View::make('users.search_csv')
                 ->with('results',$results);
             default: return View::make('users.search')
-                ->with('query', $query)
+                ->with('query', $q)
                 ->with('year', $year)
                 ->with('years', $years)
                 ->with('results', $results);
