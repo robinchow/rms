@@ -9,6 +9,7 @@
   <h2>Search Members</h2>
   <p>Search for members by name, email or phone number</p>
   {{ Form::text('q', $query, array('class'=>'search-query')) }}
+  {{ Form::select('y', $years, Year::where_year($year)->first()->id) }}
   {{ Form::submit('Search',array('class'=>'btn btn-primary')) }}
 
 {{ Form::close() }}

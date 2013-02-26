@@ -20,8 +20,11 @@ class Rms_Users_Controller extends Base_Controller
     public function get_search($format = '.html')
     {
         $input = Input::get();
+        $years = Year::lists('year', 'id');
         if (array_key_exists('q', $input) && $input['q'] != '') {
             $query = $input['q'];
+            $year_id = $input['y'];
+            $year = Year::find($year_id)->year;
             if (strlen($query) > 8) {
                 $phone_query = $query;
             } else {
@@ -33,6 +36,8 @@ class Rms_Users_Controller extends Base_Controller
                 $email_query = 'NOTANEMAILADDRESS';
             }
             $results = User::join('profiles', 'users.id', '=', 'profiles.user_id')
+                ->join('user_year','users.id', '=', 'user_year.user_id')
+                ->where('year_id','=',$year_id)
                 ->where('full_name','LIKE','%'.$query.'%')
                 ->or_where('display_name','LIKE','%'.$query.'%')
                 ->or_where('email','LIKE','%'.$email_query.'%')
@@ -40,6 +45,7 @@ class Rms_Users_Controller extends Base_Controller
                 ->get();
         } else {
             $query = '';
+            $year = Year::current_year()->year;
             $results = array();
         }
 
@@ -48,6 +54,8 @@ class Rms_Users_Controller extends Base_Controller
                 ->with('results',$results);
             default: return View::make('users.search')
                 ->with('query', $query)
+                ->with('year', $year)
+                ->with('years', $years)
                 ->with('results', $results);
         }
         
