@@ -22,9 +22,9 @@
     	<td>{{$team->privacy_string}}</td>
         <td>
             <div class="btn-group">
-                    @if(Auth::user()->is_part_of_team(Year::current_year()->id,$team->id) && !$team->privacy)
+                    @if(Auth::user()->is_part_of_team(Year::current_year()->id,$team->id) && !$team->privacy && $team->is_active())
                         <a class="btn" href="/rms/teams/member_leave/{{$team->id}}">Leave</a>
-                    @elseif(!$team->privacy)
+                    @elseif(!$team->privacy && $team->is_active())
                         <a class="btn" href="/rms/teams/member_join/{{$team->id}}">&nbsp;Join&nbsp;&nbsp;</a>
                     @endif
 
@@ -51,5 +51,6 @@
 @if(Auth::User()->admin )
 {{HTML::link('rms/teams/add','Add Team',array('class'=>'btn btn-primary'))}}
 @endif
+{{HTML::link('rms/teams/index/archive','Archives',array('class'=>'btn btn-primary'))}}
 
 @endsection
