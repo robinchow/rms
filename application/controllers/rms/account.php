@@ -316,9 +316,10 @@ class Rms_Account_Controller extends Base_Controller
 
                 Message::to($user->email)
                 ->from('webmin.head@cserevue.org.au', 'CSE Revue')
-                ->subject('Reset Account Password')
-                ->body('Hello,<br>You have requested a password reset click on the link to continue with the reset
-                        <a href="'.$user->reset_url().'">Link</a> or copy and paste the url below in your browser<br>'.$user->reset_url())
+                ->subject('Welcome to CSE Revue - Account Activation')
+                ->body('Hello,<br>You are receiving this email because you recently joined CSE Revue. We have created you an account on our website, so you can receive updates about what events we are holding, and get involved with teams in the society. To activate your account, use the link below. Once your account is active you can use our website (cserevue.org.au) to join some teams.<br>
+                        <a href="'.$user->reset_url().'">Link</a> or copy and paste the url below in your browser<br>'.$user->reset_url().
+                        "<br><br>Regards,<br>The Webmin Team")
                 ->html(true)
                 ->send();
 
