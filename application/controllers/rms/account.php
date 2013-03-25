@@ -320,8 +320,8 @@ class Rms_Account_Controller extends Base_Controller
                 ->body('Hello,<br><br>You are receiving this email because you recently signed up to CSE Revue at one of our BBQs.
                         You have been added to our website and will now receive email updates on events we are holding. To join some teams and
                         get involved with the society, please activate your account and create yourself a password. This can be done by clicking
-                        the link below.
-                        <a href="'.$user->reset_url().'">Link</a> or copy and paste the url below in your browser<br>'.$user->reset_url().
+                        this 
+                        <a href="'.$user->reset_url().'">link</a> or copy and paste the url below in your browser<br>'.$user->reset_url().
                         '<br><br>CSE Revue Webmin')
                 ->html(true)
                 ->send();
