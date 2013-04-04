@@ -76,6 +76,14 @@ class User extends Eloquent {
         return $count!=0;
     }
 
+    public function is_currently_part_of_exec()
+    {
+        $count = DB::table('executive_user')
+                    ->where('year_id', '=', Year::current_year()->id)
+                    ->where('user_id', '=', $this->id)->count();
+        return $count!=0;
+    }
+
     public function is_part_of_team($year_id, $team_id)
     {
         $count = DB::table('team_user')->where('team_id', '=', $team_id)
