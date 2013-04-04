@@ -116,7 +116,7 @@
 </li>
 
 
-    @if(Auth::user()->admin)
+    @if(Auth::user()->admin || user()->is_currently_part_of_exec())
       <li class="nav-header">Website Settings</li>
       <li>{{HTML::link('rms/news','News')}}</li>
       <li>{{HTML::link('rms/faqs','FAQs')}}</li>
