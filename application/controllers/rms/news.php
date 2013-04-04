@@ -7,7 +7,7 @@ class Rms_News_Controller extends Base_Controller
     public function __construct() 
     {
         $this->filter('before', 'auth');
-        $this->filter('before', 'admin')->except('index');
+#        $this->filter('before', 'admin')->except('index');
 
     }
 
@@ -60,7 +60,9 @@ class Rms_News_Controller extends Base_Controller
 
     public function post_add()
     {
-
+        if (!Auth::user->is_currently_part_of_exec()) {
+            return Redirect::to('rms'); #TODO make this nicer
+        }
         $input = Input::get();
 
         $rules = array(
