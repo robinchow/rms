@@ -34,6 +34,11 @@ class Team extends Eloquent {
 		return $this->alias . '@cserevue.org.au';
 	}
 
+	public function get_heads_email() 
+	{
+		return $this->alias . '.head@cserevue.org.au';
+	}
+
 	public function get_members($year_id, $status) 
 	{
 		$all_users = $this->users;

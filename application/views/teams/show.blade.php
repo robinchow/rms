@@ -7,6 +7,8 @@
 @section('content')
 
     <h2>{{ $team->name }}</h2>
+        <strong>Heads Email:</strong>
+        <p>{{ $team->heads_email }}</p>
     	<strong>Mailing List:</strong>
     	<p>{{ $team->mailing_list }}</p>
     	<strong>Privacy:</strong>
