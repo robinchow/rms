@@ -21,10 +21,10 @@ class Create_Camp_Registration_Table {
 		    $table->boolean('dietary');
 		    $table->text('dietary_requirements')->nullable();
 
-		    $table->boolean('car')
+		    $table->boolean('car');
 		    $table->integer('car_places')->nullable();
 
-		    $table->text('song_requests');->nullable();
+		    $table->text('song_requests')->nullable();
 
 		    $table->boolean('paid');
 		    $table->timestamps();
