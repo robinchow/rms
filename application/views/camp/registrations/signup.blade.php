@@ -7,12 +7,17 @@
 @section('content')
     {{ Form::open('rms/camp/registrations/signup')}}
 
-    <legend>Add New Camp</legend>
+    <legend>Register for Camp</legend>
         {{ Form::label('camp_setting_id', 'Camp') }}
         {{ Form::select('camp_setting_id', $camps) }}<br>
 
         <!--user Details-->
         {{ Form::hidden('user_id',Auth::User()->id)}}<br>
+
+        Full Name: {{ Auth::User()->profile->full_name }}<br>
+        DOB: {{ Auth::User()->profile->dob }}<br>
+        Phone: {{ Auth::User()->profile->number }}<br>
+        Gender: {{ Auth::User()->profile->gender }}<br>
 
 
 
@@ -27,15 +32,16 @@
             {{ Form::checkbox('dietary', 1,Input::old('dietary') ) }} Dietary Requirments
         </label>
 
-        {{ Form::label('dietary_requirments', 'Dietary Requirments') }}
-        {{ Form::textarea('dietary_requirments',Input::old('dietary_requirments'))}}<br>
+        {{ Form::label('dietary_requirements', 'Dietary Requirements') }}
+        {{ Form::textarea('dietary_requirements',Input::old('dietary_requirements'))}}<br>
 
 
-        {{ Form::label('places', 'Places') }}
-        {{ Form::text('places',Input::old('places'))}}<br>
+        <label for="car" class="checkbox">
+            {{ Form::checkbox('car', 1,Input::old('car') ) }} Do You have a car
+        </label>
 
-        {{ Form::label('places', 'Places') }}
-        {{ Form::text('places',Input::old('places'))}}<br>
+        {{ Form::label('car_places', 'Car Places') }}
+        {{ Form::text('car_places',Input::old('car_places'))}}<br>
 
 		{{ Form::label('song_requests', 'Song Requests') }}
         {{ Form::textarea('song_requests',Input::old('song_requests'))}}<br>
