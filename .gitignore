@@ -1,5 +1,11 @@
+# Mac Files
 .DS_Store
 
-public/img/profile/*
+# Vim temporary files
+*.swp
 
+# Ignore some images
+public/img/profile/*
 public/img/sponsor/*
+
+
