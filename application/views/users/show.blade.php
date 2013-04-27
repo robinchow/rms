@@ -32,32 +32,49 @@
 
 	<h3>Revue History:</h3>
 	@foreach($user->years as $year)
-	<p><strong>{{$year->year}}: </strong>
-	@foreach($user->executives()->where_year_id($year->id)->get() as $executive)
-		{{$executive->position}}
-		@if($executive->pivot->non_executive)
-		(Assistant)
-		@endif
-		,
-	@endforeach
-	@forelse($user->teams()->where_year_id($year->id)->get() as $team)
-		@if($team->pivot->status == 'head')
-		<b>
-		{{$team->name}},
-		</b>
-		@elseif($team->pivot->status == 'member')
-		{{$team->name}},
-		@else
-		<i>
-		{{$team->name}},
-		</i>
-		@endif
-	@empty
-	You were not part of any teams that year.
-	@endforelse
+        <p><strong>{{$year->year}}: </strong>
+            <?php
+                // Generate the list for this year
+                $teamlist = array();
 
-	</p>
+                // Executives 
+                foreach($user->executives()->where_year_id($year->id)->get() as $executive) {
+                    $string = "<strong>".$executive->position;
+                    if($executive->pivot->non_executive) {
+                        $string .= " (Assistant)";
+                    }
+                    $string .= "</strong>";
+                    $teamlist[] = $string;
+                }
+
+                // Head/Member/Interested
+                $heads = array();
+                $members = array();
+                $interests = array();
+                foreach($user->teams()->where_year_id($year->id)->get() as $team) {
+                    $string = "";
+                    if ($team->pivot->status == 'head') {
+                        $heads[] = "<strong>".$team->name."</strong>";
+                    } elseif ($team->pivot->status == 'member') {
+                        $members[] = $team->name;
+                    } else {
+                        $interests[] = "<i>".$team->name."</i>";
+                    }
+                }
+                $teamlist = array_merge($teamlist, $heads);
+                $teamlist = array_merge($teamlist, $members);
+                $teamlist = array_merge($teamlist, $interests);
+
+                // Teamlist string
+                $teamliststring = implode(", ", $teamlist);
+                if (empty($teamlist)) {
+                    $teamliststring = "<i>You were not part of any teams that year.</i>";
+                }
+            ?>
+            {{$teamliststring}}
+        </p>
 	@endforeach
+
 	<p>
 	<b>Bold</b> = Team Head<br>
 	Normal = Member<br>
