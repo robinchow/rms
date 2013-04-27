@@ -69,7 +69,7 @@ class Rms_Camp_Settings_Controller extends Base_Controller
         	->with('years',$years);
     }
 
-     public function post_edit()
+    public function post_edit($id)
     {
 
         $input = Input::get();
@@ -87,7 +87,7 @@ class Rms_Camp_Settings_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $camp = Camp_Setting::create(Input::get());
+            $camp = Camp_Setting::update($id,Input::get());
 
             return Redirect::to('rms/camp/settings')
                 ->with('success', 'Successfully Edited a Camp');

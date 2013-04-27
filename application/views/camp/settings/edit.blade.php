@@ -15,7 +15,7 @@
         {{ Form::text('theme',Input::old('theme',$camp->theme))}}<br>
 
         {{ Form::label('places', 'Places') }}
-        {{ Form::text('places',Input::old('places', $camp->theme))}}<br>
+        {{ Form::text('places',Input::old('places', $camp->places))}}<br>
 
 		{{ Form::label('details', 'Details') }}
         {{ Form::textarea('details',Input::old('details', $camp->details))}}<br>

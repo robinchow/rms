@@ -19,6 +19,7 @@ Route::controller('rms.faqs');
 Route::controller('rms.sponsors');
 Route::controller('rms.news');
 Route::controller('rms.camp.settings');
+Route::controller('rms.camp.registrations');
 
 //Front End Routes
 Route::controller('home');
