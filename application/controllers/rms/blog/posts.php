@@ -7,21 +7,28 @@ class Rms_Blog_Posts_Controller extends Base_Controller
     public function __construct() 
     {
         $this->filter('before', 'auth');
-#        $this->filter('before', 'admin')->except('index');
+        $this->filter('before', 'admin')->except(array('index', 'show'));
 
     }
 
     public function get_index()
     {
-        $news = News::all();
-        return View::make('news.index')->with('news', $news);
+        $blog_posts = Blog_Post::all();
+        return View::make('blog.index')->with('blog_posts', $blog_posts);
     }
 
     public function get_edit($id)
     {
 
-        $news = News::find($id);
-        return View::make('news.edit')->with('news',$news);
+        $blog_posts = Blog_post::find($id);
+        return View::make('blog.edit')->with('blog_posts',$blog_posts);
+    }
+
+        public function get_show($id)
+    {
+
+        $blog_posts = Blog_post::find($id);
+        return View::make('blog.show')->with('blog_posts',$blog_posts);
     }
 
     public function post_edit($id)
@@ -31,7 +38,7 @@ class Rms_Blog_Posts_Controller extends Base_Controller
 
         $rules = array(
             'title'  => 'required',
-            'post'  => 'required',
+            'body'  => 'required',
 
         );
 
@@ -40,14 +47,14 @@ class Rms_Blog_Posts_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $news = News::update($id, Input::get());
+            $blog_post = Blog_Post::update($id, Input::get());
 
-            return Redirect::to('rms/news')
-                ->with('success', 'Successfully Edited News Post');
+            return Redirect::to('rms/blog/posts')
+                ->with('success', 'Successfully Edited Blog Post');
         }
         else
         {
-            return Redirect::to('rms/news/edit/' . $id)
+            return Redirect::to('rms/blog/posts/edit/' . $id)
                 ->with_errors($validation)
                 ->with_input();
         }
@@ -55,19 +62,16 @@ class Rms_Blog_Posts_Controller extends Base_Controller
 
         public function get_add()
     {
-        return View::make('news.add');
+        return View::make('blog.add');
     }
 
     public function post_add()
     {
-        if (!Auth::user()->is_currently_part_of_exec()) {
-            return Redirect::to('rms'); #TODO make this nicer
-        }
         $input = Input::get();
 
         $rules = array(
             'title'  => 'required',
-            'post'  => 'required',
+            'body'  => 'required',
 
         );
 
@@ -76,14 +80,14 @@ class Rms_Blog_Posts_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $news =  News::create(Input::get());
+            $blog_post =  Blog_Post::create(Input::get());
 
-            return Redirect::to('rms/news')
-                ->with('success', 'Successfully Added New News Post');
+            return Redirect::to('rms/blog/posts')
+                ->with('success', 'Successfully Added New Blog Post');
         }
         else
         {
-            return Redirect::to('rms/news/add')
+            return Redirect::to('rms/blog/posts/add')
                 ->with_errors($validation)
                 ->with_input();
         }
@@ -93,9 +97,9 @@ class Rms_Blog_Posts_Controller extends Base_Controller
 
     public function get_delete($id)
     {
-        $news = News::find($id)->delete();
-        return Redirect::to('rms/news')
-                ->with('success', 'Successfully Removed news');
+        $blog_post = Blog_Post::find($id)->delete();
+        return Redirect::to('rms/blog/posts')
+                ->with('success', 'Successfully Removed posts');
     }
     
 }
