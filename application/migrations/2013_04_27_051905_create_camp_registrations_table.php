@@ -12,7 +12,7 @@ class Create_Camp_Registrations_Table {
 	    Schema::create('camp_registrations', function($table) {
 		    $table->increments('id');
 
-		    $table->integer('camp_settings_id');
+		    $table->integer('camp_setting_id');
 		    $table->integer('user_id'); //lets us get name, contact details, dob
 
 			$table->boolean('medical');

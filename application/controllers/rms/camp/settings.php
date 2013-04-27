@@ -53,4 +53,60 @@ class Rms_Camp_Settings_Controller extends Base_Controller
 
 
     }
+
+    public function get_show($id)
+    {
+    	$camp = Camp_Setting::find($id);
+        return View::make('camp.settings.show')->with('camp',$camp);
+    }
+
+    public function get_edit($id)
+    {
+    	$years = Year::lists('year', 'id');
+    	$camp = Camp_Setting::find($id);
+        return View::make('camp.settings.edit')
+        	->with('camp',$camp)
+        	->with('years',$years);
+    }
+
+     public function post_edit()
+    {
+
+        $input = Input::get();
+
+        $rules = array(
+            'year_id'  => 'required',
+            'places' => 'required|integer',
+            'theme'  => 'required',
+            'details'  => 'required',
+
+        );
+
+        $validation = Validator::make($input, $rules);
+        
+
+        if($validation->passes())
+        {
+            $camp = Camp_Setting::create(Input::get());
+
+            return Redirect::to('rms/camp/settings')
+                ->with('success', 'Successfully Edited a Camp');
+        }
+        else
+        {
+            return Redirect::to('rms/camp/settings/edit')
+                ->with_errors($validation)
+                ->with_input(); 
+        }
+
+
+    }
+
+
+    public function get_delete($id)
+    {
+        $camp = Camp_setting::find($id)->delete();
+        return Redirect::to('rms/camp/settings')
+                ->with('success', 'Successfully Removed Camp');
+    }
 }

@@ -18,9 +18,9 @@
 	@foreach ($camps as $camp)
         <tr>
     	<th>{{ HTML::link('/rms/camp/settings/show/'.$camp->id,$camp->year->year . ": " . $camp->theme) }}</td>
-    	<td></td>
-        <td></td>
-        <td></td>
+    	<td>{{ $camp->places }}</td>
+        <td>{{ $camp->remaining }}</td>
+        <td>{{ $camp->visible }}</td>
         <td>
             <div class="btn-group">
                 <a class="btn btn-primary" href="/rms/camp/settings/show/{{$camp->id}}">View</a>
