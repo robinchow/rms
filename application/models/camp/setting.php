@@ -6,7 +6,7 @@ class Camp_Setting extends Eloquent {
    
 	public function year()
 	{
-		return $this->has_one('Year');
+		return $this->belongs_to('Year');
 	}
 
 
