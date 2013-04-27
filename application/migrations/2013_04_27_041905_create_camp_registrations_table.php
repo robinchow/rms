@@ -1,6 +1,6 @@
 <?php
 
-class Create_Camp_Registration_Table {
+class Create_Camp_Registrations_Table {
 
 	/**
 	 * Make changes to the database.
@@ -9,7 +9,7 @@ class Create_Camp_Registration_Table {
 	 */
 	public function up()
 	{
-	    Schema::create('camp_registration', function($table) {
+	    Schema::create('camp_registrations', function($table) {
 		    $table->increments('id');
 
 		    $table->integer('camp_settings_id');
@@ -38,6 +38,6 @@ class Create_Camp_Registration_Table {
 	 */
 	public function down()
 	{
-		Schema::drop('camp_registration');
+		Schema::drop('camp_registrations');
 	}
 }
