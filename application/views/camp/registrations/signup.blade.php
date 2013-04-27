@@ -8,21 +8,25 @@
     {{ Form::open('rms/camp/registrations/signup')}}
 
     <legend>Register for Camp</legend>
+    <h4>Camp Details:</h4>
         Camp: {{$camp->year->year}}<br>
         Theme: {{$camp->theme}}<br>
         Places Remaining: {{$camp->remaining}}<br>
         Details:<br>
         {{nl2br($camp->details)}}<br>
 
-        <!--user Details-->
-        {{ Form::hidden('user_id',Auth::User()->id)}}<br>
-        {{ Form::hidden('camp_setting_id',$camp->id)}}<br>
+    <hr>
+        <h4>Personal Details:</h4>
+
+        {{ Form::hidden('user_id',Auth::User()->id)}}
+        {{ Form::hidden('camp_setting_id',$camp->id)}}
 
         Full Name: {{ Auth::User()->profile->full_name }}<br>
         DOB: {{ Auth::User()->profile->dob }}<br>
         Phone: {{ Auth::User()->profile->number }}<br>
         Gender: {{ Auth::User()->profile->gender }}<br>
-
+    <hr>
+        <h4>Camp Related Details:</h4>
 
 
         <label for="medical" class="checkbox">
@@ -53,7 +57,6 @@
 
 
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
-        {{ HTML::link('/rms/camp/registrations','Cancel',array('class'=>'btn')) }}
 
     {{ Form::close() }}
       

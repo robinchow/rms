@@ -7,6 +7,42 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
     public function __construct() 
     {
         $this->filter('before', 'auth');
+        $this->filter('before', 'admin')->except(array('signup', 'edit'));
+
+    }
+
+    public function get_index()
+    {
+        $camp = Camp_Setting::where('year_id', '=', Year::current_year()->id)->first();
+        $regos = Camp_Registration::where('camp_setting_id', '=', $camp->id)->get();
+
+        $arc_count = 0;
+        foreach ($regos as $r) {
+            if($r->user->profile->arc) {
+                $arc_count++;
+            }
+        }
+
+        $rego_paid = Camp_Registration::where('camp_setting_id', '=', $camp->id)
+                        ->where('paid', '=',true)
+                        ->get();
+
+        $paid_count = count($rego_paid);
+
+
+        $arc_paid_count = 0;
+        foreach ($rego_paid as $r) {
+            if($r->user->profile->arc) {
+                $arc_paid_count++;
+            }
+        }
+
+
+        return View::make('camp.registrations.index')
+                    ->with('regos',$regos)
+                    ->with('arc_count',$arc_count)
+                    ->with('paid_count',$paid_count)
+                    ->with('arc_paid_count',$arc_paid_count);
     }
 
     public function get_signup()
@@ -56,22 +92,26 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
         return View::make('camp.registrations.edit')->with('rego',$rego);
     }
 
+    public function get_show($id)
+    {
+
+        $rego = Camp_Registration::find($id);
+        return View::make('camp.registrations.show')->with('rego',$rego);
+    }
+
     public function post_edit()
     {
         $input = Input::get();
 
         $rules = array(
-            'user_id' => 'required',
-            'camp_setting_id' => 'required',
+            'id' => 'required',
             'car_places' => 'integer',
         );
 
         $validation = Validator::make($input, $rules);
-        
-
         if($validation->passes())
         {
-            $camp_reg = Camp_Registration::update(Input::get('user_id'), Input::get());
+            $camp_reg = Camp_Registration::update(Input::get('id'), Input::get());
 
             return Redirect::to('rms/camp/registrations/edit')
                 ->with('success', 'Successfully Edited registration for Camp');
@@ -83,6 +123,31 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
                 ->with_input(); 
         }
 
+    }
+
+    public function get_paid($id)
+    {
+        $rego = Camp_Registration::find($id);
+        $rego->paid = true;
+        $rego->save();
+        return Redirect::to('rms/camp/registrations')
+                ->with('success', 'Successfully Marked Payment');
+    }
+
+    public function get_unpaid($id)
+    {
+        $rego = Camp_Registration::find($id);
+        $rego->paid = false;
+        $rego->save();
+        return Redirect::to('rms/camp/registrations')
+                ->with('success', 'Successfully Un Marked Payment');
+    }
+
+    public function get_delete($id)
+    {
+        $rego = Camp_Registration::find($id)->delete();
+        return Redirect::to('rms/camp/registrations')
+                ->with('success', 'Successfully Removed Camp Registration');
     }
 
 }
