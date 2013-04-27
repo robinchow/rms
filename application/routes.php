@@ -7,6 +7,7 @@
 */
 
 //RMS Routes
+
 Route::controller('rms.account');
 Route::controller('rms.teams');
 Route::controller('rms.years');
@@ -17,7 +18,7 @@ Route::controller('rms.users');
 Route::controller('rms.faqs');
 Route::controller('rms.sponsors');
 Route::controller('rms.news');
-
+Route::controller('rms.camp.settings');
 
 //Front End Routes
 Route::controller('home');
