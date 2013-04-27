@@ -36,10 +36,9 @@ class Rms_Teams_Controller extends Base_Controller
         $input = Input::get();
 
         $rules = array(
-            'name'  => 'required',
-            'alias' => 'required|max:128',
+            'name'  => 'required|unique:teams',
+            'alias' => 'required|max:128|unique:teams',
             'description'  => 'required',
-
         );
 
         $validation = Validator::make($input, $rules);
@@ -47,7 +46,14 @@ class Rms_Teams_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $team = Team::create(Input::get());
+            // Modify input variables
+            $input['alias'] = strtolower($input['alias']);
+
+            // Create the team
+            $team = Team::create($input);
+
+            // Make the team active for the current year
+            Year::current_year()->teams()->attach($team->id);;
 
             return Redirect::to('rms/teams')
                 ->with('success', 'Successfully Added New Team');
