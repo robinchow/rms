@@ -27,7 +27,7 @@ class Rms_Camp_Settings_Controller extends Base_Controller
         $input = Input::get();
 
         $rules = array(
-            'year_id'  => 'required',
+            'year_id'  => 'required|unique:camp_settings',
             'places' => 'required|integer',
             'theme'  => 'required',
             'details'  => 'required',
@@ -75,7 +75,7 @@ class Rms_Camp_Settings_Controller extends Base_Controller
         $input = Input::get();
 
         $rules = array(
-            'year_id'  => 'required',
+            'year_id'  => 'required|unique:camp_settings',
             'places' => 'required|integer',
             'theme'  => 'required',
             'details'  => 'required',

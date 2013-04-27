@@ -8,11 +8,15 @@
     {{ Form::open('rms/camp/registrations/signup')}}
 
     <legend>Register for Camp</legend>
-        {{ Form::label('camp_setting_id', 'Camp') }}
-        {{ Form::select('camp_setting_id', $camps) }}<br>
+        Camp: {{$camp->year->year}}<br>
+        Theme: {{$camp->theme}}<br>
+        Places Remaining: {{$camp->remaining}}<br>
+        Details:<br>
+        {{nl2br($camp->details)}}<br>
 
         <!--user Details-->
         {{ Form::hidden('user_id',Auth::User()->id)}}<br>
+        {{ Form::hidden('camp_setting_id',$camp->id)}}<br>
 
         Full Name: {{ Auth::User()->profile->full_name }}<br>
         DOB: {{ Auth::User()->profile->dob }}<br>
