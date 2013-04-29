@@ -53,7 +53,6 @@ class Team extends Eloquent {
 		return $year_users;
 	}
 
-
     // Returns array of heads for this team by id
     public function get_heads($year_id) {
         return $this->has_many_and_belongs_to('User')
@@ -64,6 +63,21 @@ class Team extends Eloquent {
 
     public function get_heads_current() {
         return $this->get_heads(Year::current_year()->id);
+    }
+
+    public function get_user_status($user_id) {
+        $user = DB::table('team_user')
+            ->where('team_id', '=', $this->id)
+            ->where('user_id', '=', $user_id)
+            ->where('year_id', '=', Year::current_year()->id)
+            ->first()
+            ;
+
+        $status = '';
+        if ($user != NULL) {
+            $status .= $user->status;
+        }
+        return $status;
     }
 
 }

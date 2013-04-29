@@ -60,7 +60,36 @@
 </script>
 
 <h2>Teams</h2>
-@if ( count($teams) > 0 )
+
+<?php
+    $user = Auth::user();
+
+    // Collect teams by the type
+    $head = array();
+    $member = array();
+    $interest = array();
+    $other = array();
+
+    $output = '';
+    foreach($teams as $team) {
+        // Get team status
+        $status = $team->get_user_status($user->id);
+        
+        // Place into relevant list
+        if ($status == 'head') {
+            $head[] = $team;
+        } elseif ($status == 'member') {
+            $member[] = $team;
+        } elseif ($status == 'interest') {
+            $interest[] = $team;
+        } else {
+            $other[] = $team;
+        }
+    }
+?>
+
+<h4>Teams you are currently in</h4>
+@if ( count($head) > 0 || count($member) > 0 || count($interest) > 0 )
     <table class="table table-bordered table-striped">
         <tr>
             <th>Team</th>
@@ -68,61 +97,41 @@
             <th>Privacy</th>
             <th>Tools</th>
         </tr>
-	@foreach ($teams as $team)
-        <?php
-            // Load data
-            $user = Auth::user();
-            $teamNameStr = $team->name;
 
-            // Set string for Head
-            $teamheads = $team->get_heads_current;
-            $isHead = false;
-            foreach($teamheads as $head) {
-                  $isHead = $isHead || $head->id == $user->id;
-            }
-            if($isHead) {
-                $teamNameStr .= " (Head)";
-            }
-        ?>
-        <tr>
-    	<th>{{ HTML::link('/rms/teams/show/' . $team->id, $teamNameStr) }}</td>
-    	<td>{{ $team->mailing_list }}</td>
-
-    	<td>{{$team->privacy_string}}</td>
-        <td>
-            {{-- @ include('teams.index.joinleave') --}}
-            <div class="ajax-content" id="{{$team->id}}">
-            </div>
-
-            <div class="btn-group" id="{{$team->id}}">
-                @if(!$isHead)
-                    @if(Auth::user()->is_part_of_team(Year::current_year()->id,$team->id) && !$team->privacy && $team->is_active())
-                        <!--a class="btn" href="/rms/teams/member_leave/{{$team->id}}">Leave</a-->
-                        <a class="btn" onclick="member_leave({{$team->id}})">Leave</a>
-                    @elseif(!$team->privacy && $team->is_active())
-                        <!--a class="btn" href="/rms/teams/member_join/{{$team->id}}">&nbsp;Join&nbsp;&nbsp;</a-->
-                        <a class="btn" onclick="member_join({{$team->id}})">Join</a>
-                    @endif
-                @endif
-
-                <a class="btn btn-primary" href="/rms/teams/show/{{$team->id}}">View</a>
-
-                @if(Auth::User()->admin or Auth::User()->can_manage_team(Year::current_year()->id, $team->id))
-                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>{{HTML::link('rms/teams/manage/'. $team->id,'Manage Team')}}</li>
-                        <li>{{HTML::link('rms/teams/edit/'. $team->id,'Edit Team')}}</li>
-                        <li>{{HTML::link('rms/teams/delete/'. $team->id,'Delete Team')}}</li>
-                    </ul>
-                @endif
-            </div>
-        </td>
-    	<tr>
-	@endforeach
+        <tbody>
+            @foreach($head as $team)
+                @include('teams.index.teamrow')->with('teamName', $team->name." (Head)")->with('interact', '')
+            @endforeach
+            @foreach($member as $team)
+                @include('teams.index.teamrow')->with('teamName', $team->name)->with('interact', 'leave')
+            @endforeach
+            @foreach($interest as $team)
+                @include('teams.index.teamrow')->with('teamName', $team->name." (Interested)")->with('interact', 'leave')
+            @endforeach
         </tbody>
     </table>
 @else
-	No Teams
+	<p>No Teams<p>
+@endif
+
+<h4>Other teams</h4>
+@if( count($other) > 0 )
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Team</th>
+            <th>Mailing List</th>
+            <th>Privacy</th>
+            <th>Tools</th>
+        </tr>
+
+        <tbody>
+            @foreach($other as $team)
+                @include('teams.index.teamrow')->with('teamName', $team->name)->with('interact', 'join')
+            @endforeach
+        </tbody>
+    </table>
+@else
+	<p>No Teams<p>
 @endif
 
 @if(Auth::User()->admin )
