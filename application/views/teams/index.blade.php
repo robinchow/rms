@@ -69,8 +69,23 @@
             <th>Tools</th>
         </tr>
 	@foreach ($teams as $team)
+        <?php
+            // Load data
+            $user = Auth::user();
+            $teamNameStr = $team->name;
+
+            // Set string for Head
+            $teamheads = $team->get_heads_current;
+            $isHead = false;
+            foreach($teamheads as $head) {
+                  $isHead = $isHead || $head->id == $user->id;
+            }
+            if($isHead) {
+                $teamNameStr .= " (Head)";
+            }
+        ?>
         <tr>
-    	<th>{{ HTML::link('/rms/teams/show/'.$team->id,$team->name) }}</td>
+    	<th>{{ HTML::link('/rms/teams/show/' . $team->id, $teamNameStr) }}</td>
     	<td>{{ $team->mailing_list }}</td>
 
     	<td>{{$team->privacy_string}}</td>
