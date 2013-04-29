@@ -94,14 +94,15 @@
             <div class="ajax-content" id="{{$team->id}}">
             </div>
 
-
             <div class="btn-group" id="{{$team->id}}">
-                @if(Auth::user()->is_part_of_team(Year::current_year()->id,$team->id) && !$team->privacy && $team->is_active())
-                    <!--a class="btn" href="/rms/teams/member_leave/{{$team->id}}">Leave</a-->
-                    <a class="btn" onclick="member_leave({{$team->id}})">Leave</a>
-                @elseif(!$team->privacy && $team->is_active())
-                    <!--a class="btn" href="/rms/teams/member_join/{{$team->id}}">&nbsp;Join&nbsp;&nbsp;</a-->
-                    <a class="btn" onclick="member_join({{$team->id}})">Join</a>
+                @if(!$isHead)
+                    @if(Auth::user()->is_part_of_team(Year::current_year()->id,$team->id) && !$team->privacy && $team->is_active())
+                        <!--a class="btn" href="/rms/teams/member_leave/{{$team->id}}">Leave</a-->
+                        <a class="btn" onclick="member_leave({{$team->id}})">Leave</a>
+                    @elseif(!$team->privacy && $team->is_active())
+                        <!--a class="btn" href="/rms/teams/member_join/{{$team->id}}">&nbsp;Join&nbsp;&nbsp;</a-->
+                        <a class="btn" onclick="member_join({{$team->id}})">Join</a>
+                    @endif
                 @endif
 
                 <a class="btn btn-primary" href="/rms/teams/show/{{$team->id}}">View</a>
@@ -112,10 +113,8 @@
                         <li>{{HTML::link('rms/teams/manage/'. $team->id,'Manage Team')}}</li>
                         <li>{{HTML::link('rms/teams/edit/'. $team->id,'Edit Team')}}</li>
                         <li>{{HTML::link('rms/teams/delete/'. $team->id,'Delete Team')}}</li>
-
                     </ul>
                 @endif
-
             </div>
         </td>
     	<tr>
