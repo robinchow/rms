@@ -1,5 +1,5 @@
 <?php
 
-class Posts extends Eloquent {
+class Blog_Post extends Eloquent {
 	public static $timestamps = true;
 }

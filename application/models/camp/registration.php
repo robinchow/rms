@@ -9,6 +9,11 @@ class Camp_Registration extends Eloquent {
 		return $this->belongs_to('Camp_Setting');
 	}
 
+	public function user()
+	{
+		return $this->belongs_to('User');
+	}
+
 
 
 

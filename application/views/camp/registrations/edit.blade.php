@@ -8,6 +8,7 @@
     {{ Form::open('rms/camp/registrations/edit')}}
 
     <legend>Edit Registration for Camp</legend>
+            <h4>Camp Details:</h4>
         Camp: {{$rego->camp_setting->year->year}}<br>
         Theme: {{$rego->camp_setting->theme}}<br>
         Places Remaining: {{$rego->camp_setting->remaining}}<br>
@@ -22,16 +23,15 @@
         @endif
         <br>
 
-
-        <!--user Details-->
-        {{ Form::hidden('user_id',Auth::User()->id)}}<br>
-        {{ Form::hidden('camp_setting_id',$rego->camp_setting->id)}}<br>
-
+    <hr>
+        <h4>Personal Details:</h4>
+        {{ Form::hidden('id',$rego->id)}}
         Full Name: {{ Auth::User()->profile->full_name }}<br>
         DOB: {{ Auth::User()->profile->dob }}<br>
         Phone: {{ Auth::User()->profile->number }}<br>
         Gender: {{ Auth::User()->profile->gender }}<br>
-
+    <hr>
+        <h4>Camp Related Details:</h4>
         <label for="medical" class="checkbox">
             {{ Form::checkbox('medical', 1,Input::old('medical', $rego->medical) ) }} Medical Conditions
         </label>
@@ -60,7 +60,6 @@
 
 
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
-        {{ HTML::link('/rms/camp/registrations','Cancel',array('class'=>'btn')) }}
 
     {{ Form::close() }}
       
