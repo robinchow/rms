@@ -224,6 +224,27 @@ class Rms_Teams_Controller extends Base_Controller
         }
     }
 
+    public function get_member_join_ajax($team_id) {
+        $user = Auth::User();
+        $team = Team::find($team_id);
+        $year = Year::current_year();
+
+        if(!$user->is_part_of_team($year->id, $team->id))
+        {
+            $user->teams()->attach($team->id, array('status' => 'interest', 'year_id'=>$year->id));
+            return View::make('teams.index.ajax')
+                ->with('data', 'Join Successful')
+                ->with('state', 'success')
+                ;
+        } else {
+            return View::make('teams.index.ajax')
+                ->with('data', 'Already member of team')
+                ->with('state', 'warn')
+                ;
+        }
+
+    }
+
     public function get_member_leave($team_id)
     {
         $user = Auth::User();
@@ -231,6 +252,16 @@ class Rms_Teams_Controller extends Base_Controller
 
         return Redirect::to('rms/teams')
                 ->with('success', 'Successful left team');
+    }
+    
+    public function get_member_leave_ajax($team_id) {
+        $user = Auth::User();
+        $user->teams()->where('team_id','=',$team_id)->where('year_id','=',Year::current_year()->id)->first()->pivot->delete();
+
+        return View::make('teams.index.ajax')
+            ->with('data', 'Leave Successful')
+            ->with('state', 'success')
+            ;
     }
     
     //should be changed to a ajax post
