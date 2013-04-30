@@ -76,9 +76,9 @@
 	@endforeach
 
 	<p>
-	<b>Bold</b> = Team Head<br>
-	Normal = Member<br>
-	<i>Italics</i> = Interested 
+        <b>Bold</b> = Team Head<br>
+        Normal = Member<br>
+        <i>Italics</i> = Interested 
 	</p>
 
 @endsection
