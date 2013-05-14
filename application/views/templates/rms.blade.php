@@ -114,6 +114,20 @@
       <li>{{HTML::link('rms/executives/join','Join An Executive')}}
     @endif
 </li>
+    
+    <li class="nav-header">Camp</li>
+
+    @if(Auth::user()->has_signed_up_for_camp()) 
+    <li>{{HTML::link('rms/camp/registrations/edit','Update ')}}</li>
+    @elseif
+    <li>{{HTML::link('rms/camp/registrations/signup','Sign Up')}}</li>
+    @endif
+    
+    @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
+      <li>{{HTML::link('rms/camp/settings','Settings')}}</li>
+      <li>{{HTML::link('rms/camp/registrations','Registrations')}}</li>
+    @endif
+
 
 
     @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
@@ -124,6 +138,10 @@
       <li>{{HTML::link('rms/sponsors','Sponsors')}}</li>
 
     @endif
+
+
+
+
     </ul>
 
     </div>

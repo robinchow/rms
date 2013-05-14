@@ -38,6 +38,16 @@ class User extends Eloquent {
         return URL::base() . '/rms/users/show/'.$this->id;
     }
 
+    public function has_signed_up_for_camp()
+    {
+        $camp = Camp_Setting::where('year_id' , '=' , Year::current_year()->id);
+
+        $count = DB::table('camp_registrations')
+            ->where('camp_setting_id', '=', $camp->first()->id)
+            ->where('user_id', '=', $this->id)->count();
+        return $count!=0;
+    }
+
     public function image_url()
     {
         $url = URL::base() . '/img/profile/'.$this->profile->image;
