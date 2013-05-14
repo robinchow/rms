@@ -116,7 +116,7 @@
 </li>
     
     <li class="nav-header">Camp</li>
-    @if(Year::current_year()->camp_settings()->first()->visible)
+    @if(Year::current_year()->camp_active())
       @if(Auth::user()->has_signed_up_for_camp()) 
       <li>{{HTML::link('rms/camp/registrations/edit','Update ')}}</li>
       @else

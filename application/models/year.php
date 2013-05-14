@@ -27,6 +27,16 @@ class Year extends Eloquent {
         return $this->has_many('Camp_Setting');
     }
 
+    public function camp_active() 
+    {
+        $camp = Camp_Setting::where('year_id' , '=' , $this->id)
+                    ->where('visible', '=', 1)
+                    ->count();
+
+
+        return $camp !=0;
+    }
+
     public function executives()
     {
         $executives_id = DB::table('executive_user')->where('year_id', '=', $this->id)->get('executive_id');
