@@ -116,13 +116,16 @@
 </li>
     
     <li class="nav-header">Camp</li>
-
-    @if(Auth::user()->has_signed_up_for_camp()) 
-    <li>{{HTML::link('rms/camp/registrations/edit','Update ')}}</li>
-    @elseif
-    <li>{{HTML::link('rms/camp/registrations/signup','Sign Up')}}</li>
+    @if(Year::current_year()->camp_settings()->first()->visible)
+      @if(Auth::user()->has_signed_up_for_camp()) 
+      <li>{{HTML::link('rms/camp/registrations/edit','Update ')}}</li>
+      @else
+      <li>{{HTML::link('rms/camp/registrations/signup','Sign Up')}}</li>
+      @endif
+    @else
+      <li>Not open yet</li>
     @endif
-    
+
     @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
       <li>{{HTML::link('rms/camp/settings','Settings')}}</li>
       <li>{{HTML::link('rms/camp/registrations','Registrations')}}</li>

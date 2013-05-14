@@ -51,7 +51,7 @@
                     @else
                     <li>{{HTML::link('rms/camp/registrations/paid/'. $rego->id,'Mark As Paid')}}</li>
                     @endif
-                    <li>{{HTML::link('rms/camp/registrations/delete/'. $rego->id,'Delete Camp')}}</li>
+                    <li>{{HTML::link('rms/camp/registrations/delete/'. $rego->id,'Delete')}}</li>
 
                 </ul>
             </div>

@@ -73,9 +73,10 @@ class Rms_Camp_Settings_Controller extends Base_Controller
     {
 
         $input = Input::get();
+        $input['visible'] = Input::get('visible', 0);
 
         $rules = array(
-            'year_id'  => 'required|unique:camp_settings',
+            'year_id'  => 'required|unique:camp_settings,year_id,'.$id,
             'places' => 'required|integer',
             'theme'  => 'required',
             'details'  => 'required',
@@ -87,14 +88,14 @@ class Rms_Camp_Settings_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $camp = Camp_Setting::update($id,Input::get());
+            $camp = Camp_Setting::update($id,$input);
 
             return Redirect::to('rms/camp/settings')
                 ->with('success', 'Successfully Edited a Camp');
         }
         else
         {
-            return Redirect::to('rms/camp/settings/edit')
+            return Redirect::to('rms/camp/settings/edit/'.$id)
                 ->with_errors($validation)
                 ->with_input(); 
         }
