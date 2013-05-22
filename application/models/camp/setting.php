@@ -18,17 +18,4 @@ class Camp_Setting extends Eloquent {
 		return $this->places - count($this->registrations);
 	}
     
-    public function all_songs() {
-        $ret = "";
-        $first = true;
-        foreach ($this->registrations() as $rego) {
-            if (!$first) {
-                $ret .= "<br/>";
-            } else {
-                $first = false;
-            }
-            $ret .= rtrim($rego->format_song_requests());
-        }
-        return $ret;
-    }
 }

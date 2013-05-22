@@ -4,7 +4,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
 
     public $restful = true;
 
-    public function __construct() 
+    public function __construct()
     {
         $this->filter('before', 'auth');
         $this->filter('before', 'admin')->except(array('signup', 'edit'));
@@ -37,13 +37,20 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
             }
         }
 
+        $song_list = "";
+        foreach ($regos as $r) {
+            if ($song_list != "") {
+                $song_list .= "<br/>";
+            }
+            $song_list .= $r->format_song_requests();
+        }
 
         return View::make('camp.registrations.index')
                     ->with('regos',$regos)
                     ->with('arc_count',$arc_count)
                     ->with('paid_count',$paid_count)
                     ->with('arc_paid_count',$arc_paid_count)
-                    ->with('song_list', $camp->format_song_requests());
+                    ->with('song_list', $song_list);
     }
 
     public function get_signup()
@@ -64,7 +71,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
         );
 
         $validation = Validator::make($input, $rules);
-        
+
 
         if($validation->passes())
         {
@@ -77,7 +84,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
         {
             return Redirect::to('rms/camp/registrations/signup')
                 ->with_errors($validation)
-                ->with_input(); 
+                ->with_input();
         }
 
 
@@ -89,7 +96,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
         $user = Auth::user();
         $rego = Camp_Registration::where('camp_setting_id', '=',$camp->id)
             ->where('user_id', '=',$user->id)->first();
-            
+
         return View::make('camp.registrations.edit')->with('rego',$rego);
     }
 
@@ -121,7 +128,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
         {
             return Redirect::to('rms/camp/registrations/edit')
                 ->with_errors($validation)
-                ->with_input(); 
+                ->with_input();
         }
 
     }
