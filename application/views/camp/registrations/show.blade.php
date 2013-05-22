@@ -33,7 +33,7 @@
      <p>{{$rego->car_places}}</p>
 
     <b>Song Requests</b>
-    <p>{{ $rego->song_requests}}</p>
+    <p>{{ $rego->format_song_requests() }}</p>
 
     <b>Paid</b>
     <p>{{ $rego->paid}}</p>

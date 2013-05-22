@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 class Camp_Registration extends Eloquent {
 	public static $timestamps = true;
 
-   
+
 	public function camp_setting()
 	{
 		return $this->belongs_to('Camp_Setting');
@@ -14,7 +14,8 @@ class Camp_Registration extends Eloquent {
 		return $this->belongs_to('User');
 	}
 
-
-
-
+    public function format_song_requests()
+    {
+        return join("<br/>", explode("\n", $this->song_requests));
+    }
 }
