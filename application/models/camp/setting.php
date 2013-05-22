@@ -18,6 +18,4 @@ class Camp_Setting extends Eloquent {
 		return $this->places - count($this->registrations);
 	}
 
-
-
 }
