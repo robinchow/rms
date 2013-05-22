@@ -47,10 +47,10 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
         $song_list_a = explode("<br/>", $song_list);
         $song_list = "";
         foreach ($song_list_a as $s) {
-            if ($song_list != "") {
-                $song_list .= "<br/>";
-            }
             if (!ctype_space($s)) {
+                if ($song_list != "") {
+                    $song_list .= "<br/>";
+                }
                 $song_list .= $s;
             }
         }
