@@ -44,6 +44,16 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
             }
             $song_list .= $r->format_song_requests();
         }
+        $song_list_a = explode("<br/>", $song_list);
+        $song_list = "";
+        foreach ($sonh_list_a as $s) {
+            if ($song_list != "") {
+                $song_list .= "<br/>";
+            }
+            if (!ctype_space($s)) {
+                $song_list .= $s;
+            }
+        }
 
         return View::make('camp.registrations.index')
                     ->with('regos',$regos)
