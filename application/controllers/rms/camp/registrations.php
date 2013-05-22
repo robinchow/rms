@@ -42,7 +42,8 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
                     ->with('regos',$regos)
                     ->with('arc_count',$arc_count)
                     ->with('paid_count',$paid_count)
-                    ->with('arc_paid_count',$arc_paid_count);
+                    ->with('arc_paid_count',$arc_paid_count)
+                    ->with('song_list', $camp->format_song_requests());
     }
 
     public function get_signup()

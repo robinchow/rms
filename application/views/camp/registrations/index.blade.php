@@ -66,9 +66,7 @@
     Total Paid: {{$paid_count}}<br>
 
     <h3>Song List</h3>
-	@foreach ($regos as $rego)
-        {{ $rego->format_song_requests() }}
-    @endforeach
+    {{ $song_list }}
 @else
 	<p>No Regos</p>
 @endif
