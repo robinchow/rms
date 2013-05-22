@@ -21,7 +21,7 @@ class Camp_Setting extends Eloquent {
     public function all_songs() {
         $ret = "";
         $first = true;
-        foreach $rego ($this->registrations()) {
+        foreach ($this->registrations() as $rego) {
             if (!$first) {
                 $ret .= "<br/>";
             } else {
