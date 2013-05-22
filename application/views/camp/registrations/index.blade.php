@@ -65,7 +65,7 @@
     Total Arc Paid: {{$arc_paid_count}}<br>
     Total Paid: {{$paid_count}}<br>
 
-    <h2>Song List</h2>
+    <h3>Song List</h3>
 	@foreach ($regos as $rego)
         {{ $rego->format_song_requests() }}
     @endforeach
