@@ -46,7 +46,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
         }
         $song_list_a = explode("<br/>", $song_list);
         $song_list = "";
-        foreach ($sonh_list_a as $s) {
+        foreach ($song_list_a as $s) {
             if ($song_list != "") {
                 $song_list .= "<br/>";
             }
