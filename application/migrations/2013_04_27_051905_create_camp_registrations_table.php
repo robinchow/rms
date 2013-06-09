@@ -24,6 +24,8 @@ class Create_Camp_Registrations_Table {
 		    $table->boolean('car');
 		    $table->integer('car_places')->nullable();
 
+		    $table->string('leave_from');
+
 		    $table->text('song_requests')->nullable();
 
 		    $table->boolean('paid');

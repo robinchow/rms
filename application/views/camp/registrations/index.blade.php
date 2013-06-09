@@ -12,6 +12,7 @@
             <th>Camp</th>
             <th>Car</th>
             <th>Car Places</th>
+            <th>Leaving From</th>
             <th>Arc</th>
             <th>Paid</th>
             <th>Tools</th>
@@ -27,6 +28,7 @@
             @endif
         </td>
         <td>{{ $rego->car_places }}</td>
+        <td>{{ $rego->leave_from }}</td>
         <td>
             @if($rego->user->profile->arc)
                 Yes
