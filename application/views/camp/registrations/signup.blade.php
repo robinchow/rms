@@ -51,6 +51,10 @@
         {{ Form::label('car_places', 'Car Places') }}
         {{ Form::text('car_places',Input::old('car_places'))}}<br>
 
+        {{ Form::label('leave_from', 'Leaving From') }}
+        {{ Form::select('leave_from', array('Anywhere' => 'Anywhere', 'UNSW' => 'UNSW', 'Central' => 'Central', 'North Shore' => 'North Shore', 'Inner West' => 'Inner West' ) , Input::old('leave_from') )}}
+
+
 		{{ Form::label('song_requests', 'Song Requests') }}
         {{ Form::textarea('song_requests',Input::old('song_requests'))}}<br>
 
