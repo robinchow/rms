@@ -128,10 +128,8 @@
 
     @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
       <li>{{HTML::link('rms/camp/settings','Settings')}}</li>
-<!--       @if(Year::current_year()->camp_active())
- -->        <li>{{HTML::link('rms/camp/registrations','Registrations')}}</li>
-<!--       @endif
- -->
+      <li>{{HTML::link('rms/camp/registrations','Registrations')}}</li>
+
     @endif
 
 
