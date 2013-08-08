@@ -12,7 +12,7 @@ class Create_Merch_Item_Order {
 		Schema::create('merch_item_order', function($table){
 			$table->increments('id');
 		    $table->integer('merch_item_id');
-		    $table->integer('merch_order_item_id');
+		    $table->integer('merch_order_id');
 		    $table->integer('quantity');
 		    $table->string('size');
 			$table->timestamps();

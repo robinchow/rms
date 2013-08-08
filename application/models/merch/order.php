@@ -15,6 +15,6 @@ class Merch_Order extends Eloquent {
 
 	public function items()
     {
-        return $this->has_many_and_belongs_to('Merch_Item')->with('quantity','size');
+        return $this->has_many_and_belongs_to('Merch_Item', 'merch_item_order')->with('quantity','size');
     }
 }

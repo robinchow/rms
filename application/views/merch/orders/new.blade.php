@@ -20,13 +20,18 @@
                 </tr>
             @foreach ($merch as $item)
                 <tr>
-                <th>{{ $item->title}}</td>
-                <td>{{ $item->price}}</td>
+                <th>{{ HTML::link('/rms/merch/items/show/'.$item->id,$item->title) }}</td>
+                <td>${{ $item->price}}</td>
                 <td>@if($item->has_size)
-                    sizzes
+                        {{ Form::select('size['.$item->id.']', array('8'=>'8','10'=>'10','12'=>'12','14'=>'14','XS'=>'XS','S'=>'S','M'=>'M','L'=>'L','XL'=>'XL','XXL'=>'XXL'))  }}
+                    @else 
+                        N/A
+                        {{ Form::hidden('size['.$item->id.']', 'N/A') }}
                     @endif
                 </td>
-                <td></td>
+                <td>
+                    {{ Form::text('quantity['.$item->id.']') }}
+                </td>
                 <tr>
             @endforeach
                 </tbody>
@@ -35,7 +40,7 @@
         <p></p>
 
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
-        {{ HTML::link('/rms/merch/items','Cancel',array('class'=>'btn')) }}
+        {{ HTML::link('/rms/merch/orders','Cancel',array('class'=>'btn')) }}
 
     {{ Form::close() }}
       

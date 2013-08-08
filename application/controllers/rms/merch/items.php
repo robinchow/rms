@@ -6,7 +6,9 @@ class Rms_Merch_Items_Controller extends Base_Controller
 
     public function __construct() 
     {
-        $this->filter('before', 'admin');
+        $this->filter('before', 'auth');
+        $this->filter('before', 'admin')->except('show');
+
     }
 
     public function get_index()
