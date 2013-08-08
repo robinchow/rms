@@ -1,6 +1,6 @@
 <?php
 
-class Create_Merch_Items {
+class Create_Merch_Orders {
 
 	/**
 	 * Make changes to the database.
@@ -9,13 +9,11 @@ class Create_Merch_Items {
 	 */
 	public function up()
 	{
-		Schema::create('merch_items', function($table){
+		Schema::create('merch_orders', function($table){
 			$table->increments('id');
-			$table->string('title',128);
-			$table->text('description');
-			$table->float('price');
-			$table->boolean('has_size');
-			$table->boolean('active');
+		    $table->integer('user_id');
+		    $table->integer('year_id');
+		    $table->float('amount_paid');
 			$table->timestamps();
 		});
 	}
@@ -27,7 +25,7 @@ class Create_Merch_Items {
 	 */
 	public function down()
 	{
-		Schema::drop('merch_items');
+		Schema::drop('merch_orders');
 	}
 
 }

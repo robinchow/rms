@@ -22,6 +22,7 @@ Route::controller('rms.camp.settings');
 Route::controller('rms.camp.registrations');
 
 Route::controller('rms.merch.items');
+Route::controller('rms.merch.orders');
 
 Route::controller('rms.blog.posts');
 

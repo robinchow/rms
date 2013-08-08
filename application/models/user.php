@@ -13,6 +13,11 @@ class User extends Eloquent {
 		return $this->has_one('Profile');
 	}
 
+    public function orders()
+    {
+        return $this->has_many('Merch_Order');
+    }
+
 	public function teams()
     {
         return $this->has_many_and_belongs_to('Team')->with('year_id','status');
