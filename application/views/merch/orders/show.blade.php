@@ -1,0 +1,54 @@
+@layout('templates.rms')
+
+@section('title')
+    @parent - Show Order
+@endsection
+
+@section('content')
+
+ <h2>Order Created On: {{ $order->created_at }}</h2>
+ <strong>Ordered By:</strong>
+ <p>{{Auth::User()->profile->full_name}}</p>
+
+@if($order->remaining() == 0)
+    <h3>Thankyou For paying</h3>
+@else
+    <h3>Please pay the remaining amount: ${{ $order->remaining() }}</h3>
+    <p>In person to one of the producers or via direct deposit with the following description</p>
+@endif
+
+
+ <strong>Items:</strong>
+ <table class="table table-bordered table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Size</th>
+        <th>Quantity</th>
+        <th>SubTotal</th>
+    </tr>
+@foreach ($order->items as $item)
+    <tr>
+    <th>{{ HTML::link('/rms/merch/items/show/'.$item->id,$item->title) }}</td>
+    <td>${{ $item->price}}</td>
+    <td>{{ $item->pivot->size }}</td>
+    <td>{{ $item->pivot->quantity }}</td>
+	<td>${{ $item->price * $item->pivot->quantity}}</td>
+    </tr>
+@endforeach
+ <tr>
+ <td colspan=3></td>
+ <th>Total:</th>
+ <td>${{ $order->total() }}</td>
+ </tr>
+
+ <tr>
+ <td colspan=3></td>
+ <th>Amount Paid:</th>
+ <td>${{ $order->amount_paid }}</td>
+ </tr>
+
+    </tbody>
+</table>
+      
+@endsection
