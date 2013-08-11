@@ -7,6 +7,7 @@ class Rms_Merch_Orders_Controller extends Base_Controller
     public function __construct() 
     {
         $this->filter('before', 'auth');
+        $this->filter('before', 'admin')->only(array('admin', 'edit', 'delete'));
     }
 
     public function get_index()
@@ -76,22 +77,46 @@ class Rms_Merch_Orders_Controller extends Base_Controller
 
     }
 
+    public function get_admin($current='current') {
+
+        if($current=='current') {
+            $year = Year::current_year();
+        } else {
+            $year = Year::find($current);
+        }
+
+        if($year) {
+
+            $orders = Merch_order::where_year_id($year->id)->get();
+            $items = Merch_Item::all();
+
+            $sizes = array('8'=>'8','10'=>'10','12'=>'12','14'=>'14','XS'=>'XS','S'=>'S','M'=>'M','L'=>'L','XL'=>'XL','XXL'=>'XXL');
+            return View::make('merch.orders.admin')
+                ->with('orders',$orders)
+                ->with('items', $items)
+                ->with('sizes', $sizes)
+                ->with('year', $year);
+
+        } else {
+            return "Invalid ID";
+        }
+    }
+
     public function get_edit($id)
     {
-
+        return "Edit";
     }
 
     public function post_edit($id)
     {
-
-
-
-
+        return "Post Edit";
     }
 
 
     public function get_delete($id)
     {
-
+        $order = Merch_Order::find($id)->delete();
+        return Redirect::to('rms/merch/orders')
+                ->with('success', 'Successfully Removed Order');
     }
 }
