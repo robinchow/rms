@@ -133,6 +133,19 @@
     @endif
 
 
+    <li class="nav-header">Merch</li>
+      <li>{{HTML::link('rms/merch/orders/','My Orders ')}}</li>
+      @else
+      <li>{{HTML::link('rms/merch/orders/new','Create New Order')}}</li>
+      @endif
+
+    @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
+      <li>{{HTML::link('rms/merch/items','Items')}}</li>
+      <li>{{HTML::link('rms/merch/orders/admin','All Orders')}}</li>
+
+    @endif
+
+
 
     @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
       <li class="nav-header">Website Settings</li>
