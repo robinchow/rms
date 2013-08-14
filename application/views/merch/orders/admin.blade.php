@@ -18,7 +18,10 @@
         </tr>
 	@foreach ($orders as $order)
         <tr>
-            <th colspan="2">{{ HTML::link('/rms/merch/orders/show/'.$order->id,$order->user->profile->full_name.' - '.$order->id) }}</td>
+            <th colspan="2">{{ HTML::link('/rms/merch/orders/show/'.$order->id,$order->user->profile->full_name.' - '.$order->id) }}
+                    {{ HTML::link('/rms/merch/orders/edit/'.$order->id,'Add Payment',array('class'=>'btn pull-right')) }}
+
+            </td>
             <th>${{ $order->amount_paid }}/${{ $order->total() }}</th>
         </tr>
         @foreach($order->items as $oi) 

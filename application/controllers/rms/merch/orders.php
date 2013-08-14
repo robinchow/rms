@@ -104,12 +104,39 @@ class Rms_Merch_Orders_Controller extends Base_Controller
 
     public function get_edit($id)
     {
-        return "Edit";
+        $order = Merch_order::find($id);
+        return View::make('merch.orders.edit')->with('order', $order);
     }
 
-    public function post_edit($id)
+    public function post_edit()
     {
-        return "Post Edit";
+        
+        $input = Input::get();
+        $id = $input['order_id'];
+
+        $rules = array(
+            'order_id'  => 'required',
+        );
+
+        $validation = Validator::make($input, $rules);
+        
+
+        if($validation->passes())
+        {
+
+            unset($input['order_id']);
+
+            $merch_order = Merch_order::update($id,$input);
+
+            return Redirect::to('rms/merch/orders/admin')
+                ->with('success', 'Successfully Edited Order');
+        }
+        else
+        {
+            return Redirect::to('rms/merch/orders/edit/'. $id)
+                ->with_errors($validation)
+                ->with_input(); 
+        }
     }
 
 
