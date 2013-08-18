@@ -135,7 +135,7 @@
 
     <li class="nav-header">Merch</li>
       <li>{{HTML::link('rms/merch/orders/','My Orders ')}}</li>
-      <li>{{HTML::link('rms/merch/orders/new','Create New Order')}}</li>
+      <li>{{HTML::link('rms/merch/orders/new','Order Merch')}}</li>
 
     @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
       <li>{{HTML::link('rms/merch/items','Items')}}</li>
