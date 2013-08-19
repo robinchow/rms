@@ -16,11 +16,13 @@ Transaction Name: &lt;your name&gt; MERCH<br />
     <table class="table table-bordered table-striped">
         <tr>
             <th>Date</th>
+            <th>Cost</th>
             <th>Tools</th>
         </tr>
 	@foreach ($orders as $order)
         <tr>
-    	<th>{{ HTML::link('/rms/merch/orders/show/'.$order->id,$order->created_at) }}</td>
+        <td>{{ HTML::link('/rms/merch/orders/show/'.$order->id,$order->created_at) }}</td>
+        <td>${{ $order->remaining() }}</td>
         <td>
             <div class="btn-group">
                 <a class="btn btn-primary" href="/rms/merch/orders/show/{{$order->id}}">View</a>
