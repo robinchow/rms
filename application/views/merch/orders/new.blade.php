@@ -9,7 +9,8 @@
 
     <legend>Order Merch</legend>
         <p>Pay for merch by giving cash to a producer, or Direct Debit into the following account:</p>
-        <p> BSB: 062151<br />
+        <p>
+BSB: 062151<br />
 Account Number: 1021 2168<br />
 Account Name: CSE REVUE SOCIETY ACCOUNT 2<br />
 Transaction Name: &lt;your name&gt; MERCH<br />

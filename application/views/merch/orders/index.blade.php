@@ -6,6 +6,12 @@
 
 @section('content')
 <h2>My Merch Orders</h2>
+<p>
+BSB: 062151<br />
+Account Number: 1021 2168<br />
+Account Name: CSE REVUE SOCIETY ACCOUNT 2<br />
+Transaction Name: &lt;your name&gt; MERCH<br />
+</p>
 @if ( count($orders) > 0 )
     <table class="table table-bordered table-striped">
         <tr>

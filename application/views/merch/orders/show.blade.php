@@ -15,6 +15,12 @@
 @else
     <h3>Please pay the remaining amount: ${{ $order->remaining() }}</h3>
     <p>In person to one of the producers or via direct deposit with the following description</p>
+<p>
+BSB: 062151<br />
+Account Number: 1021 2168<br />
+Account Name: CSE REVUE SOCIETY ACCOUNT 2<br />
+Transaction Name: &lt;your name&gt; MERCH<br />
+</p>
 @endif
 
 
