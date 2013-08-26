@@ -139,7 +139,7 @@ class Rms_Merch_Orders_Controller extends Base_Controller
                 $item->pivot->save();
             }
 
-            return Redirect::to('rms/merch/orders/admin')
+            return Redirect::to('rms/merch/orders')
                ->with('success', 'Successfully Edited Order');
         }
         else
