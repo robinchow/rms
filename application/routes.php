@@ -24,6 +24,10 @@ Route::controller('rms.camp.registrations');
 Route::controller('rms.merch.items');
 Route::controller('rms.merch.orders');
 
+Route::controller('rms.wellbeing.orders');
+Route::controller('rms.wellbeing.nights');
+
+
 Route::controller('rms.blog.posts');
 
 //Front End Routes
