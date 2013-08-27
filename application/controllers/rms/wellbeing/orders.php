@@ -10,27 +10,56 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
         $this->filter('before', 'admin')->only(array('admin', 'edit', 'delete'));
     }
 
-    public function get_index()
-    {
-
-    }
 
     public function get_new()
     {
-        $merch = Merch_Item::current_merch()->get();
-        return View::make('merch.orders.new')->with('merch', $merch);
+        $nights = Wellbeing_Night::current_nights()->get();
+        return View::make('wellbeing.orders.new')->with('nights', $nights);
     }
 
     public function post_new()
     {
 
+        $input = Input::get();
+
+
+        $rules = array(
+            'year_id'  => 'required',
+            'user_id' => 'required',
+        );
+
+        $validation = Validator::make($input, $rules);
+        
+
+        if($validation->passes())
+        {
+            $yes = Input::get('yes');
+
+            unset($input['yes']);
+
+            $wellbeing_order = Wellbeing_Order::create($input);
+
+            if($yes) {
+                foreach(Wellbeing_Night::current_nights()->get() as $night) {
+                    if(intval($yes[$night->id]) == 1) {
+                        $wellbeing_order->nights()->attach($night->id);
+                    }
+                }
+            }
+
+
+
+
+            return Redirect::to('rms/wellbeing/orders/edit/'.$id)
+                ->with('success', 'Successfully Created Order');
+        }
+        else
+        {
+            return Redirect::to('rms/wellbeing/orders/new')
+                ->with_errors($validation)
+                ->with_input(); 
+        }
        
-
-    }
-
-    public function get_show($id)
-    {
-
 
     }
 
@@ -53,10 +82,69 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
 
     public function get_edit($id)
     {
+        $nights = Wellbeing_Night::current_nights()->get();
+        $order = Wellbeing_Order::find($id);
+
+        $mynights = array();
+        foreach($nights as $night) 
+        {
+                $mynights[$night->id] = 0;
+        }
+        foreach($order->nights as $night) 
+        {
+                $mynights[$night->id] = 1;
+        }
+
+        return View::make('wellbeing.orders.edit')->with('order', $order)->with('nights', $nights)->with('mynights', $mynights);
+        
     }
 
-    public function post_edit()
+    public function post_edit($id)
     {
+        $input = Input::get();
+
+
+        $rules = array(
+            'year_id'  => 'required',
+            'user_id' => 'required',
+        );
+
+        $validation = Validator::make($input, $rules);
+        
+
+        if($validation->passes())
+        {
+            $yes = Input::get('yes');
+
+            unset($input['yes']);
+
+            $wellbeing_order = Wellbeing_Order::update($id, $input);
+
+            $wellbeing_order = Wellbeing_Order::find($id);
+
+            $wellbeing_order->nights()->delete();
+
+            if($yes) {
+                foreach(Wellbeing_Night::current_nights()->get() as $night) {
+                    if(array_key_exists($night->id, $yes)) {
+                        $wellbeing_order->nights()->attach($night->id);
+                    }
+                }
+            }
+
+
+
+
+            return Redirect::to('rms/wellbeing/orders/edit/'.$id)
+                ->with('success', 'Successfully Edited Order');
+        }
+        else
+        {
+            return Redirect::to('rms/wellbeing/orders/new')
+                ->with_errors($validation)
+                ->with_input(); 
+        }
+
         
     }
 
