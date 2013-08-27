@@ -44,7 +44,7 @@ Transaction Name: &lt;your name&gt; WELLBEING<br />
                 </tbody>
             </table>
   
-        <p></p>
+        <p><strong>Total: </strong>${{$order->total()}}</p>
 
         {{ Form::submit('Save Order',array('class'=>'btn btn-primary')) }}
 
