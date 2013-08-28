@@ -11,6 +11,18 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
     }
 
 
+    public function get_index() 
+    {
+        $wo = Auth::User()->wellbeing_orders_year(Year::current_year()->id)->get();
+
+        if (count($wo) == 0) {
+            return Redirect::to('rms/wellbeing/orders/new');
+        } else {
+            return Redirect::to('rms/wellbeing/orders/edit');
+        }
+
+    }
+
     public function get_new()
     {
         $nights = Wellbeing_Night::current_nights()->get();
@@ -50,7 +62,7 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
 
 
 
-            return Redirect::to('rms/wellbeing/orders/edit/'.$id)
+            return Redirect::to('rms/wellbeing/orders/')
                 ->with('success', 'Successfully Created Order');
         }
         else
@@ -80,10 +92,12 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
         }
     }
 
-    public function get_edit($id)
+    public function get_edit()
     {
         $nights = Wellbeing_Night::current_nights()->get();
-        $order = Wellbeing_Order::find($id);
+
+        $order = Auth::User()->wellbeing_orders_year(Year::current_year()->id)->first()->id;
+        $order = Wellbeing_Order::find($order);
 
         $mynights = array();
         foreach($nights as $night) 
@@ -135,12 +149,12 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
 
 
 
-            return Redirect::to('rms/wellbeing/orders/edit/'.$id)
+            return Redirect::to('rms/wellbeing/orders/')
                 ->with('success', 'Successfully Edited Order');
         }
         else
         {
-            return Redirect::to('rms/wellbeing/orders/new')
+            return Redirect::to('rms/wellbeing/orders/edit')
                 ->with_errors($validation)
                 ->with_input(); 
         }

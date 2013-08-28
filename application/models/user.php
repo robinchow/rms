@@ -18,6 +18,18 @@ class User extends Eloquent {
         return $this->has_many('Merch_Order');
     }
 
+    public function wellbeing_orders()
+    {
+        return $this->has_many('Wellbeing_Order');
+    }
+
+    public function wellbeing_orders_year($year_id)
+    {
+        return DB::table('wellbeing_orders')
+            ->where('year_id', '=', $year_id)
+            ->where('user_id', '=', $this->id);
+    }
+
 	public function teams()
     {
         return $this->has_many_and_belongs_to('Team')->with('year_id','status');
