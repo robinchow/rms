@@ -123,13 +123,24 @@ class Rms_Merch_Orders_Controller extends Base_Controller
 
         if($validation->passes())
         {
+            $quantities = $input['quantity'];
+            $sizes = $input['size'];
 
+            unset($input['quantity']);
+            unset($input['size']);
             unset($input['order_id']);
+            Merch_order::update($id,$input);
 
-            $merch_order = Merch_order::update($id,$input);
+            $merch_order = Merch_order::find($id);
 
-            return Redirect::to('rms/merch/orders/admin')
-                ->with('success', 'Successfully Edited Order');
+            foreach($merch_order->items as $item) {
+                $item->pivot->quantity =  $quantities[$item->id];
+                $item->pivot->size = $sizes[$item->id];
+                $item->pivot->save();
+            }
+
+            return Redirect::to('rms/merch/orders')
+               ->with('success', 'Successfully Edited Order');
         }
         else
         {

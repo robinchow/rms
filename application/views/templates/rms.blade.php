@@ -143,6 +143,15 @@
 
     @endif
 
+    <li class="nav-header">Wellbeing</li>
+      <li>{{HTML::link('rms/wellbeing/orders/','My Order')}}</li>
+
+    @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
+      <li>{{HTML::link('rms/wellbeing/nights','Nights')}}</li>
+      <li>{{HTML::link('rms/wellbeing/orders/admin','All Orders')}}</li>
+
+    @endif
+
 
 
     @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
