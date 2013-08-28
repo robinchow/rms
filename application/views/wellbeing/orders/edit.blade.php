@@ -32,11 +32,11 @@ Transaction Name: &lt;your name&gt; WELLBEING<br />
             @foreach ($nights as $night)
                 <tr>
                 <th>{{ $night->date }}</td>
-                <td>${{ $night->price}}</td>
-                <td>${{ $night->special_price}}</td>
+                <td>$<span class='price'>{{ $night->price}}</span></td>
+                <td>$<span class='special-price'>{{ $night->special_price}}</span></td>
                 <td>
                     <label for="yes" class="checkbox">
-                        {{ Form::checkbox('yes['.$night->id.']', 1 , Input::old('yes['. $night->id. ']', $mynights[$night->id])) }}
+                        {{ Form::checkbox('yes['.$night->id.']', 1 , Input::old('yes['. $night->id. ']', $mynights[$night->id]), array('class' => 'wellbeing-checkbox')) }}
                     </label>
                 </td>
                 <tr>
@@ -44,10 +44,25 @@ Transaction Name: &lt;your name&gt; WELLBEING<br />
                 </tbody>
             </table>
   
-        <p><strong>Total: </strong>${{$order->total()}}</p>
+        <p><strong>Total: </strong>$<span class='wellbeing-total'>{{$order->total()}}</span></p>
 
         {{ Form::submit('Save Order',array('class'=>'btn btn-primary')) }}
 
     {{ Form::close() }}
-      
+
+<script>
+    $('.wellbeing-checkbox').click(function(e) {
+        var total = 0;
+        var totalspecial = 0;
+        $('.wellbeing-checkbox').filter(':checked').each(function() {
+            total += parseFloat($(this).parent().parent().parent().find('.price').text());
+            totalspecial += parseFloat($(this).parent().parent().parent().find('.special-price').text());
+        });
+        if ($('.wellbeing-checkbox').filter(':checked').size() == $('.wellbeing-checkbox').size()) {
+            $('.wellbeing-total').text(totalspecial);
+        } else {
+            $('.wellbeing-total').text(total);
+        }
+    });
+</script>
 @endsection
