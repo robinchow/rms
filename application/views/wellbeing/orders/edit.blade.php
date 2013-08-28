@@ -59,9 +59,9 @@ Transaction Name: &lt;your name&gt; WELLBEING<br />
             totalspecial += parseFloat($(this).parent().parent().parent().find('.special-price').text());
         });
         if ($('.wellbeing-checkbox').filter(':checked').size() == $('.wellbeing-checkbox').size()) {
-            $('.wellbeing-total').text(totalspecial);
+            $('.wellbeing-total').text(totalspecial.toFixed(2));
         } else {
-            $('.wellbeing-total').text(total);
+            $('.wellbeing-total').text(total.toFixed(2));
         }
     });
 </script>
