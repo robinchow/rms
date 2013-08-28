@@ -28,4 +28,8 @@ class Wellbeing_Night extends Eloquent {
         $date = date('Y-m-d 00:00:00', strtotime($date));
         $this->set_attribute('date', $date);
     }
+
+    public function count() {
+        return $this->orders()->count();
+    }
 }

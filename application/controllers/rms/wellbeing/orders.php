@@ -84,7 +84,9 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
         }
 
         if($year) {
+            $nights = Wellbeing_Night::current_nights()->get();
 
+            return View::make('wellbeing.orders.admin')->with('nights', $nights)->with('year', $year);
  
 
         } else {

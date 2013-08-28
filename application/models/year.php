@@ -22,6 +22,11 @@ class Year extends Eloquent {
         return $this->has_many_and_belongs_to('Sponsor');
     }
 
+    public function wellbeing_orders() 
+    {
+        return $this->has_many('Wellbeing_Order');
+    }
+
     public function camp_settings()
     {
         return $this->has_many('Camp_Setting');
