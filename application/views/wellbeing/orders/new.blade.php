@@ -36,7 +36,7 @@ Transaction Name: &lt;your name&gt; WELLBEING<br />
                 <td>$<span class='special-price'>{{ $night->special_price}}</span></td>
                 <td>
                     <label for="yes" class="checkbox">
-                        {{ Form::checkbox('yes['.$night->id.']', 1 , Input::old('yes['. $night->id. ']', $mynights[$night->id]), array('class' => 'wellbeing-checkbox')) }}
+                        {{ Form::checkbox('yes['.$night->id.']', 1 , Input::old('yes['. $night->id. ']', array('class' => 'wellbeing-checkbox')) }}
                     </label>
                 </td>
                 <tr>
