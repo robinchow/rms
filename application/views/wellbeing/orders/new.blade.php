@@ -52,6 +52,21 @@ Transaction Name: &lt;your name&gt; WELLBEING<br />
     {{ Form::close() }}
    
 <script>
+    $(function() {
+        var total = 0;
+        var totalspecial = 0;
+        $('.wellbeing-checkbox').filter(':checked').each(function() {
+            total += parseFloat($(this).parent().parent().parent().find('.price').text());
+            totalspecial += parseFloat($(this).parent().parent().parent().find('.special-price').text());
+        });
+        if ($('.wellbeing-checkbox').filter(':checked').size() == $('.wellbeing-checkbox').size()) {
+            $('.wellbeing-total').text(totalspecial.toFixed(2));
+        } else {
+            $('.wellbeing-total').text(total.toFixed(2));
+        }
+    });
+
+
     $('.wellbeing-checkbox').click(function(e) {
         var total = 0;
         var totalspecial = 0;
