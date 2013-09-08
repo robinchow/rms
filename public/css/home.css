@@ -28,6 +28,17 @@ header img {
     height: 80px;
   }
 }
+ul.tickets {
+  position: absolute;
+  top: 0;
+  left: 0;
+  list-style: none;
+  background: rgba(30, 30, 30, 0.7);
+  padding: 10px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-left-radius: 5px;
+}
 ul.accounts {
   position: absolute;
   top: 0;
