@@ -20,7 +20,7 @@
 
   <body>
 
-  <div style="position:fixed;top:0px;left:0px;padding:10px;border:3px solid #0BB5FF;background-color:black;font-size:24px">
+  <div style="position:fixed;top:0px;left:0px;padding:10px;border-right:3px solid #0BB5FF;background-color:black;font-size:24px;border-bottom:3px solid #0BB5FF;">
     <a href="http://infringers.com.au/bookings">Buy Tickets!</a>
   </div>
 
