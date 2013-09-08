@@ -20,15 +20,15 @@
 
   <body>
 
-  <div style="position:fixed;top:0px;left:0px;padding:10px;border-right:3px solid #0BB5FF;background-color:black;font-size:24px;border-bottom:3px solid #0BB5FF;">
-    <a href="http://infringers.com.au/bookings">Buy Tickets!</a>
-  </div>
 
   <div class="container">
      <div class="row">
       <header>
         <img src="/img/logo.png"><h1>CSE Revue</h1>
       </header>
+      <ul class="tickets">
+        <a href="http://infringers.com.au/bookings">Buy Tickets!</a>
+      </ul>
       <ul class="accounts">
         <li><a href="/rms/account/signup">Sign Up</a></li> - 
         <li>
