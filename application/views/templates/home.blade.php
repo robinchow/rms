@@ -26,9 +26,11 @@
       <header>
         <img src="/img/logo.png"><h1>CSE Revue</h1>
       </header>
+<!--
       <ul class="tickets">
         <a href="http://infringers.com.au/bookings">Buy Tickets!</a>
       </ul>
+-->
       <ul class="accounts">
         <li><a href="/rms/account/signup">Sign Up</a></li> - 
         <li>
