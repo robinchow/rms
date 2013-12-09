@@ -160,7 +160,10 @@
       <li>{{HTML::link('rms/blog/posts','Blog')}}</li>
       <li>{{HTML::link('rms/faqs','FAQs')}}</li>
       <li>{{HTML::link('rms/sponsors','Sponsors')}}</li>
-
+    @else
+      <li class="nav-header">User Content</li>
+      <li>{{HTML::link('rms/news','News')}}</li>
+      <li>{{HTML::link('rms/blog/posts','Blog')}}</li>
     @endif
 
 

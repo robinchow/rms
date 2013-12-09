@@ -117,10 +117,10 @@ class User extends Eloquent {
         return DB::table('executive_user')
             ->join('executives', 'executive_user.executive_id', '=', 'executives.id')
             ->join('years', 'years.id', '=', 'executive_user.year_id')
+            ->where('executive_user.user_id', '=', $this->id)
             ->where('year_id', '=', Year::current_year()->id)
-            ->where('position', '=', 'Producers')
-            ->or_where('position', '=', 'Secretary')
-            ->count() != 0;
+            ->where_in('position', array('Producers', 'Secretary'))
+            ->count();
 
     }
 

@@ -6,6 +6,7 @@
 
 @section('content')
 <h2>News</h2>
+
 @if ( count($news) > 0 )
 	<table class="table table-striped table-bordered">
 		<tr>
@@ -18,16 +19,20 @@
 		<tr>
 			<td>{{$n->title}}</td>
 			<td>{{$n->updated_at}}</td>
-			<td>{{$n->created_at}}</td>
+            <td>{{$n->created_at}}</td>
+
 			<td>
 				<div class="btn-group">
-					<a class="btn btn-primary" href="/rms/news/edit/{{$n->id}}">Edit</a>
 					@if(Auth::User()->admin or Auth::User()->can_add_news())
+					<a class="btn btn-primary" href="/rms/news/edit/{{$n->id}}">Edit</a>
 					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 					<ul class="dropdown-menu">
-					@endif
+						<li>{{ HTML::link('rms/news/view/'. $n->id,'View')}}</li>
 						<li>{{ HTML::link('rms/news/delete/'. $n->id,'Delete')}}</li>
-					</ul>
+                    </ul>
+                    @else
+					<a class="btn btn-primary" href="/rms/news/view/{{$n->id}}">View</a>
+					@endif
 				</div>
 			</td>
 		</tr>

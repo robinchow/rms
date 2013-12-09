@@ -97,5 +97,11 @@ class Rms_News_Controller extends Base_Controller
         return Redirect::to('rms/news')
                 ->with('success', 'Successfully Removed news');
     }
+
+    public function get_view($id)
+    {
+        $news = News::find($id);
+        return View::make('news.view')->with('news', $news);
+    }
     
 }
