@@ -22,7 +22,7 @@
 			<td>
 				<div class="btn-group">
 					<a class="btn btn-primary" href="/rms/news/edit/{{$n->id}}">Edit</a>
-					@if(Auth::User()->admin or Auth::User()->can_manage_team(Year::current_year()->id, $team->id))
+					@if(Auth::User()->admin or Auth::User()->can_add_news())
 					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 					@endif
@@ -37,7 +37,7 @@
 	No News
 @endif
 
-@if(Auth::User()->admin or Auth::User()->can_manage_team(Year::current_year()->id, $team->id))
+@if(Auth::User()->admin or Auth::User()->can_add_news())
 {{ HTML::link('rms/news/add/','Add',array('class'=>'btn btn-primary'))}}
 @endif
 

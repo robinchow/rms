@@ -111,6 +111,19 @@ class User extends Eloquent {
         return $count!=0;
     }
 
+    // only the secretary or a producer may add news items
+    public function can_add_news()
+    {
+        return DB::table('executive_user')
+            ->join('executives', 'executive_user.executive_id', '=', 'executives.id')
+            ->join('years', 'years.id', '=', 'executive_user.year_id')
+            ->where('year_id', '=', Year::current_year()->id)
+            ->where('position', '=', 'Producers')
+            ->or_where('position', '=', 'Secretary')
+            ->count() != 0;
+
+    }
+
     public function is_head_of_team($year_id, $team_id) {
         $count = DB::table('team_user')->where('team_id', '=', $team_id)
                     ->where('year_id', '=', $year_id)
