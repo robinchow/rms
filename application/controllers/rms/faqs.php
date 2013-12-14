@@ -7,7 +7,7 @@ class Rms_Faqs_Controller extends Base_Controller
     public function __construct() 
     {
         $this->filter('before', 'auth');
-        $this->filter('before', 'admin')->except('index');
+        $this->filter('before', 'exec');
 
     }
 

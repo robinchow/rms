@@ -1,4 +1,4 @@
-<?php
+// <?php
 class Rms_Sponsors_Controller extends Base_Controller
 {
 
@@ -7,7 +7,7 @@ class Rms_Sponsors_Controller extends Base_Controller
     public function __construct() 
     {
         $this->filter('before', 'auth');
-        $this->filter('before', 'admin');
+        $this->filter('before', 'exec');
 
     }
 

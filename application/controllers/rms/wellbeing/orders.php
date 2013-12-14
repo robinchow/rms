@@ -7,7 +7,7 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
     public function __construct() 
     {
         $this->filter('before', 'auth');
-        $this->filter('before', 'admin')->only(array('admin', 'delete'));
+        $this->filter('before', 'exec')->only(array('exec', 'delete'));
     }
 
 

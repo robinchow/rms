@@ -6,7 +6,7 @@ class Rms_Camp_Settings_Controller extends Base_Controller
 
     public function __construct() 
     {
-        $this->filter('before', 'admin');
+        $this->filter('before', 'exec');
     }
 
     public function get_index()

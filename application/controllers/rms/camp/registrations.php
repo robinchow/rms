@@ -7,7 +7,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
     public function __construct()
     {
         $this->filter('before', 'auth');
-        $this->filter('before', 'admin')->except(array('signup', 'edit'));
+        $this->filter('before', 'exec')->except(array('signup', 'edit'));
 
     }
 

@@ -123,6 +123,11 @@ Route::filter('auth', function()
 	}
 });
 
+Route::filter('exec', function()
+{
+	if (!Auth::User()->admin && !Auth::User()->is_currently_part_of_exec()) return Redirect::to('rms/account/login')->with('warning','You are not permitted access. Please login as an admin');
+});
+
 Route::filter('admin', function()
 {
 	if (!Auth::User()->admin) return Redirect::to('rms/account/login')->with('warning','You are not permitted access. Please login as an admin');

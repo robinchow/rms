@@ -7,7 +7,7 @@ class Rms_Users_Controller extends Base_Controller
     public function __construct() 
     {
         $this->filter('before', 'auth');
-        $this->filter('before', 'admin')->except(array('index','show','search'));
+        $this->filter('before', 'exec')->except(array('index','show','search'));
 
     }
 

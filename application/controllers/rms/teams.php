@@ -9,9 +9,9 @@ class Rms_Teams_Controller extends Base_Controller
         $this->filter('before', 'auth');
         $this->filter('before', 'manage_team')
             ->only(array('edit','manage'));
-        $this->filter('before', 'admin')
+        $this->filter('before', 'exec')
             ->only(array('delete'));
-        $this->filter('before', 'admin')
+        $this->filter('before', 'exec')
             ->only(array('renew'));
     }
 
