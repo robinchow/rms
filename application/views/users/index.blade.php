@@ -27,7 +27,7 @@
 			<td>
 				<div class="btn-group">
 					<a class="btn btn-primary" href="/rms/users/show/{{$user->id}}"><i class="icon-user icon-white"></i> Profile</a>
-					@if(Auth::User()->admin)
+					@if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
 					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						@if($user->admin)

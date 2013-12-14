@@ -10,6 +10,6 @@
 
     <div>{{$blog_posts->body}} </div>
 
-    {{HTML::link('rms/body/posts/','Back',array('class'=>'btn'))}}
+    {{HTML::link('rms/blog/posts/','Back',array('class'=>'btn'))}}
       
 @endsection

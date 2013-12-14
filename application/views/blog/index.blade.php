@@ -22,11 +22,13 @@
 			<td>
 				<div class="btn-group">
 					<a class="btn btn-primary" href="/rms/blog/posts/show/{{$n->id}}">Show</a>
-					<a class="btn btn-primary" href="/rms/blog/posts/edit/{{$n->id}}">Edit</a>
-					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li>{{ HTML::link('rms/blog/posts/delete/'. $n->id,'Delete')}}</li>
-					</ul>
+					@if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
+						<a class="btn btn-primary" href="/rms/blog/posts/edit/{{$n->id}}">Edit</a>
+						<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li>{{ HTML::link('rms/blog/posts/delete/'. $n->id,'Delete')}}</li>
+						</ul>
+					@endif
 				</div>
 			</td>
 		</tr>

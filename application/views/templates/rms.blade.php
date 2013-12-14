@@ -95,7 +95,7 @@
 
     <li class="nav-header">Teams</li>
     <li>{{HTML::link('rms/teams','View Teams')}}</li>
-    @if(Auth::user()->admin)
+    @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
         <li>{{HTML::link('rms/teams/renew','Renew Teams')}}</li>
     @endif
 
@@ -104,7 +104,7 @@
 
     <li class="nav-header">Members</li>
     <li>{{HTML::link('rms/users/search', 'Search Members')}}</li>
-    @if(Auth::user()->admin)
+    @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
       <li>{{HTML::link('rms/users','List Members')}}</li>
     @endif
 
@@ -160,6 +160,9 @@
       <li>{{HTML::link('rms/blog/posts','Blog')}}</li>
       <li>{{HTML::link('rms/faqs','FAQs')}}</li>
       <li>{{HTML::link('rms/sponsors','Sponsors')}}</li>
+      @if(Auth::user()->admin)
+        <li>{{HTML::link('rms/years','Years')}}</li>
+      @endif
     @else
       <li class="nav-header">User Content</li>
       <li>{{HTML::link('rms/news','News')}}</li>

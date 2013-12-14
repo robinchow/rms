@@ -8,7 +8,7 @@
     {{ Form::open('rms/teams/edit/' . $team->id)}}
 
     <legend>Edit Team</legend>
-        @if(Auth::User()->admin)
+        @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
         <label for="renew" class="checkbox">
             {{ Form::checkbox('renew', 1 , Input::old('renew',$team->is_active())) }} Renew for {{ Year::current_year()->year }}
         </label>

@@ -134,7 +134,7 @@
 	<p>No Teams<p>
 @endif
 
-@if(Auth::User()->admin )
+@if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
 {{HTML::link('rms/teams/add','Add Team',array('class'=>'btn btn-primary'))}}
 @endif
 {{HTML::link('rms/teams/index/archive','Archives',array('class'=>'btn btn-primary'))}}

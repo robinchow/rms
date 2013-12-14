@@ -20,7 +20,6 @@
            <td>
                 <div class="btn-group">
                     <a class="btn btn-primary" href="/rms/executives/show/{{$executive->id}}">View</a>
-                    @if(Auth::User()->admin)
                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li>{{HTML::link('rms/executives/manage/'. $executive->id,'Manage Executive',array('class'=>'button'))}}</li>
@@ -28,7 +27,6 @@
                         <li>{{HTML::link('rms/executives/delete/'. $executive->id,'Delete Executive Position',array('class'=>'button'))}}</li>
 
                     </ul>
-                    @endif
                 </div>
            </td>
     	</tr>
@@ -38,11 +36,6 @@
 	No Executives
 @endif
 
-@if(Auth::user()->admin)
-    {{HTML::link('rms/executives/add','Add Executive Position',array('class'=>'btn btn-primary'))}}
-@endif
-
-
-
+{{HTML::link('rms/executives/add','Add Executive Position',array('class'=>'btn btn-primary'))}}
 
 @endsection
