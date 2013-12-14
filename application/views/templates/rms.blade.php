@@ -110,9 +110,6 @@
 
     <li class="nav-header">Executives</li>
     <li>{{HTML::link('rms/executives','View Executives')}}</li>
-    @if(Auth::user()->admin)
-      <li>{{HTML::link('rms/executives/join','Join An Executive')}}
-    @endif
 </li>
     
     <li class="nav-header">Camp</li>

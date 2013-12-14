@@ -141,36 +141,6 @@ class Rms_Executives_Controller extends Base_Controller
                 ->with('success', 'Successfully deleted member');
     }
 
-    public function get_join()
-    {
-        $executives = Executive::lists('position', 'id');
-
-        return View::make('executives.join')
-            ->with('executives',$executives);
-    }
-
-    public function post_join()
-    {
-        $user = Auth::User();
-        $executive = Executive::find(Input::get('executive_id'));
-        $year = Year::current_year();
-
-
-        if(!$user->is_part_of_exec($year->id, $executive->id))
-        {
-            $user->executives()->attach($executive, array('non_executive' => Input::get('non_executive',0), 'year_id'=>$year->id));
-            return Redirect::to('rms/executives')
-                ->with('success', 'Successfully joined Executive Position');
-        }
-        else 
-        {
-             return Redirect::to('rms/executives')
-                 ->with('warning', 'You are already a member of that executive');
-        }
-    }
-
-
-
     public function get_delete($id)
     {
         $executive = Executive::find($id)->delete();
