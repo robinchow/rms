@@ -29,9 +29,11 @@
 
 
 			<div id="main-content">
-				<p><b>{{$news->title}}</b></p>
-				<p>{{nl2br($news->post)}}</p>
-				<br>
+				@foreach(array_reverse(array_slice(News::all(), -4, 4, true)) as $news)
+					<p><b>{{$news->title}}</b><span style="float: right;">{{date('d M Y',strtotime($news->created_at))}}</span></p>
+					<p>{{nl2br($news->post)}}</p>
+					<hr>
+				@endforeach
 			</div>
 		</div>
 
