@@ -6,7 +6,12 @@
 
 @section('content')
 
-    <h2>{{ $team->name }}</h2>
+    <h2>{{ $team->name }}</h2>     
+    @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec() || Auth::User()->can_manage_team(Year::current_year()->id, $team->id))
+        {{HTML::link('rms/teams/edit/'. $team->id,'Edit Team',array('class'=>'btn btn-primary', 'style'=>'float: right;'))}}
+        {{HTML::link('rms/teams/manage/'. $team->id,'Manage Team',array('class'=>'btn btn-primary', 'style'=>'float: right;'))}}        
+    @endif
+
         <strong>Heads Email:</strong>
         <p>{{ $team->heads_email }}</p>
     	<strong>Mailing List:</strong>
