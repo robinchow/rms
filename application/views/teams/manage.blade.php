@@ -13,7 +13,7 @@
     	{{ Form::hidden('year_id', $year->id)}}
 
         {{ Form::label('user', 'User') }}
-        {{ Typeahead::create($users, null,array('name'=>'user'))}}
+        {{ Typeahead::create($users, null,array('name'=>'user', 'autocomplete'=>'off'))}}
 
         {{ Form::label('status', 'Status') }}
         {{ Form::select('status',$statuses) }}<br>

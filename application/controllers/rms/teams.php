@@ -183,13 +183,17 @@ class Rms_Teams_Controller extends Base_Controller
     {
 
         $user_fullname = Input::get('user');
-        $profile = Profile::where('full_name','=',$user_fullname)->first();
-        $user = $profile->user;
         $year_id = Input::get('year_id');
         $team_id = Input::get('team_id');
         $status = Input::get('status');
-
-        
+        $profile = Profile::where('full_name','=',$user_fullname)->first();
+        if (!$profile)
+        {
+            return Redirect::to('rms/executives/manage/' . $team_id)
+                 ->with('warning', 'Please enter a member');
+        }
+        $user = $profile->user;
+                
         if(!$user->is_part_of_team($year_id, $team_id))
         {
             $user->teams()->attach($team_id, array('status' => $status, 'year_id'=>$year_id));

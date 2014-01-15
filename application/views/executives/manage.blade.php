@@ -15,7 +15,7 @@
     	{{ Form::hidden('year_id', $year->id)}}
 
         {{ Form::label('user', 'User') }}
-        {{ Typeahead::create($users, null,array('name'=>'user'))}}<br>
+        {{ Typeahead::create($users, null,array('name'=>'user', 'autocomplete'=>'off')) }}<br>
 
         <label for="non_executive" class="checkbox">
             {{ Form::checkbox('non_executive', 1 )}} Non Executive/Assitant

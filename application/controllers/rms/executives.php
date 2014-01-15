@@ -112,11 +112,15 @@ class Rms_Executives_Controller extends Base_Controller
     {
 
         $user_fullname = Input::get('user');
-        $profile = Profile::where('full_name','=',$user_fullname)->first();
-        $user = $profile->user;
         $year_id = Input::get('year_id');
         $executive_id = Input::get('executive_id');
-
+        $profile = Profile::where('full_name','=',$user_fullname)->first();
+        if (!$profile)
+        {
+            return Redirect::to('rms/executives/manage/' . $executive_id)
+                 ->with('warning', 'Please enter a member');
+        }
+        $user = $profile->user;
         
         if(!$user->is_part_of_exec($year_id, $executive_id))
         {
@@ -146,9 +150,5 @@ class Rms_Executives_Controller extends Base_Controller
         $executive = Executive::find($id)->delete();
         return Redirect::to('rms/executives')
                 ->with('success', 'Successfully Removed Executive Position');
-    }
-
-
-
-    
+    }   
 }
