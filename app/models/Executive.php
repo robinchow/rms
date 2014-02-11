@@ -13,7 +13,7 @@ class Executive extends Eloquent {
         if ($year == "_" || $year == Year::current_year()->year) {
             $year_alias = "";
         } else {
-            $year_alias = '.'.Year::where('year', '=', $year)->select('alias')->first()['alias'];
+            $year_alias = '.'.Year::where('year', '=', $year)->select('alias')->first()->alias;
         }
 
 
