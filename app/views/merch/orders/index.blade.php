@@ -28,7 +28,7 @@ Transaction Name: &lt;your name&gt; MERCH<br />
                 <a class="btn btn-primary" href="/rms/merch/orders/show/{{$order->id}}">View</a>
 
                 @if (!$order->locked())
-                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#" style="padding-top:4px;padding-bottom:12px"><span class="caret"></span></a>
+                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                 <li>{{HTML::link('rms/merch/orders/user-edit/'. $order->id,'Edit Order')}}</li>
                 <li>{{HTML::link('rms/merch/orders/delete/'. $order->id,'Delete Order')}}</li>
