@@ -246,8 +246,10 @@ class AccountsController extends BaseController
 
         if ($validation->passes())
         {
+
+
             $user = Auth::user();
-            if (Hash::make(Input::get('old_password')) != $user->password) {
+            if (Hash::check(Input::get('old_password'), $user->password)) {
                 return Redirect::to('rms/account/change-password')
                     ->withErrors('Old Password was entered incorrectly');
             }
