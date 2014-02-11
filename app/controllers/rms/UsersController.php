@@ -1,19 +1,22 @@
 <?php
-class Rms_Users_Controller extends Base_Controller
+
+class UsersController extends BaseController
 {
 
     public $restful = true;
 
     public function __construct() 
     {
+    /*
         $this->filter('before', 'auth');
         $this->filter('before', 'exec')->except(array('index','show','search'));
+    */
 
     }
 
     public function get_index()
     {
-        $users = User::order_by('email', 'asc')->paginate(10);
+        $users = User::orderBy('email', 'asc')->paginate(10);
         return View::make('users.index')->with('users', $users);
     }
 
@@ -40,12 +43,13 @@ class Rms_Users_Controller extends Base_Controller
                 ->where('year_id','=',$year_id)
                 ->where(function($query) use ($q, $email_query, $phone_query)
                 {
-                    $query->or_where('full_name','LIKE','%'.$q.'%');
-                    $query->or_where('display_name','LIKE','%'.$q.'%');
-                    $query->or_where('email','LIKE','%'.$email_query.'%');
-                    $query->or_where('phone','LIKE','%'.$phone_query.'%');
+                    $query->orWhere('full_name','LIKE','%'.$q.'%');
+                    $query->orWhere('display_name','LIKE','%'.$q.'%');
+                    $query->orWhere('email','LIKE','%'.$email_query.'%');
+                    $query->orWhere('phone','LIKE','%'.$phone_query.'%');
                 })
                 ->get();
+                
         } else {
             $q = '';
             $year = Year::current_year()->year;

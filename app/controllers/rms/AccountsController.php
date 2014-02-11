@@ -1,15 +1,15 @@
 <?php
-class Rms_Account_Controller extends Base_Controller
+
+class AccountsController extends BaseController
 {
 
-    public $restful = true;
-
-    public function __construct() 
+    public function __construct()
     {
-        $this->filter('before', 'auth')->except(array('login','signup','forgot','reset_password'));
-
+        $this->beforeFilter('auth', array('except' => array('get_login', 'post_login', 'get_signup', 'post_signup', 
+                                                            'get_forgot', 'post_forgot', 'get_reset_password', 'post_reset_password')));
+/*
         //Validator for old email and old pasword
-        Validator::register('matches', function($attribute, $value, $parameters)
+        Validator::extend('matches', function($attribute, $value, $parameters)
         {
             if($attribute =='old_password'){
                 return Hash::check($value, Auth::user()->password);
@@ -20,10 +20,11 @@ class Rms_Account_Controller extends Base_Controller
             }
         });
 
-        Validator::register('reset_password', function($attribute, $value, $parameters)
+        Validator::extend('reset_password', function($attribute, $value, $parameters)
         {
             return (User::find($parameters[0])->reset_password_hash == $value);
         });
+        */
     }
 
     public function get_index()
@@ -40,16 +41,17 @@ class Rms_Account_Controller extends Base_Controller
     {
         return View::make('account.login');
     }
-    
+
     /**
      * Login Post Handling
      */
     public function post_login()
     {
         $credentials = array(
-            'username' => Input::get('email'),
+            'email' => Input::get('email'),
             'password' => Input::get('password')
         );
+
         if ( Auth::attempt($credentials) )
         {
             // If user attempted to access specific URL before logging in
@@ -71,14 +73,14 @@ class Rms_Account_Controller extends Base_Controller
         }
     }
 
-    public function get_edit() 
+    public function get_edit()
     {
         $user = Auth::user();
         return View::make('account.edit')->with('user', $user);
     }
 
     // POST /rms/account/edit
-    public function post_edit() 
+    public function post_edit()
     {
         $user = Auth::user();
         $profile = $user->profile;
@@ -104,35 +106,34 @@ class Rms_Account_Controller extends Base_Controller
             Input::merge(array('arc' => Input::get('arc',0)));
 
             //Update Profile
-            if(Input::has_file('image')) {
-                $image_name = preg_replace('/.*\.(.+)/', $profile->user_id.".$1", Input::file('image.name'));
-                File::delete(path('base').'/public/img/profile/' . $profile->image);
-                Input::upload('image', path('base').'/public/img/profile', $image_name);
+            if(Input::hasFile('image')) {
+                $image_name = preg_replace('/.*\.(.+)/', $profile->user_id.".$1", Input::file('image')->getClientOriginalName());
+                File::delete(base_path() . '/public/img/profile/' . $profile->image);
+                Input::file('image')->move(base_path() .'/public/img/profile', $image_name);
                 Input::merge(array('image' => $image_name));
             }
 
-            Profile::update($profile->id, Input::get());
-
+            $profile->update(Input::get());
 
             return Redirect::to('rms/account')
                 ->with('success', 'Profile successfully updated');
         }
-        else 
+        else
         {
             return Redirect::to('rms/account/edit')
                 ->with_errors($validation)
-                ->with_input(); 
+                ->with_input();
         }
 
 
     }
 
-    public function get_signup() 
+    public function get_signup()
     {
         return View::make('account.signup');
     }
 
-    public function post_signup() 
+    public function post_signup()
     {
 
         $input = Input::all();
@@ -141,7 +142,7 @@ class Rms_Account_Controller extends Base_Controller
             'email'  => 'required|email|max:128|unique:users',
             'password' => 'required|max:128',
             'full_name' => 'required|max:128',
-            'display_name' => 'required|alpha_dash|max:128|unique:profiles',
+            'display_name' => 'alpha_dash|max:128',
             'dob' => 'required',
             'gender' => 'required|in:O,M,F',
             'phone' => 'required|max:10',
@@ -152,7 +153,7 @@ class Rms_Account_Controller extends Base_Controller
         );
 
         $validation = Validator::make($input, $rules);
-        
+
 
         if($validation->passes())
         {
@@ -162,15 +163,15 @@ class Rms_Account_Controller extends Base_Controller
             $user->password = Hash::make(Input::get('password'));
             $user->save();
 
-            Auth::login($user->id);
+            Auth::loginUsingId($user->id);
             //Create Profile
 
-            if(Input::has_file('image')) {
-                $image_name = preg_replace('/.*\.(.+)/', $user->id.".$1", Input::file('image.name'));
-                Input::upload('image', path('base').'/public/img/profile', $image_name);
+            if(Input::hasFile('image')) {
+                $image_name = preg_replace('/.*\.(.+)/', $profile->user_id.".$1", Input::file('image')->getClientOriginalName());
+                Input::file('image')->move(base_path() .'/public/img/profile', $image_name);
                 Input::merge(array('image' => $image_name));
-            }
 
+            }
             $profile_data = Input::get();
             unset($profile_data['email']);
             unset($profile_data['password']);
@@ -178,21 +179,21 @@ class Rms_Account_Controller extends Base_Controller
 
             $profile = new Profile($profile_data);
 
-            $user->profile()->insert($profile);
+            $user->profile()->save($profile);
             $user->save();
 
 
             //Automatic renew them for current year
             $year = Year::current_year();
             $user->years()->attach($year->id);
+            
 
-
-            return Redirect::to('rms/account')->with('status', 'Succesfully signed up'); 
+            return Redirect::to('rms/account');//->withInput('Succesfully signed up');
         } else {
             return Redirect::to('rms/account/signup')
-                ->with_errors($validation)
-                ->with_input(); 
-        }      
+                ->withErrors($validation)
+                ->withInput();
+        }
 
     }
 
@@ -200,12 +201,12 @@ class Rms_Account_Controller extends Base_Controller
     public function get_renew()
     {
         $year = Year::current_year();
-        
+
         return View::make('account.renew')
             ->with('year', $year);
     }
 
-    public function post_renew() 
+    public function post_renew()
     {
         $user = Auth::user();
         $year = Year::current_year();
@@ -217,7 +218,7 @@ class Rms_Account_Controller extends Base_Controller
             return Redirect::to('rms/account')
                 ->with('success', 'You succesfully renewed');
         }
-        else 
+        else
         {
             return Redirect::to('rms/account')
                 ->with('warning', 'You didn\'t need to renew');
@@ -236,29 +237,30 @@ class Rms_Account_Controller extends Base_Controller
 
         $rules = array(
             'password'  => 'required|max:128|confirmed|different:old_password',
-            'old_password' => 'required|max:128|matches',
+            'old_password' => 'required|max:128',
         );
 
-        $messages = array(
-            'old_password_matches' => 'The old password field must match your current password'
-        );
+        $messages = array();
 
         $validation = Validator::make($input, $rules, $messages);
 
         if ($validation->passes())
         {
-
             $user = Auth::user();
+            if (Hash::make(Input::get('old_password')) != $user->password) {
+                return Redirect::to('rms/account/change-password')
+                    ->withErrors('Old Password was entered incorrectly');
+            }
             $user->password = Hash::make(Input::get('password'));
             $user->save();
 
             return Redirect::to('rms/account')
                 ->with('success', 'Successfully changed Password');
         }
-        else 
+        else
         {
-            return Redirect::to('rms/account/change_password')
-                ->with_errors($validation);
+            return Redirect::to('rms/account/change-password')
+                ->withErrors($validation);
         }
     }
 
@@ -273,29 +275,35 @@ class Rms_Account_Controller extends Base_Controller
 
         $rules = array(
             'email'  => 'required|max:128|confirmed|different:old_email',
-            'old_email' => 'required|max:128|matches',
+            'old_email' => 'required|max:128'
         );
 
-        $messages = array(
-            'old_email_matches' => 'The old email field must match your current email'
-        );
+        $messages = array();
 
         $validation = Validator::make($input, $rules, $messages);
 
         if ($validation->passes())
         {
+
             $user = Auth::user();
+
+            if (Input::get('old_email') != $user->email) {
+                return Redirect::to('rms/account/change-email')
+                    ->withErrors('Old Email was entered incorrectly')
+                    ->withInput();
+            }
+
             $user->email = Input::get('email');
             $user->save();
 
             return Redirect::to('rms/account')
                     ->with('success', 'Successfully Updated Email');
         }
-        else 
+        else
         {
-            return Redirect::to('rms/account/change_email')
-                ->with_errors($validation)
-                ->with_input(); 
+            return Redirect::to('rms/account/change-email')
+                ->withErrors($validation)
+                ->withInput();
         }
     }
 
@@ -320,7 +328,7 @@ class Rms_Account_Controller extends Base_Controller
                 ->body('Hello,<br><br>You are receiving this email because you recently signed up to CSE Revue at one of our BBQs.
                         You have been added to our website and will now receive email updates on events we are holding. To join some teams and
                         get involved with the society, please activate your account and create yourself a password. This can be done by clicking
-                        this 
+                        this
                         <a href="'.$user->reset_url().'">link</a> or copy and paste the url below in your browser<br>'.$user->reset_url().
                         '<br><br>CSE Revue Webmin')
                 ->html(true)
@@ -376,7 +384,7 @@ class Rms_Account_Controller extends Base_Controller
             return Redirect::to('rms/account')
                 ->with('success', 'Succesfully reset password');
         }
-        else 
+        else
         {
             return Redirect::to('rms/account/reset_password/'. Input::get('id'). '/'. Input::get('reset_password_hash'))
                 ->with_errors($validation);

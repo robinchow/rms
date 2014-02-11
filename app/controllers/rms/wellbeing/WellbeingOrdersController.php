@@ -1,13 +1,13 @@
 <?php
-class Rms_Wellbeing_Orders_Controller extends Base_Controller
+class WellbeingOrdersController extends BaseController
 {
 
     public $restful = true;
 
     public function __construct() 
     {
-        $this->filter('before', 'auth');
-        $this->filter('before', 'exec')->only(array('exec', 'delete'));
+        $this->beforeFilter('auth');
+        $this->beforeFilter('before', array('only' => (array('exec', 'delete'))));
     }
 
 
@@ -25,7 +25,7 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
 
     public function get_new()
     {
-        $nights = Wellbeing_Night::current_nights()->get();
+        $nights = WellbeingNight::current_nights()->get();
         return View::make('wellbeing.orders.new')->with('nights', $nights);
     }
 
@@ -49,10 +49,10 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
 
             unset($input['yes']);
 
-            $wellbeing_order = Wellbeing_Order::create($input);
+            $wellbeing_order = WellbeingOrder::create($input);
 
             if($yes) {
-                foreach(Wellbeing_Night::current_nights()->get() as $night) {
+                foreach(WellbeingNight::current_nights()->get() as $night) {
                     if(intval($yes[$night->id]) == 1) {
                         $wellbeing_order->nights()->attach($night->id);
                     }
@@ -84,7 +84,7 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
         }
 
         if($year) {
-            $nights = Wellbeing_Night::current_nights()->get();
+            $nights = WellbeingNight::current_nights()->get();
 
             return View::make('wellbeing.orders.admin')->with('nights', $nights)->with('year', $year);
  
@@ -96,10 +96,10 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
 
     public function get_edit()
     {
-        $nights = Wellbeing_Night::current_nights()->get();
+        $nights = WellbeingNight::current_nights()->get();
 
         $order = Auth::User()->wellbeing_orders_year(Year::current_year()->id)->first()->id;
-        $order = Wellbeing_Order::find($order);
+        $order = WellbeingOrder::find($order);
 
         $mynights = array();
         foreach($nights as $night) 
@@ -134,14 +134,14 @@ class Rms_Wellbeing_Orders_Controller extends Base_Controller
 
             unset($input['yes']);
 
-            $wellbeing_order = Wellbeing_Order::update($id, $input);
+            $wellbeing_order = WellbeingOrder::find($id);
 
-            $wellbeing_order = Wellbeing_Order::find($id);
+            $wellbeing_order->update($input);
 
-            $wellbeing_order->nights()->delete();
+            $wellbeing_order->nights()->detach();
 
             if($yes) {
-                foreach(Wellbeing_Night::current_nights()->get() as $night) {
+                foreach(WellbeingNight::current_nights()->get() as $night) {
                     if(array_key_exists($night->id, $yes)) {
                         $wellbeing_order->nights()->attach($night->id);
                     }

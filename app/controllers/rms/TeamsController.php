@@ -1,11 +1,13 @@
 <?php
-class Rms_Teams_Controller extends Base_Controller
+
+class TeamsController extends BaseController
 {
 
     public $restful = true;
 
-    public function __construct() 
+    public function __construct()
     {
+    /*
         $this->filter('before', 'auth');
         $this->filter('before', 'manage_team')
             ->only(array('edit','manage'));
@@ -13,6 +15,7 @@ class Rms_Teams_Controller extends Base_Controller
             ->only(array('delete'));
         $this->filter('before', 'exec')
             ->only(array('renew'));
+        */
     }
 
     public function get_index($current='current')
@@ -22,7 +25,7 @@ class Rms_Teams_Controller extends Base_Controller
         } else {
             $teams = Team::all_active()->get();
         }
-        return View::make('teams.index')->with('teams', $teams);
+        return View::make('teams.index', array('teams' => $teams, 'user' => Auth::user()));
     }
 
     public function get_add()
@@ -42,7 +45,7 @@ class Rms_Teams_Controller extends Base_Controller
         );
 
         $validation = Validator::make($input, $rules);
-        
+
 
         if($validation->passes())
         {
@@ -62,7 +65,7 @@ class Rms_Teams_Controller extends Base_Controller
         {
             return Redirect::to('rms/teams/add')
                 ->with_errors($validation)
-                ->with_input(); 
+                ->with_input();
         }
 
 
@@ -110,13 +113,13 @@ class Rms_Teams_Controller extends Base_Controller
         );
 
         $validation = Validator::make($input, $rules);
-        
+
 
         if($validation->passes())
         {
             Input::merge(array('privacy' => Input::get('privacy',0)));
-            
-            $team = Team::update($id, Input::except(array('renew')));
+
+            Team::find($id)->update(Input::except(array('renew')));
 
             return Redirect::to('rms/teams')
                 ->with('success', 'Successfully Edited Team');
@@ -125,7 +128,7 @@ class Rms_Teams_Controller extends Base_Controller
         {
             return Redirect::to('rms/teams/edit/'. $id)
                 ->with_errors($validation)
-                ->with_input(); 
+                ->with_input();
         }
 
     }
@@ -150,7 +153,7 @@ class Rms_Teams_Controller extends Base_Controller
             return Redirect::to('rms/teams')
                 ->with('success', 'Successfully joined Team');
         }
-        else 
+        else
         {
              return Redirect::to('rms/teams/join')
                  ->with('warning', 'You are already a member of that team');
@@ -169,14 +172,14 @@ class Rms_Teams_Controller extends Base_Controller
         $statuses = array('member' => 'Member', 'head'=>'Head');
         if(!$team->privacy) {
             $statuses = array('interest' => 'Interested', 'member' => 'Member', 'head'=>'Head');
-        } 
+        }
 
 
         return View::make('teams.manage')
             ->with('team',$team)
             ->with('users',$users)
             ->with('year',$year)
-            ->with('statuses',$statuses); 
+            ->with('statuses',$statuses);
     }
 
     public function post_manage()
@@ -189,11 +192,11 @@ class Rms_Teams_Controller extends Base_Controller
         $profile = Profile::where('full_name','=',$user_fullname)->first();
         if (!$profile)
         {
-            return Redirect::to('rms/executives/manage/' . $team_id)
+            return Redirect::to('rms/teams/manage/' . $team_id)
                  ->with('warning', 'Please enter a member');
         }
         $user = $profile->user;
-                
+
         if(!$user->is_part_of_team($year_id, $team_id))
         {
             $user->teams()->attach($team_id, array('status' => $status, 'year_id'=>$year_id));
@@ -201,7 +204,7 @@ class Rms_Teams_Controller extends Base_Controller
             return Redirect::to('rms/teams/manage/' . $team_id)
                 ->with('success', 'Successful added member to Team');
         }
-        else 
+        else
         {
              return Redirect::to('rms/teams/manage/' . $team_id)
                  ->with('warning', 'They are already a member of that team');
@@ -221,7 +224,7 @@ class Rms_Teams_Controller extends Base_Controller
             return Redirect::to('rms/teams')
                 ->with('success', 'Successfully joined Team');
         }
-        else 
+        else
         {
              return Redirect::to('rms/teams')
                  ->with('warning', 'You are already a member of that team');
@@ -257,7 +260,7 @@ class Rms_Teams_Controller extends Base_Controller
         return Redirect::to('rms/teams')
                 ->with('success', 'Successful left team');
     }
-    
+
     public function get_member_leave_ajax($team_id) {
         $user = Auth::User();
         $user->teams()->where('team_id','=',$team_id)->where('year_id','=',Year::current_year()->id)->first()->pivot->delete();
@@ -267,23 +270,31 @@ class Rms_Teams_Controller extends Base_Controller
             ->with('state', 'success')
             ;
     }
-    
+
     //should be changed to a ajax post
     public function get_member_remove($user_id,$team_id, $year_id, $status = 'member')
     {
-        $user = User::find($user_id);
-        $user->teams()->where('team_id','=',$team_id)->where('status', '=', $status)->where('year_id','=',$year_id)->first()->pivot->delete();
+
+        DB::table('team_user')
+            ->where('team_id', '=', $team_id)
+            ->where('user_id', '=', $user_id)
+            ->where('year_id', '=', $year_id)
+            ->delete();
+
 
         return Redirect::to('rms/teams/manage/' . $team_id)
                 ->with('warning', 'Successful deleted member');
     }
 
-    public function get_member_move($user_id,$team_id, $year_id, $status = 'member')
+    public function get_member_move($user_id, $team_id, $year_id, $status = 'member')
     {
-        $user = User::find($user_id);
-        $join = $user->teams()->where('team_id','=',$team_id)->where('year_id','=',$year_id)->first()->pivot;
-        $join->status = $status;
-        $join->save();
+
+        DB::table('team_user')
+            ->where('team_id', '=', $team_id)
+            ->where('user_id', '=', $user_id)
+            ->where('year_id', '=', $year_id)
+            ->update(array('status' => $status));
+
 
         return Redirect::to('rms/teams/manage/' . $team_id)
                ->with('success', 'Successful moved team member');
@@ -303,5 +314,5 @@ class Rms_Teams_Controller extends Base_Controller
         $teams = Team::all();
         return View::make('teams.renew')->with('teams', $teams);
     }
-    
+
 }

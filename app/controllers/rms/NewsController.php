@@ -1,12 +1,13 @@
 <?php
-class Rms_News_Controller extends Base_Controller
+
+class NewsController extends BaseController
 {
 
     public $restful = true;
 
     public function __construct() 
     {
-        $this->filter('before', 'auth');
+        $this->beforeFilter('auth');
     }
 
     public function get_index()

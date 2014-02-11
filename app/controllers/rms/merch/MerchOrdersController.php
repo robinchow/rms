@@ -1,25 +1,25 @@
 <?php
-class Rms_Merch_Orders_Controller extends Base_Controller
+class MerchOrdersController extends BaseController
 {
 
     public $restful = true;
 
-    public function __construct() 
+    public function __construct()
     {
-        $this->filter('before', 'auth');
-        $this->filter('before', 'exec')->only(array('exec', 'edit', 'delete'));
+        $this->beforeFilter('auth');
+        $this->beforeFilter('exec', array('only' => array('exec', 'edit', 'delete')));
     }
 
     public function get_index()
     {
     	$orders = Auth::user()->orders()->get();
-    	//var_dump($orders);
+    	var_dump(count($orders));
         return View::make('merch.orders.index')->with('orders',$orders);
     }
 
     public function get_new()
     {
-        $merch = Merch_Item::current_merch()->get();
+        $merch = MerchItem::current_merch()->get();
         return View::make('merch.orders.new')->with('merch', $merch);
     }
 
@@ -35,19 +35,30 @@ class Rms_Merch_Orders_Controller extends Base_Controller
         );
 
         $validation = Validator::make($input, $rules);
-        
 
         if($validation->passes())
         {
+
             $quantities = $input['quantity'];
             $sizes = $input['size'];
+
+            $total = 0;
+            foreach($quantities as $q) {
+                $total += $q;
+            }
+            if ($total == 0) {
+                return Redirect::to('rms/merch/orders/new')
+                    ->withErrors("Order did not include any items")
+                    ->withInput();
+            }
 
             unset($input['quantity']);
             unset($input['size']);
 
-            $merch_order = Merch_order::create($input);
+            $merch_order = MerchOrder::create($input);
+            var_dump($merch_order);
 
-            foreach(Merch_Item::current_merch()->get() as $item) {
+            foreach(MerchItem::current_merch()->get() as $item) {
                 if(intval($quantities[$item->id]) > 0) {
                     $merch_order->items()->attach($item->id, array('quantity' => $quantities[$item->id], 'size'=>$sizes[$item->id]));
                 }
@@ -62,15 +73,15 @@ class Rms_Merch_Orders_Controller extends Base_Controller
         else
         {
             return Redirect::to('rms/merch/orders/new')
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput();
         }
 
     }
 
     public function get_show($id)
     {
-        $order = Merch_order::find($id);
+        $order = MerchOrder::find($id);
         $items = $order->items;
 
         return View::make('merch.orders.show')->with('order', $order);
@@ -87,8 +98,8 @@ class Rms_Merch_Orders_Controller extends Base_Controller
 
         if($year) {
 
-            $orders = Merch_order::where_year_id($year->id)->get();
-            $items = Merch_Item::all();
+            $orders = MerchOrder::where('year_id', '=', $year->id)->get();
+            $items = MerchItem::all();
 
             $sizes = array('8'=>'8','10'=>'10','12'=>'12','14'=>'14','XS'=>'XS','S'=>'S','M'=>'M','L'=>'L','XL'=>'XL','XXL'=>'XXL');
             return View::make('merch.orders.admin')
@@ -104,13 +115,18 @@ class Rms_Merch_Orders_Controller extends Base_Controller
 
     public function get_edit($id)
     {
-        $order = Merch_order::find($id);
-        return View::make('merch.orders.edit')->with('order', $order);
+        $order = MerchOrder::find($id);
+        return View::make('merch.orders.edit')->with('order', $order)->with('is_user', false);
+    }
+    public function get_user_edit($id)
+    {
+        $order = MerchOrder::find($id);
+        return View::make('merch.orders.edit')->with('order', $order)->with('is_user', true);
     }
 
     public function post_edit()
     {
-        
+
         $input = Input::get();
         $id = $input['order_id'];
 
@@ -119,7 +135,7 @@ class Rms_Merch_Orders_Controller extends Base_Controller
         );
 
         $validation = Validator::make($input, $rules);
-        
+
 
         if($validation->passes())
         {
@@ -129,9 +145,10 @@ class Rms_Merch_Orders_Controller extends Base_Controller
             unset($input['quantity']);
             unset($input['size']);
             unset($input['order_id']);
-            Merch_order::update($id,$input);
 
-            $merch_order = Merch_order::find($id);
+            $merch_order = MerchOrder::find($id);
+            $merch_order->update($input);
+
 
             foreach($merch_order->items as $item) {
                 $item->pivot->quantity =  $quantities[$item->id];
@@ -139,21 +156,21 @@ class Rms_Merch_Orders_Controller extends Base_Controller
                 $item->pivot->save();
             }
 
-            return Redirect::to('rms/merch/orders')
+            return Redirect::to('rms/merch/orders/admin')
                ->with('success', 'Successfully Edited Order');
         }
         else
         {
             return Redirect::to('rms/merch/orders/edit/'. $id)
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput();
         }
     }
 
 
     public function get_delete($id)
     {
-        $order = Merch_Order::find($id)->delete();
+        $order = MerchOrder::find($id)->delete();
         return Redirect::to('rms/merch/orders')
                 ->with('success', 'Successfully Removed Order');
     }

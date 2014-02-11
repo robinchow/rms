@@ -1,17 +1,17 @@
 <?php
-class Rms_Camp_Settings_Controller extends Base_Controller
+class CampSettingsController extends BaseController
 {
 
     public $restful = true;
 
     public function __construct() 
     {
-        $this->filter('before', 'exec');
+        $this->beforeFilter('exec');
     }
 
     public function get_index()
     {
-    	$camps = Camp_Setting::All();
+    	$camps = CampSetting::All();
         return View::make('camp.settings.index')->with('camps',$camps);
     }
 
@@ -39,7 +39,7 @@ class Rms_Camp_Settings_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $camp = Camp_Setting::create(Input::get());
+            $camp = CampSetting::create(Input::get());
 
             return Redirect::to('rms/camp/settings')
                 ->with('success', 'Successfully Added New Camp');
@@ -47,8 +47,8 @@ class Rms_Camp_Settings_Controller extends Base_Controller
         else
         {
             return Redirect::to('rms/camp/settings/add')
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput(); 
         }
 
 
@@ -56,14 +56,14 @@ class Rms_Camp_Settings_Controller extends Base_Controller
 
     public function get_show($id)
     {
-    	$camp = Camp_Setting::find($id);
+    	$camp = CampSetting::find($id);
         return View::make('camp.settings.show')->with('camp',$camp);
     }
 
     public function get_edit($id)
     {
     	$years = Year::lists('year', 'id');
-    	$camp = Camp_Setting::find($id);
+    	$camp = CampSetting::find($id);
         return View::make('camp.settings.edit')
         	->with('camp',$camp)
         	->with('years',$years);
@@ -88,7 +88,7 @@ class Rms_Camp_Settings_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $camp = Camp_Setting::update($id,$input);
+            CampSetting::find($id)->update($input);
 
             return Redirect::to('rms/camp/settings')
                 ->with('success', 'Successfully Edited a Camp');

@@ -1,13 +1,14 @@
 <?php
-class Rms_Executives_Controller extends Base_Controller
+
+class ExecutivesController extends BaseController
 {
 
     public $restful = true;
 
-    public function __construct() 
+    public function __construct()
     {
-        $this->filter('before', 'auth');
-        $this->filter('before', 'exec')->except(array('index','show'));
+        $this->beforeFilter('auth');
+        $this->beforeFilter('exec', array('except' => array('index','show')));
 
     }
 
@@ -32,7 +33,7 @@ class Rms_Executives_Controller extends Base_Controller
         );
 
         $validation = Validator::make($input, $rules);
-        
+
 
         if($validation->passes())
         {
@@ -45,7 +46,7 @@ class Rms_Executives_Controller extends Base_Controller
         {
             return Redirect::to('rms/executives/add')
                 ->with_errors($validation)
-                ->with_input(); 
+                ->with_input();
         }
 
     }
@@ -53,7 +54,7 @@ class Rms_Executives_Controller extends Base_Controller
     public function get_show($id)
     {
         $executive = Executive::find($id);
-        $years = Year::order_by('year', 'desc')->get();
+        $years = Year::orderBy('year', 'desc')->get();
         return View::make('executives.show')->with('executive',$executive)->with('years',$years);
     }
 
@@ -73,11 +74,11 @@ class Rms_Executives_Controller extends Base_Controller
         );
 
         $validation = Validator::make($input, $rules);
-        
+
 
         if($validation->passes())
         {
-        $executive = Executive::update($id, Input::get());
+        Executive::find($id)->update(Input::get());
 
         return Redirect::to('rms/executives')
                 ->with('success', 'Successfully Edited Executive');
@@ -85,8 +86,8 @@ class Rms_Executives_Controller extends Base_Controller
         else
         {
             return Redirect::to('rms/executives/edit/'. $id)
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput();
         }
     }
 
@@ -121,7 +122,7 @@ class Rms_Executives_Controller extends Base_Controller
                  ->with('warning', 'Please enter a member');
         }
         $user = $profile->user;
-        
+
         if(!$user->is_part_of_exec($year_id, $executive_id))
         {
             $user->executives()->attach($executive_id, array('non_executive' => Input::get('non_executive',0),'year_id'=>$year_id));
@@ -129,7 +130,7 @@ class Rms_Executives_Controller extends Base_Controller
             return Redirect::to('rms/executives/manage/' . $executive_id)
                 ->with('success', 'Successfully added member to executive');
         }
-        else 
+        else
         {
              return Redirect::to('rms/executives/manage/' . $executive_id)
                  ->with('warning', 'They are already a member of that executive');
@@ -150,5 +151,5 @@ class Rms_Executives_Controller extends Base_Controller
         $executive = Executive::find($id)->delete();
         return Redirect::to('rms/executives')
                 ->with('success', 'Successfully Removed Executive Position');
-    }   
+    }
 }

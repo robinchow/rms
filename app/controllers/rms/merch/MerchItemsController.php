@@ -1,19 +1,19 @@
 <?php
-class Rms_Merch_Items_Controller extends Base_Controller
+class MerchItemsController extends BaseController
 {
 
     public $restful = true;
 
     public function __construct() 
     {
-        $this->filter('before', 'auth');
-        $this->filter('before', 'exec')->except('show');
+        $this->beforeFilter('auth');
+        $this->beforeFilter('exec', array('except'=>'show'));
 
     }
 
     public function get_index()
     {
-    	$items = Merch_Item::All();
+    	$items = MerchItem::All();
         return View::make('merch.items.index')->with('items',$items);
     }
 
@@ -49,8 +49,8 @@ class Rms_Merch_Items_Controller extends Base_Controller
         else
         {
             return Redirect::to('rms/merch/items/add')
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput(); 
         }
 
 
@@ -97,8 +97,8 @@ class Rms_Merch_Items_Controller extends Base_Controller
         else
         {
             return Redirect::to('rms/merch/items/edit/'.$id)
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput(); 
         }
 
 

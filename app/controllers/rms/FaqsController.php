@@ -1,13 +1,14 @@
 <?php
-class Rms_Faqs_Controller extends Base_Controller
+
+class FaqsController extends BaseController
 {
 
     public $restful = true;
 
     public function __construct() 
     {
-        $this->filter('before', 'auth');
-        $this->filter('before', 'exec');
+        $this->beforeFilter('auth');
+        $this->beforeFilter('exec');
 
     }
 
@@ -40,7 +41,7 @@ class Rms_Faqs_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $faq = Faq::update($id, Input::get());
+            Faq::find($id)->update(Input::get());
 
             return Redirect::to('rms/faqs')
                 ->with('success', 'Successfully Edited Faq');

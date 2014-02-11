@@ -1,20 +1,22 @@
 <?php
-class Rms_Years_Controller extends Base_Controller
+
+class YearsController extends BaseController
 {
 
     public $restful = true;
 
     public function __construct() 
     {
+    /*
         $this->filter('before', 'auth');
         $this->filter('before', 'admin')->except(array('index','show'));
-
+*/
     }
 
     public function get_index()
     {
-        $years = Year::order_by('year', 'desc')->get();
-        return View::make('years.index')->with('years', $years);
+        $years = Year::orderBy('year', 'desc')->get();
+        return View::make('years.index', array('years' => $years, 'user' => Auth::user()));
     }
 
     public function get_show($id)
@@ -78,8 +80,8 @@ class Rms_Years_Controller extends Base_Controller
         
         if($validation->passes())
         {
-            Year::update($id, Input::all());
             $year = Year::find($id);
+            $year->update(Input::all());
             return Redirect::to('rms/years')
                 ->with('success', 'Successfully Edited Year: '. $year->year . ' - '. $year->name);
         }

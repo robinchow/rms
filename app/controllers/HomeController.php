@@ -1,13 +1,15 @@
 <?php
 
-class Home_Controller extends Base_Controller {
+class HomeController extends BaseController {
 
     public $restful = true;
 
-	public function get_index()
+    protected $layout = 'templates.home';
+
+	public function getIndex()
 	{
 		$sponsors = Sponsor::all();
-		$news = News::order_by('updated_at', 'desc')->first();
+		$news = News::orderBy('updated_at', 'desc')->first();
 		return View::make('home.index')
 		->with('news',$news)
 		->with('sponsors',$sponsors);
@@ -16,17 +18,17 @@ class Home_Controller extends Base_Controller {
 
 
 	//FAQ
-	public function get_faqs()
+	public function getFaqs()
 	{
 		$faqs = Faq::all();
         return View::make('home.faqs')->with('faqs', $faqs);
 	}
 
 	//Exec
-	public function get_exec()
+	public function getExec()
 	{
         $year = Year::current_year();
-       
+
        	$execs = $year->executives();
 
         return View::make('home.exec')->with('execs', $execs)
@@ -35,13 +37,13 @@ class Home_Controller extends Base_Controller {
 
 
 	//Teams
-	public function get_teams($id=NULL)
+	public function getTeams($id=NULL)
 	{
 		if($id)
 		{
 			$team = Team::find($id);
 			return View::make('home.team_individual')->with('team', $team);
-		} 
+		}
 		else
 		{
 			$teams = Team::all_active()->get();
@@ -50,18 +52,17 @@ class Home_Controller extends Base_Controller {
 	}
 
 	//History
-	public function get_history()
+	public function getHistory()
 	{
-        $years = Year::order_by('year', 'desc')->get();
+        $years = Year::orderBy('year', 'desc')->get();
 
         return View::make('home.history')->with('years', $years);
 	}
 
-	//Sponsors 
-	public function get_sponsors()
+	//Sponsors
+	public function getSponsors()
 	{
         $year = Year::current_year();
-
         return View::make('home.sponsors')->with('year', $year);
 	}
 

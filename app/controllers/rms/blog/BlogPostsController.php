@@ -1,33 +1,33 @@
 <?php
-class Rms_Blog_Posts_Controller extends Base_Controller
+class BlogPostsController extends BaseController
 {
 
     public $restful = true;
 
     public function __construct() 
     {
-        $this->filter('before', 'auth');
-        $this->filter('before', 'exec')->except(array('index', 'show'));
+        $this->beforeFilter('auth');
+        $this->beforeFilter('exec', array('except' => array('index', 'show')));
 
     }
 
     public function get_index()
     {
-        $blog_posts = Blog_Post::all();
+        $blog_posts = BlogPost::all();
         return View::make('blog.index')->with('blog_posts', $blog_posts);
     }
 
     public function get_edit($id)
     {
 
-        $blog_posts = Blog_post::find($id);
+        $blog_posts = BlogPost::find($id);
         return View::make('blog.edit')->with('blog_posts',$blog_posts);
     }
 
         public function get_show($id)
     {
 
-        $blog_posts = Blog_post::find($id);
+        $blog_posts = BlogPost::find($id);
         return View::make('blog.show')->with('blog_posts',$blog_posts);
     }
 
@@ -47,7 +47,7 @@ class Rms_Blog_Posts_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $blog_post = Blog_Post::update($id, Input::get());
+            BlogPost::find($id)->update(Input::get());
 
             return Redirect::to('rms/blog/posts')
                 ->with('success', 'Successfully Edited Blog Post');
@@ -80,7 +80,7 @@ class Rms_Blog_Posts_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $blog_post =  Blog_Post::create(Input::get());
+            $blog_post =  BlogPost::create(Input::get());
 
             return Redirect::to('rms/blog/posts')
                 ->with('success', 'Successfully Added New Blog Post');
@@ -97,7 +97,7 @@ class Rms_Blog_Posts_Controller extends Base_Controller
 
     public function get_delete($id)
     {
-        $blog_post = Blog_Post::find($id)->delete();
+        $blog_post = BlogPost::find($id)->delete();
         return Redirect::to('rms/blog/posts')
                 ->with('success', 'Successfully Removed posts');
     }

@@ -1,20 +1,20 @@
 <?php
-class Rms_Camp_Registrations_Controller extends Base_Controller
+class CampRegistrationsController extends BaseController
 {
 
     public $restful = true;
 
     public function __construct()
     {
-        $this->filter('before', 'auth');
-        $this->filter('before', 'exec')->except(array('signup', 'edit'));
+        $this->beforeFilter('auth');
+        $this->beforeFilter('exec', array('except' => array('signup', 'edit')));
 
     }
 
     public function get_index()
     {
-        $camp = Camp_Setting::where('year_id', '=', Year::current_year()->id)->first();
-        $regos = Camp_Registration::where('camp_setting_id', '=', $camp->id)->get();
+        $camp = CampSetting::where('year_id', '=', Year::current_year()->id)->first();
+        $regos = CampRegistration::where('camp_setting_id', '=', $camp->id)->get();
 
         $arc_count = 0;
         foreach ($regos as $r) {
@@ -23,7 +23,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
             }
         }
 
-        $rego_paid = Camp_Registration::where('camp_setting_id', '=', $camp->id)
+        $rego_paid = CampRegistration::where('camp_setting_id', '=', $camp->id)
                         ->where('paid', '=',true)
                         ->get();
 
@@ -65,7 +65,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
 
     public function get_signup()
     {
-    	$camp = Camp_Setting::where('year_id', '=', Year::current_year()->id)->first();
+    	$camp = CampSetting::where('year_id', '=', Year::current_year()->id)->first();
         return View::make('camp.registrations.signup')->with('camp',$camp);
     }
 
@@ -85,7 +85,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            $camp_reg = Camp_Registration::create(Input::get());
+            $camp_reg = CampRegistration::create(Input::get());
 
             return Redirect::to('rms/camp/registrations/edit')
                 ->with('success', 'Successfully Register for Camp');
@@ -102,9 +102,9 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
 
     public function get_edit()
     {
-        $camp = Camp_Setting::where('year_id', '=', Year::current_year()->id)->first();
+        $camp = CampSetting::where('year_id', '=', Year::current_year()->id)->first();
         $user = Auth::user();
-        $rego = Camp_Registration::where('camp_setting_id', '=',$camp->id)
+        $rego = CampRegistration::where('camp_setting_id', '=',$camp->id)
             ->where('user_id', '=',$user->id)->first();
 
         return View::make('camp.registrations.edit')->with('rego',$rego);
@@ -113,7 +113,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
     public function get_show($id)
     {
 
-        $rego = Camp_Registration::find($id);
+        $rego = CampRegistration::find($id);
         return View::make('camp.registrations.show')->with('rego',$rego);
     }
 
@@ -129,7 +129,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
         $validation = Validator::make($input, $rules);
         if($validation->passes())
         {
-            $camp_reg = Camp_Registration::update(Input::get('id'), Input::get());
+            $camp_reg = CampRegistration::update(Input::get('id'), Input::get());
 
             return Redirect::to('rms/camp/registrations/edit')
                 ->with('success', 'Successfully Edited registration for Camp');
@@ -145,7 +145,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
 
     public function get_paid($id)
     {
-        $rego = Camp_Registration::find($id);
+        $rego = CampRegistration::find($id);
         $rego->paid = true;
         $rego->save();
         return Redirect::to('rms/camp/registrations')
@@ -154,7 +154,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
 
     public function get_unpaid($id)
     {
-        $rego = Camp_Registration::find($id);
+        $rego = CampRegistration::find($id);
         $rego->paid = false;
         $rego->save();
         return Redirect::to('rms/camp/registrations')
@@ -163,7 +163,7 @@ class Rms_Camp_Registrations_Controller extends Base_Controller
 
     public function get_delete($id)
     {
-        $rego = Camp_Registration::find($id)->delete();
+        $rego = CampRegistration::find($id)->delete();
         return Redirect::to('rms/camp/registrations')
                 ->with('success', 'Successfully Removed Camp Registration');
     }

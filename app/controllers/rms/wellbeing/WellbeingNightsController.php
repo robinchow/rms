@@ -1,19 +1,19 @@
 <?php
-class Rms_Wellbeing_Nights_Controller extends Base_Controller
+class WellbeingNightsController extends BaseController
 {
 
     public $restful = true;
 
-    public function __construct() 
+    public function __construct()
     {
-        $this->filter('before', 'auth');
-        $this->filter('before', 'exec')->except('show');
+        $this->beforeFilter('auth');
+        $this->beforeFilter('exec', array('except'=>'show'));
 
     }
 
     public function get_index()
     {
-    	$nights = Wellbeing_Night::All();
+    	$nights = WellbeingNight::orderBy('date')->get();
         return View::make('wellbeing.nights.index')->with('nights',$nights);
     }
 
@@ -37,11 +37,11 @@ class Rms_Wellbeing_Nights_Controller extends Base_Controller
         );
 
         $validation = Validator::make($input, $rules);
-        
+
 
         if($validation->passes())
         {
-            $item = Wellbeing_Night::create(Input::get());
+            $item = WellbeingNight::create(Input::get());
 
             return Redirect::to('rms/wellbeing/nights')
                 ->with('success', 'Successfully Added New Night');
@@ -50,7 +50,7 @@ class Rms_Wellbeing_Nights_Controller extends Base_Controller
         {
             return Redirect::to('rms/wellbeing/nights/add')
                 ->with_errors($validation)
-                ->with_input(); 
+                ->with_input();
         }
 
 
@@ -58,7 +58,7 @@ class Rms_Wellbeing_Nights_Controller extends Base_Controller
 
     public function get_edit($id)
     {
-    	$night = Wellbeing_Night::find($id);
+    	$night = WellbeingNight::find($id);
     	  $years = Year::lists('year', 'id');
         return View::make('wellbeing.nights.edit')
         	->with('night',$night)->with('years', $years);
@@ -79,11 +79,11 @@ class Rms_Wellbeing_Nights_Controller extends Base_Controller
 
 
         $validation = Validator::make($input, $rules);
-        
+
 
         if($validation->passes())
         {
-            $night = Wellbeing_Night::update($id,$input);
+            WellbeingNight::find($id)->update($input);
 
             return Redirect::to('rms/wellbeing/nights')
                 ->with('success', 'Successfully Edited a Night');
@@ -91,8 +91,8 @@ class Rms_Wellbeing_Nights_Controller extends Base_Controller
         else
         {
             return Redirect::to('rms/wellbeing/nihgts/edit/'.$id)
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput();
         }
 
 
@@ -101,7 +101,7 @@ class Rms_Wellbeing_Nights_Controller extends Base_Controller
 
     public function get_delete($id)
     {
-        $night = Wellbeing_Night::find($id)->delete();
+        $night = WellbeingNight::find($id)->delete();
         return Redirect::to('rms/wellbeing/nights')
                 ->with('success', 'Successfully Removed Night');
     }

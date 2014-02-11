@@ -1,13 +1,14 @@
-// <?php
-class Rms_Sponsors_Controller extends Base_Controller
+<?php
+
+class SponsorsController extends BaseController
 {
 
     public $restful = true;
 
     public function __construct() 
     {
-        $this->filter('before', 'auth');
-        $this->filter('before', 'exec');
+        $this->beforeFilter('auth');
+        $this->beforeFilter('exec');
 
     }
 
@@ -43,14 +44,15 @@ class Rms_Sponsors_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            if(Input::has_file('image')) {
-                File::delete(path('base').'/public/img/sponsor/' . $sponsor->image);
-                Input::upload('image', path('base').'/public/img/sponsor',Input::file('image.name'));
-                Input::merge(array('image' => Input::file('image.name')));
+            if(Input::hasFile('image')) {
+                $image_name = preg_replace('/.*\.(.+)/', $sponsor->id.".$1", Input::file('image')->getClientOriginalName());
+                File::delete(base_path() . '/public/img/sponsor/' . $sponsor->image);
+                Input::file('image')->move(base_path() . '/public/img/sponsor', $image_name);
+                Input::merge(array('image' => $image_name));
+ 
             }
 
-            Sponsor::update($id, Input::get());
-            $sponsor =  Sponsor::find($id);
+            $sponsor->update(Input::get());
 
             return Redirect::to('rms/sponsors')
                 ->with('success', 'Successfully Edited Sponsor: ' . $sponsor->name);
@@ -133,12 +135,19 @@ class Rms_Sponsors_Controller extends Base_Controller
 
         if($validation->passes())
         {
-            if(Input::has_file('image')) {
-                Input::upload('image', path('base').'/public/img/sponsor',Input::file('image.name'));
-                Input::merge(array('image' => Input::file('image.name')));
-            }
 
-            $sponsor =  Sponsor::create(Input::get());
+            $sponsor = new Sponsor;
+            $sponsor->name = Input::get('name');
+            $sponsor->url = Input::get('url');
+            $sponsor->save();
+
+            if(Input::hasFile('image')) {
+                $image_name = preg_replace('/.*\.(.+)/', $sponsor->id.".$1", Input::file('image')->getClientOriginalName());
+                Input::file('image')->move(base_path() . '/public/img/sponsor', $image_name);
+                $sponsor->image = $image_name;
+                $sponsor->save();
+            }
+            
 
             return Redirect::to('rms/sponsors')
                 ->with('success', 'Successfully Added New Sponsor: '.$sponsor->name);
@@ -146,8 +155,8 @@ class Rms_Sponsors_Controller extends Base_Controller
         else
         {
           return Redirect::to('rms/sponsors/add')
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput(); 
         }
 
 
