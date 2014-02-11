@@ -93,7 +93,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         $url = URL::to('/img/profile/'.$this->profile->image);
         $file = base_path() . '/public/img/profile/'.$this->profile->image;
-        if(!(File::exists($file) && in_array(File::extension($file), array('jpg','gif','png')))) {
+        if(!(File::exists($file) && in_array(File::extension($file), array('jpg','jpeg','gif','png')))) {
             if($this->profile->gender=='M'){
                 $url = URL::to('/img/male.jpg');
             } else {
