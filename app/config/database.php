@@ -4,27 +4,12 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Database Query Logging
-	|--------------------------------------------------------------------------
-	|
-	| By default, the SQL, bindings, and execution time are logged in an array
-	| for you to review. They can be retrieved via the DB::profile() method.
-	| However, in some situations, you may want to disable logging for
-	| ultra high-volume database work. You can do so here.
-	|
-	*/
-
-	'profile' => true,
-
-	/*
-	|--------------------------------------------------------------------------
 	| PDO Fetch Style
 	|--------------------------------------------------------------------------
 	|
 	| By default, database results will be returned as instances of the PHP
-	| stdClass object; however, you may wish to retrieve records as arrays
-	| instead of objects. Here you can control the PDO fetch style of the
-	| database queries run by your application.
+	| stdClass object; however, you may desire to retrieve records in an
+	| array format for simplicity. Here you can tweak the fetch style.
 	|
 	*/
 
@@ -32,13 +17,12 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Default Database Connection
+	| Default Database Connection Name
 	|--------------------------------------------------------------------------
 	|
-	| The name of your default database connection. This connection will be used
-	| as the default for all database operations unless a different name is
-	| given when performing said operation. This connection name should be
-	| listed in the array of connections below.
+	| Here you may specify which of the database connections below you wish
+	| to use as your default connection for all database work. Of course
+	| you may use many connections at once using the Database library.
 	|
 	*/
 
@@ -49,13 +33,14 @@ return array(
 	| Database Connections
 	|--------------------------------------------------------------------------
 	|
-	| All of the database connections used by your application. Many of your
-	| applications will no doubt only use one connection; however, you have
-	| the freedom to specify as many connections as you can handle.
+	| Here are each of the database connections setup for your application.
+	| Of course, examples of configuring each database platform that is
+	| supported by Laravel is shown below to make development simple.
 	|
-	| All database work in Laravel is done through the PHP's PDO facilities,
-	| so make sure you have the PDO drivers for your particular database of
-	| choice installed on your machine.
+	|
+	| All database work in Laravel is done through the PHP PDO facilities
+	| so make sure you have the driver for your particular database of
+	| choice installed on your machine before you begin development.
 	|
 	*/
 
@@ -63,16 +48,24 @@ return array(
 
 		'sqlite' => array(
 			'driver'   => 'sqlite',
-			'database' => 'application',
+			'database' => __DIR__.'/../database/production.sqlite',
 			'prefix'   => '',
 		),
 
 		'mysql' => array(
 			'driver'   => 'mysql',
+
+            /*
 			'host'     => $_SERVER['db_host'],
 			'database' => $_SERVER['db_name'],
 			'username' => $_SERVER['secret_db_user'],
 			'password' => $_SERVER['secret_db_pass'],
+*/
+			'host'     => 'localhost',
+			'database' => 'rms',
+			'username' => 'steve',
+			'password' => 'password',
+            'collation' => 'utf8_unicode_ci',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),
@@ -101,23 +94,36 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| Migration Repository Table
+	|--------------------------------------------------------------------------
+	|
+	| This table keeps track of all the migrations that have already run for
+	| your application. Using this information, we can determine which of
+	| the migrations on disk haven't actually been run in the database.
+	|
+	*/
+
+	'migrations' => 'migrations',
+
+	/*
+	|--------------------------------------------------------------------------
 	| Redis Databases
 	|--------------------------------------------------------------------------
 	|
-	| Redis is an open source, fast, and advanced key-value store. However, it
-	| provides a richer set of commands than a typical key-value store such as
-	| APC or memcached. All the cool kids are using it.
-	|
-	| To get the scoop on Redis, check out: http://redis.io
+	| Redis is an open source, fast, and advanced key-value store that also
+	| provides a richer set of commands than a typical key-value systems
+	| such as APC or Memcached. Laravel makes it easy to dig right in.
 	|
 	*/
 
 	'redis' => array(
 
+		'cluster' => false,
+
 		'default' => array(
 			'host'     => '127.0.0.1',
 			'port'     => 6379,
-			'database' => 0
+			'database' => 0,
 		),
 
 	),

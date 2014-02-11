@@ -4,18 +4,14 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Cache Driver
+	| Default Cache Driver
 	|--------------------------------------------------------------------------
 	|
-	| The name of the default cache driver for your application. Caching can
-	| be used to increase the performance of your application by storing any
-	| commonly accessed data in memory, a file, or some other storage.
+	| This option controls the default cache "driver" that will be used when
+	| using the Caching library. Of course, you may use other drivers any
+	| time you wish. This is the default when another is not specified.
 	|
-	| A variety of great drivers are available for you to use with Laravel.
-	| Some, like APC, are extremely fast. However, if that isn't an option
-	| in your environment, try file or database caching.
-	|
-	| Drivers: 'file', 'memcached', 'apc', 'redis', 'database'.
+	| Supported: "file", "database", "apc", "memcached", "redis", "array"
 	|
 	*/
 
@@ -23,42 +19,51 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Cache Key
+	| File Cache Location
 	|--------------------------------------------------------------------------
 	|
-	| This key will be prepended to item keys stored using Memcached and APC
-	| to prevent collisions with other applications on the server. Since the
-	| memory based stores could be shared by other applications, we need to
-	| be polite and use a prefix to uniquely identify our items.
+	| When using the "file" cache driver, we need a location where the cache
+	| files may be stored. A sensible default has been specified, but you
+	| are free to change it to any other place on disk that you desire.
 	|
 	*/
 
-	'key' => 'laravel',
+	'path' => storage_path().'/cache',
 
 	/*
 	|--------------------------------------------------------------------------
-	| Cache Database
+	| Database Cache Connection
 	|--------------------------------------------------------------------------
 	|
-	| When using the database cache driver, this database table will be used
-	| to store the cached item. You may also add a "connection" option to
-	| the array to specify which database connection should be used.
+	| When using the "database" cache driver you may specify the connection
+	| that should be used to store the cached items. When this option is
+	| null the default database connection will be utilized for cache.
 	|
 	*/
 
-	'database' => array('table' => 'laravel_cache'),
+	'connection' => null,
+
+	/*
+	|--------------------------------------------------------------------------
+	| Database Cache Table
+	|--------------------------------------------------------------------------
+	|
+	| When using the "database" cache driver we need to know the table that
+	| should be used to store the cached items. A default table name has
+	| been provided but you're free to change it however you deem fit.
+	|
+	*/
+
+	'table' => 'cache',
 
 	/*
 	|--------------------------------------------------------------------------
 	| Memcached Servers
 	|--------------------------------------------------------------------------
 	|
-	| The Memcached servers used by your application. Memcached is a free and
-	| open source, high-performance, distributed memory caching system. It is
-	| generic in nature but intended for use in speeding up web applications
-	| by alleviating database load.
-	|
-	| For more information, check out: http://memcached.org
+	| Now you may specify an array of your Memcached servers that should be
+	| used when utilizing the Memcached cache driver. All of the servers
+	| should contain a value for "host", "port", and "weight" options.
 	|
 	*/
 
@@ -66,6 +71,19 @@ return array(
 
 		array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 100),
 
-	),	
+	),
+
+	/*
+	|--------------------------------------------------------------------------
+	| Cache Key Prefix
+	|--------------------------------------------------------------------------
+	|
+	| When utilizing a RAM based store such as APC or Memcached, there might
+	| be other applications utilizing the same cache. So, we'll specify a
+	| value to get prefixed to all our keys so we can avoid collisions.
+	|
+	*/
+
+	'prefix' => 'laravel',
 
 );

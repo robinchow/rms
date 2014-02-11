@@ -6,10 +6,36 @@
 |--------------------------------------------------------------------------
 */
 
-//RMS Routes
 
-Route::controller('rms.account');
-Route::controller('rms.teams');
+// RMS Routes
+Route::get('rms', function() {return Redirect::to('rms/account');});
+Route::controller('rms/account', 'AccountsController');
+Route::controller('rms/teams', 'TeamsController');
+Route::controller('rms/executives', 'ExecutivesController');
+Route::controller('rms/years', 'YearsController');
+Route::controller('rms/users', 'UsersController');
+Route::controller('rms/news', 'NewsController');
+Route::controller('rms/blog/posts', 'BlogPostsController');
+Route::controller('rms/blog', 'BlogPostsController');
+Route::controller('rms/faqs', 'FaqsController');
+Route::controller('rms/sponsors', 'SponsorsController');
+
+Route::controller('rms/camp/settings', 'CampSettingsController');
+Route::controller('rms/camp/registrations', 'CampRegistrationsController');
+
+Route::controller('rms/merch/items', 'MerchItemsController');
+Route::controller('rms/merch/orders', 'MerchOrdersController');
+
+Route::controller('rms/wellbeing/nights', 'WellbeingNightsController');
+Route::controller('rms/wellbeing/orders', 'WellbeingOrdersController');
+
+// Public Routes
+
+Route::controller('home', 'HomeController');
+Route::controller('/', 'HomeController');
+
+
+/*
 Route::controller('rms.years');
 Route::controller('rms.executives');
 Route::get('rms/users/search(:any)', 'rms.users@search');
@@ -29,20 +55,10 @@ Route::controller('rms.wellbeing.nights');
 
 
 Route::controller('rms.blog.posts');
-
+*/
 //Front End Routes
-Route::controller('home');
 
 
-Route::get('/rms', function()
-{
-	return Redirect::to('rms/account');
-});
-
-Route::get('/', function()
-{
-	return Redirect::to('home');
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +113,8 @@ Event::listen('500', function()
 |
 */
 
+/*
+
 Route::filter('before', function()
 {
 	// Do stuff before every request to your application...
@@ -111,14 +129,12 @@ Route::filter('csrf', function()
 {
 	if (Request::forged()) return Response::error('500');
 });
-
 Route::filter('auth', function()
 {
 	if (Auth::guest())
 	{
 		// Save the attempted URL
 		Session::put('pre_login_url', URL::current());
-
 		return Redirect::to('rms/account/login')->with('warning','You must login in to access this area of the site');
 	}
 });
@@ -136,7 +152,6 @@ Route::filter('admin', function()
 Route::filter('manage_team', function()
 {
 	$team_id = Request::route()->parameters[1];
-	$year = Year::current_year();
-	if (!Auth::User()->can_manage_team($year->id,$team_id)) return Redirect::to('rms/account/login')->with('warning','You are not a admin');
+	if (!Auth::User()->can_manage_team($team_id)) return Redirect::to('rms/account/login')->with('warning','You are not a admin');
 });
-
+*/

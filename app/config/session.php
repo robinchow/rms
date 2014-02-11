@@ -4,15 +4,15 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Session Driver
+	| Default Session Driver
 	|--------------------------------------------------------------------------
 	|
-	| The name of the session driver used by your application. Since HTTP is
-	| stateless, sessions are used to simulate "state" across requests made
-	| by the same user of your application. In other words, it's how an
-	| application knows who the heck you are.
+	| This option controls the default session "driver" that will be used on
+	| requests. By default, we will use the lightweight native driver but
+	| you may specify any of the other wonderful drivers provided here.
 	|
-	| Drivers: 'cookie', 'file', 'database', 'memcached', 'apc', 'redis'.
+	| Supported: "file", "cookie", "database", "apc",
+	|            "memcached", "redis", "array"
 	|
 	*/
 
@@ -20,12 +20,53 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Session Database
+	| Session Lifetime
 	|--------------------------------------------------------------------------
 	|
-	| The database table in which the session should be stored. It probably
-	| goes without saying that this option only matters if you are using
-	| the super slick database session driver.
+	| Here you may specify the number of minutes that you wish the session
+	| to be allowed to remain idle before it expires. If you want them
+	| to immediately expire on the browser closing, set that option.
+	|
+	*/
+
+	'lifetime' => 120,
+
+	'expire_on_close' => false,
+
+	/*
+	|--------------------------------------------------------------------------
+	| Session File Location
+	|--------------------------------------------------------------------------
+	|
+	| When using the native session driver, we need a location where session
+	| files may be stored. A default has been set for you but a different
+	| location may be specified. This is only needed for file sessions.
+	|
+	*/
+
+	'files' => storage_path().'/sessions',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Session Database Connection
+	|--------------------------------------------------------------------------
+	|
+	| When using the "database" or "redis" session drivers, you may specify a
+	| connection that should be used to manage these sessions. This should
+	| correspond to a connection in your database configuration options.
+	|
+	*/
+
+	'connection' => null,
+
+	/*
+	|--------------------------------------------------------------------------
+	| Session Database Table
+	|--------------------------------------------------------------------------
+	|
+	| When using the "database" session driver, you may specify the table we
+	| should use to manage the sessions. Of course, a sensible default is
+	| provided for you; however, you are free to change this as needed.
 	|
 	*/
 
@@ -33,49 +74,25 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Session Garbage Collection Probability
+	| Session Sweeping Lottery
 	|--------------------------------------------------------------------------
 	|
-	| Some session drivers require the manual clean-up of expired sessions.
-	| This option specifies the probability of session garbage collection
-	| occuring for any given request to the application. 
-	|
-	| For example, the default value states that garbage collection has a
-	| 2% chance of occuring for any given request to the application.
-	| Feel free to tune this to your requirements.
+	| Some session drivers must manually sweep their storage location to get
+	| rid of old sessions from storage. Here are the chances that it will
+	| happen on a given request. By default, the odds are 2 out of 100.
 	|
 	*/
 
-	'sweepage' => array(2, 100),
-
-	/*
-	|--------------------------------------------------------------------------
-	| Session Lifetime
-	|--------------------------------------------------------------------------
-	|
-	| The number of minutes a session can be idle before expiring.
-	|
-	*/
-
-	'lifetime' => 60,
-
-	/*
-	|--------------------------------------------------------------------------
-	| Session Expiration On Close
-	|--------------------------------------------------------------------------
-	|
-	| Determines if the session should expire when the user's web browser closes.
-	|
-	*/
-
-	'expire_on_close' => false,
+	'lottery' => array(2, 100),
 
 	/*
 	|--------------------------------------------------------------------------
 	| Session Cookie Name
 	|--------------------------------------------------------------------------
 	|
-	| The name that should be given to the session cookie.
+	| Here you may change the name of the cookie used to identify a session
+	| instance by ID. The name specified here will get used every time a
+	| new session cookie is created by the framework for every driver.
 	|
 	*/
 
@@ -86,7 +103,9 @@ return array(
 	| Session Cookie Path
 	|--------------------------------------------------------------------------
 	|
-	| The path for which the session cookie is available.
+	| The session cookie path determines the path for which the cookie will
+	| be regarded as available. Typically, this will be the root path of
+	| your application but you are free to change this when necessary.
 	|
 	*/
 
@@ -97,7 +116,9 @@ return array(
 	| Session Cookie Domain
 	|--------------------------------------------------------------------------
 	|
-	| The domain for which the session cookie is available.
+	| Here you may change the domain of the cookie used to identify a session
+	| in your application. This will determine which domains the cookie is
+	| available to in your application. A sensible default has been set.
 	|
 	*/
 
@@ -105,10 +126,12 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| HTTPS Only Session Cookie
+	| HTTPS Only Cookies
 	|--------------------------------------------------------------------------
 	|
-	| Determines if the cookie should only be sent over HTTPS.
+	| By setting this option to true, session cookies will only be sent back
+	| to the server if the browser has a HTTPS connection. This will keep
+	| the cookie from being sent to you if it can not be done securely.
 	|
 	*/
 
