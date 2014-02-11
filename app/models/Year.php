@@ -1,7 +1,9 @@
 <?php 
 
 class Year extends Eloquent {
-	public static $timestamps = true;
+    
+    protected $fillable = array('year', 'name', 'alias');
+    
     public static function current_year() 
     {
         return Year::where('year', '=', Config::get('rms_config.current_year'))->first();
@@ -9,17 +11,17 @@ class Year extends Eloquent {
 
     public function teams()
     {
-        return $this->has_many_and_belongs_to('Team');
+        return $this->belongsToMany('Team');
     }
 
 	public function users()
     {
-        return $this->has_many_and_belongs_to('User');
+        return $this->belongsToMany('User');
     }
 
     public function sponsors()
     {
-        return $this->has_many_and_belongs_to('Sponsor');
+        return $this->belongsToMany('Sponsor');
     }
 
     public function wellbeing_orders() 
@@ -29,12 +31,12 @@ class Year extends Eloquent {
 
     public function camp_settings()
     {
-        return $this->has_many('Camp_Setting');
+        return $this->hasMany('CampSetting');
     }
 
     public function camp_active() 
     {
-        $camp = Camp_Setting::where('year_id' , '=' , $this->id)
+        $camp = CampSetting::where('year_id' , '=' , $this->id)
                     ->where('visible', '=', 1)
                     ->count();
 
@@ -42,16 +44,21 @@ class Year extends Eloquent {
         return $camp !=0;
     }
 
+    public function merch_orders() {
+        return $this->hasMany('MerchOrder');
+    }
+
+    /* returns a list of the exec positions filled that year */
     public function executives()
     {
-        $executives_id = DB::table('executive_user')->where('year_id', '=', $this->id)->get('executive_id');
+        $executives_id = DB::table('executive_user')->select('executive_id')->where('year_id', '=', $this->id)->get();
         $exec_id = array();
         foreach($executives_id as $e) {
             $exec_id[] = $e->executive_id;
         }
 
         if($exec_id!=null) {
-            return Executive::where_in('id',$exec_id)->get();
+            return Executive::whereIn('id',$exec_id)->get();
 
         } else {
             return array();
@@ -96,7 +103,7 @@ class Year extends Eloquent {
         return $directors;    
     }
 
-    public function get_mailing_list() 
+    public function getMailingListAttribute() 
     {
         return 'all.' . $this->alias . '@cserevue.org.au';
     }

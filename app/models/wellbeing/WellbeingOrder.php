@@ -1,29 +1,31 @@
 <?php
 
-class Wellbeing_Order extends Eloquent {
-	public static $timestamps = true;
+class WellbeingOrder extends Eloquent {
+    
+    protected $fillable = array('user_id', 'year_id', 'dietary_requirements', 
+                                'paid', 'all');
 
     public function user() 
     {
-        return $this->belongs_to('User');
+        return $this->belongsTo('User');
     }
 
 
     public function nights()
     {
-        return $this->has_many_and_belongs_to('Wellbeing_Night', 'wellbeing_night_order');
+        return $this->belongsToMany('WellbeingNight', 'wellbeing_night_order');
     }
 
     public function year()
     {
-        return $this->belongs_to('Year');
+        return $this->belongsTo('Year');
     }
 
 
     public function total() 
     {
         $mynight_count = count($this->nights);
-        $allnight_count = count(Wellbeing_Night::current_nights()->get());
+        $allnight_count = count(WellbeingNight::current_nights()->get());
         $total = 0;
 
         foreach($this->nights as $night) {

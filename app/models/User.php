@@ -1,26 +1,65 @@
-<?php 
+<?php
 
-class User extends Eloquent {
-	public static $timestamps = true;
+use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\Reminders\RemindableInterface;
 
-    public static $hidden = array(
-        'password',
-        'reset_password_hash',
-    );
+class User extends Eloquent implements UserInterface, RemindableInterface {
 
-	public function profile()
+	/**
+	 * Get the unique identifier for the user.
+	 *
+	 * @return mixed
+	 */
+	public function getAuthIdentifier()
 	{
-		return $this->has_one('Profile');
+		return $this->getKey();
 	}
+
+	/**
+	 * Get the password for the user.
+	 *
+	 * @return string
+	 */
+	public function getAuthPassword()
+	{
+		return $this->password;
+	}
+
+	/**
+	 * Get the e-mail address where password reminders are sent.
+	 *
+	 * @return string
+	 */
+	public function getReminderEmail()
+	{
+		return $this->email;
+	}
+
+    public function profile() {
+        return $this->hasOne('Profile');
+    }
+
+    public function years() {
+        return $this->belongsToMany('Year')->orderBy('year', 'desc');
+    }
+
+    public function executives() {
+        return $this->belongsToMany('Executive')->withPivot('year_id', 'non_executive');
+    }
+
+    public function teams() {
+        return $this->belongsToMany('Team')->withPivot('year_id', 'status');
+    }
+
 
     public function orders()
     {
-        return $this->has_many('Merch_Order');
+        return $this->hasMany('MerchOrder');
     }
 
     public function wellbeing_orders()
     {
-        return $this->has_many('Wellbeing_Order');
+        return $this->hasMany('WellbeingOrder');
     }
 
     public function wellbeing_orders_year($year_id)
@@ -30,21 +69,6 @@ class User extends Eloquent {
             ->where('user_id', '=', $this->id);
     }
 
-	public function teams()
-    {
-        return $this->has_many_and_belongs_to('Team')->with('year_id','status');
-    }
-
-    public function years()
-    {
-        return $this->has_many_and_belongs_to('Year')->order_by('year', 'desc');
-    }
-
-    public function executives()
-    {
-        return $this->has_many_and_belongs_to('Executive')->with('year_id','non_executive');
-    }
-
     public function reset_url()
     {
         return URL::base() . '/rms/account/reset_password/'.$this->id.'/'.$this->reset_password_hash;
@@ -52,12 +76,12 @@ class User extends Eloquent {
 
     public function profile_url()
     {
-        return URL::base() . '/rms/users/show/'.$this->id;
+        return URL::to('/rms/users/show/'.$this->id);
     }
 
     public function has_signed_up_for_camp()
     {
-        $camp = Camp_Setting::where('year_id' , '=' , Year::current_year()->id);
+        $camp = CampSetting::where('year_id' , '=' , Year::current_year()->id);
 
         $count = DB::table('camp_registrations')
             ->where('camp_setting_id', '=', $camp->first()->id)
@@ -65,21 +89,21 @@ class User extends Eloquent {
         return $count!=0;
     }
 
-    public function image_url()
+    public function getImageUrlAttribute()
     {
-        $url = URL::base() . '/img/profile/'.$this->profile->image;
-        $file = 'public/img/profile/'.$this->profile->image;
-        if(!(File::exists($file) && File::is( array('jpg','gif','png'),  $file ))) {
+        $url = URL::to('/img/profile/'.$this->profile->image);
+        $file = base_path() . '/public/img/profile/'.$this->profile->image;
+        if(!(File::exists($file) && in_array(File::extension($file), array('jpg','gif','png')))) {
             if($this->profile->gender=='M'){
-                $url = URL::base() . '/img/male.jpg';
+                $url = URL::to('/img/male.jpg');
             } else {
-                $url = URL::base() . '/img/female.jpg';
+                $url = URL::to('/img/female.jpg');
             }
         }
 
         return $url;
     }
-    
+
 
     public function get_needs_to_renew()
     {
@@ -140,21 +164,29 @@ class User extends Eloquent {
         return $count!=0;
     }
 
-    public function can_manage_team($year_id, $team_id)
+    public function can_manage_team($team_id)
     {
-        if($this->admin)
+        if($this->admin || $this->is_currently_part_of_exec())
         {
             return true;
         }
-        else 
+        else
         {
             $team = Team::find($team_id);
             $result = $team->users()->where('users.id', '=', $this->id)
                                     ->where('status', '=', 'head')
-                                    ->where('year_id','=',$year_id)
+                                    ->where('year_id','=',Year::current_year()->id)
                                     ->get();
-            return !empty($result);
+            return count($result) != 0;
         }
     }
 
+    public function can_edit_merch_orders()
+    {
+        return $this->admin || $this->is_currently_part_of_exec();
+    }
+
+    public function blog_posts(){
+        return $this->hasMany('BlogPost', 'author_id');
+    }
 }

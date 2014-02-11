@@ -1,7 +1,9 @@
 <?php 
 
 class Team extends Eloquent {
-	public static $timestamps = true;
+    
+    protected $fillable = array('name', 'alias', 'privacy', 'description');
+
 
     public static function all_active() 
     {
@@ -11,30 +13,30 @@ class Team extends Eloquent {
     public function is_active() 
     {
         $result = Year::current_year()->teams()->where('teams.id', '=', $this->id)->get();
-        return !empty($result);
+        return count($result) != 0;
     }
 
 	public function users()
     {
-        return $this->has_many_and_belongs_to('User')->with('year_id','status');
+        return $this->belongsToMany('User')->withPivot('year_id','status');
     }
 
     public function years()
     {
-        return $this->has_many_and_belongs_to('Year')->order_by('year', 'desc');
+        return $this->belongsToMany('Year')->orderBy('year', 'desc');
     }
 
-    public function get_privacy_string()
+    public function getPrivacyStringAttribute()
 	{
 		return ($this->privacy ? 'Private' : 'Public');
 	}
 
-	public function get_mailing_list() 
+	public function getMailingListAttribute() 
 	{
 		return $this->alias . '@cserevue.org.au';
 	}
 
-	public function get_heads_email() 
+	public function getHeadsEmailAttribute() 
 	{
 		return $this->alias . '.head@cserevue.org.au';
 	}
