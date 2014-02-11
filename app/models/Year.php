@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 class Year extends Eloquent {
-    
+
     protected $fillable = array('year', 'name', 'alias');
-    
-    public static function current_year() 
+
+    public static function current_year()
     {
         return Year::where('year', '=', Config::get('rms_config.current_year'))->first();
     }
@@ -24,7 +24,7 @@ class Year extends Eloquent {
         return $this->belongsToMany('Sponsor');
     }
 
-    public function wellbeing_orders() 
+    public function wellbeing_orders()
     {
         return $this->has_many('Wellbeing_Order');
     }
@@ -34,7 +34,7 @@ class Year extends Eloquent {
         return $this->hasMany('CampSetting');
     }
 
-    public function camp_active() 
+    public function camp_active()
     {
         $camp = CampSetting::where('year_id' , '=' , $this->id)
                     ->where('visible', '=', 1)
@@ -75,12 +75,12 @@ class Year extends Eloquent {
             ->where('executive_id', '=', $p_id->id)
             ->where('non_executive', '=', false)
             ->get();
-        
+
         $producers = array();
         foreach($producers_joins as $p) {
           $producers[] = User::find($p->user_id);
         }
-  
+
 
         return $producers;
     }
@@ -94,16 +94,16 @@ class Year extends Eloquent {
             ->where('executive_id', '=', $d_id)
             ->where('non_executive', '=', false)
             ->get();
-        
+
         $directors = array();
         foreach($d_joins as $d) {
             $directors[] = User::find($d->user_id);
         }
 
-        return $directors;    
+        return $directors;
     }
 
-    public function getMailingListAttribute() 
+    public function getMailingListAttribute()
     {
         return 'all.' . $this->alias . '@cserevue.org.au';
     }

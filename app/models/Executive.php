@@ -8,7 +8,7 @@ class Executive extends Eloquent {
         return $this->belongsToMany('User')->withPivot('year_id', 'non_executive');
     }
 
-    public function getMailingListAttribute($year = "_")
+    public function mailing_list($year = "_")
 	{
         if ($year == "_" || $year == Year::current_year()->year) {
             $year_alias = "";
@@ -19,6 +19,11 @@ class Executive extends Eloquent {
 
 		return $this->alias . $year_alias . '@cserevue.org.au';
 	}
+
+    public function getMailingListAttribute()
+    {
+        return $this->alias.'@cserevue.org.au';
+    }
 
 	//Only "real exec"
 	public function get_members($year_id)
