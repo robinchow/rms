@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Years
@@ -9,7 +9,7 @@
 @if ( count($years) > 0 )
 	@foreach ($years as $year)
     	<strong>{{ HTML::link('/rms/years/show/'.$year->id,$year->year.': '.$year->name ) }}</strong>
-            @if(Auth::User()->admin)
+            @if($user->admin)
                 <div class="btn-group pull-right">
                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -26,7 +26,7 @@
 	No years
 @endif
 
- @if(Auth::User()->admin)
+ @if($user->admin)
     {{HTML::link('rms/years/add','Add year', array('class'=>'btn btn-primary'))}}
 @endif
 

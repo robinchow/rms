@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Add a News Post
 @endsection
 
 @section('content')
-    {{ Form::open('rms/news/add')}}
+    {{ Form::open(array('url'=>'rms/news/add')) }}
 
     <legend>Add a News Post</legend>
 

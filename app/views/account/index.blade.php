@@ -1,5 +1,4 @@
-@layout('templates.rms')
-
+@extends('templates.rms')
 @section('title')
     @parent - View Profile
 @endsection
@@ -19,15 +18,17 @@
 
 
 @section('content')
-	{{ Image::polaroid($user->image_url(), $user->profile->display_name,array('width'=>'200px','height'=>'200px','class'=>'pull-right')) }}
+	{{ HTML::image($user->image_url, $user->profile->full_name, array('width'=>'200px','height'=>'200px','class'=>'pull-right')) }}
 
 	<h2>Your Profile</h2>
 
 	<h3>Personal Details:</h3>
 
 	<p><strong>Full Name: </strong>{{ $user->profile->full_name }}</p>
-	<p><strong>Display Name: </strong>{{ $user->profile->display_name }}</p>
-	<p><strong>DOB: </strong>{{ $user->profile->dob }}</p>
+    @if($user->profile->display_name != "")
+        <p><strong>Display Name: </strong>{{ $user->profile->display_name }}</p>
+    @endif
+	<p><strong>DOB: </strong>{{  $user->profile->dob }}</p>
 	<p><strong>Gender: </strong>{{ $user->profile->gender }}</p>
 
 	<h3>Contact Details:</h3>
@@ -49,7 +50,7 @@
                 $teamlist = array();
 
                 // Executives 
-                foreach($user->executives()->where_year_id($year->id)->get() as $executive) {
+                foreach($user->executives()->where('year_id', '=', $year->id)->get() as $executive) {
                     $string = "<strong>".$executive->position;
                     if($executive->pivot->non_executive) {
                         $string .= " (Assistant)";
@@ -57,12 +58,11 @@
                     $string .= "</strong>";
                     $teamlist[] = $string;
                 }
-
                 // Head/Member/Interested
                 $heads = array();
                 $members = array();
                 $interests = array();
-                foreach($user->teams()->where_year_id($year->id)->get() as $team) {
+                foreach($user->teams()->where('year_id', '=', $year->id)->get() as $team) {
                     $string = "";
                     if ($team->pivot->status == 'head') {
                         $heads[] = "<strong>".$team->name."</strong>";
@@ -81,6 +81,7 @@
                 if (empty($teamlist)) {
                     $teamliststring = "<i>You were not part of any teams that year.</i>";
                 }
+
             ?>
             {{$teamliststring}}
         </p>

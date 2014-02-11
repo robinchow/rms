@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Add a New FAQ
 @endsection
 
 @section('content')
-    {{ Form::open('rms/faqs/add')}}
+    {{ Form::open(array('url'=>'rms/faqs/add')) }}
 
     <legend>Add a New FAQ</legend>
 

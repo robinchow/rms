@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Edit faq
 @endsection
 
 @section('content')
-    {{ Form::open('rms/faqs/edit/' . $faq->id)}}
+    {{ Form::open(array('url'=>'rms/faqs/edit/' . $faq->id)) }}
 
     <legend>Edit faq</legend>
 

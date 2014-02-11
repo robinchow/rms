@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Add New Team
 @endsection
 
 @section('content')
-    {{ Form::open('rms/teams/add')}}
+    {{ Form::open(array('url'=>'rms/teams/add')) }}
 
     <legend>Add New Team</legend>
 

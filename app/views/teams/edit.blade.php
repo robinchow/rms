@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Edit Team
 @endsection
 
 @section('content')
-    {{ Form::open('rms/teams/edit/' . $team->id)}}
+    {{ Form::open(array('url'=>'rms/teams/edit/' . $team->id)) }}
 
     <legend>Edit Team</legend>
         @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())

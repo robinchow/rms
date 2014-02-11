@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - All Orders
@@ -6,6 +6,7 @@
 
 @section('content')
 <h2>All Orders - {{$year->year}}</h2>
+
 @if ( count($orders) > 0 )
     <table class="table table-bordered table-striped">
         <tr>

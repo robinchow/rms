@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent -  Edit Night
@@ -14,7 +14,7 @@
         });
     </script>
 
-    {{ Form::open('rms/wellbeing/nights/edit/'.$night->id)}}
+    {{ Form::open(array('url'=>'rms/wellbeing/nights/edit/'.$night->id)) }}
 
     <legend>Edit Night</legend>
 

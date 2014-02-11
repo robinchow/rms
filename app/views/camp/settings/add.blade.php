@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Add New Camp
 @endsection
 
 @section('content')
-    {{ Form::open('rms/camp/settings/add')}}
+    {{ Form::open(array('url'=>'rms/camp/settings/add')) }}
 
     <legend>Add New Camp</legend>
         {{ Form::label('year_id', 'Year') }}

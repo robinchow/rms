@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Sponsors
@@ -6,6 +6,7 @@
 
 @section('content')
 <h2>Sponsors</h2>
+This is a list of all the sponsors we have ever acquired.
 @if ( count($sponsors) > 0 )
 	<table class="table table-striped table-bordered">
 		<tr>
@@ -31,8 +32,8 @@
 					<a class="btn btn-primary" href="/rms/sponsors/edit/{{$sponsor->id}}">Edit</a>
 					<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li>{{ HTML::link('rms/sponsors/add_to_year/'. $sponsor->id,'Add to year')}}</li>
-						<li>{{ HTML::link('rms/sponsors/remove_from_year/'. $sponsor->id,'Remove from year')}}</li>
+						<li>{{ HTML::link('rms/sponsors/add-to-year/'. $sponsor->id,'Add to year')}}</li>
+						<li>{{ HTML::link('rms/sponsors/remove-from-year/'. $sponsor->id,'Remove from year')}}</li>
 						<li>{{ HTML::link('rms/sponsors/delete/'. $sponsor->id,'Delete')}}</li>
 					</ul>
 				</div>

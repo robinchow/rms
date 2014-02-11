@@ -1,19 +1,20 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Edit Merch Order
 @endsection
 
 @section('content')
-    {{ Form::open('rms/merch/orders/edit')}}
-
+{{ Form::open(array('url'=>'rms/merch/orders/edit')) }}
+    @if (!$is_user)
     <legend>Add Payment</legend>
         {{ Form::hidden('order_id',$order->id)}}
 
         Total: ${{ $order->total() }}
 
-        {{ Form::label('amount_paid', 'Amount Paid') }}
-        ${{ Form::text('amount_paid',Input::old('amount_paid', $order->amount_paid))}}<br>
+            {{ Form::label('amount_paid', 'Amount Paid') }}
+            ${{ Form::text('amount_paid',Input::old('amount_paid', $order->amount_paid))}}<br>
+        @endif
 
             <table class="table table-bordered table-striped">
                 <tr>
@@ -28,7 +29,7 @@
                 <td>${{ $item->price}}</td>
                 <td>@if($item->has_size)
                         {{ Form::select('size['.$item->id.']', array('8'=>'8','10'=>'10','12'=>'12','14'=>'14','XS'=>'XS','S'=>'S','M'=>'M','L'=>'L','XL'=>'XL','XXL'=>'XXL'), $item->pivot->size)  }}
-                    @else 
+                    @else
                         N/A
                         {{ Form::hidden('size['.$item->id.']', 'N/A') }}
                     @endif
@@ -42,8 +43,12 @@
             </table>
 
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
-        {{ HTML::link('/rms/merch/admin','Cancel',array('class'=>'btn')) }}
+        @if ($is_user)
+        {{ HTML::link('/rms/merch/orders','Cancel',array('class'=>'btn')) }}
+        @else
+        {{ HTML::link('/rms/merch/orders/admin','Cancel',array('class'=>'btn')) }}
+        @endif
 
     {{ Form::close() }}
-      
+
 @endsection

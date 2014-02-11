@@ -1,4 +1,4 @@
-@layout('templates.home')
+@extends('templates.home')
 
 @section('title')
     @parent - Teams
@@ -16,6 +16,7 @@
 
     <div class="span10 offset1" id="main-content">
 
+    <h4><a href="/teams">Back to teams</a></h4>
 	<h3>{{ $team->name }}</h3>
 	
 	<p>{{nl2br($team->description)}}</p>

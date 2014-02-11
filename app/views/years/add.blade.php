@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Add New Year
 @endsection
 
 @section('content')
-    {{ Form::open('rms/years/add')}}
+    {{ Form::open(array('url'=>'rms/years/add')) }}
 
     <legend>Add a new Year</legend>
 

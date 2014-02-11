@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Add New Sponsor
 @endsection
 
 @section('content')
-    {{ Form::open_for_files('rms/sponsors/add')}}
+    {{ Form::open(array('url'=>'rms/sponsors/add')) }}
 
     <legend>Add a New Sponsor</legend>
 

@@ -1,4 +1,4 @@
-@layout('templates.home')
+@extends('templates.home')
 
 @section('title')
     @parent - Sponsors

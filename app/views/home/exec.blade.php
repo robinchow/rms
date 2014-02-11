@@ -1,4 +1,4 @@
-@layout('templates.home')
+@extends('templates.home')
 
 @section('title')
     @parent - Executives
@@ -8,7 +8,7 @@
 	<div class="row">
 
     <div class="span10 offset1" id="main-title">
-		<h2>Exec&nbsp;</h2> 
+		<h2>Exec&nbsp;</h2>
 	</div>
 	</div>
 
@@ -28,9 +28,9 @@
 			<li>{{$member->profile->full_name}}</li>
 		@endforeach
 		</ul>
-		<p>Emails: {{$exec->mailing_list}}</p>
+		<p>Emails: {{$exec->get_mailing_list()}}</p>
 	@endforeach
 </div>
 </div>
-      
+
 @endsection

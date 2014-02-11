@@ -1,4 +1,4 @@
-@layout('templates.rms_login')
+@extends('templates.rms_login')
 
 @section('title')
     @parent - Login
@@ -7,8 +7,8 @@
 
 
 @section('content')
-    {{ Form::open('rms/account/login', 'POST') }}
-        <h2>Sign In</h2>
+    {{ Form::open(array('url'=>'rms/account/login', 'method'=>'POST')) }}
+        <h2>Log In</h2>
         <!-- username field -->
         {{ Form::text('email','',array('class'=>'input-block-level','placeholder'=>'Email address' )) }}
         <!-- password field -->

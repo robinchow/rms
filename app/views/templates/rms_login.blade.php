@@ -11,8 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    {{Asset::container('bootstrapper')->styles()}}
-    {{Asset::container('bootstrapper')->scripts()}}
+    {{HTML::style('bundles/bootstrapper/css/bootstrap.min.css')}}
+    {{HTML::style('bundles/bootstrapper/css/bootstrap-responsive.min.css')}}
+    {{HTML::style('bundles/bootstrapper/css/nav-fix.css')}}
+
+    {{HTML::script('bundles/bootstrapper/js/jquery-1.8.3.min.js')}}
+    {{HTML::script('bundles/bootstrapper/js/bootstrap.min.js')}}
+
 
     {{HTML::style('css/rms.css')}}
   </head>

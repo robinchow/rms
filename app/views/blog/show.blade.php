@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Showing Blog Post

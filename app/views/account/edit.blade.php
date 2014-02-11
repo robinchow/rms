@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Edit Profile
@@ -15,12 +15,12 @@
 
     <h2>Edit User Profile</h2>
 
-    {{ Form::open_for_files('rms/account/edit')}}
+    {{ Form::open(array('url' => 'rms/account/edit', 'files' => true)) }}
         <fieldset>
         <legend>Personal Details:</legend>
 
         {{ Form::label('image', 'Image') }}
-        {{ Image::polaroid($user->image_url(), $user->profile->display_name,array('width'=>'100px','height'=>'100px')) }}
+        {{ HTML::image($user->image_url, $user->profile->display_name,array('width'=>'100px','height'=>'100px')) }}
         <br>
 
         {{ Form::file('image')}}<br>
@@ -47,7 +47,7 @@
         <fieldset>
         <legend>Contact Details:</legend>
         {{ Form::label('phone', 'Phone') }}
-        {{ Form::telephone('phone', Input::old('phone',$user->profile->phone))}}<br>
+        {{ Form::text('phone', Input::old('phone',$user->profile->phone))}}<br>
 
         <label for="privacy" class="checkbox">
             {{ Form::checkbox('privacy', 1 ,Input::old('privacy',$user->profile->privacy))}} Hide My contact Details
@@ -66,7 +66,7 @@
         {{ Form::label('student_number', 'Student Number') }}
         {{ Form::text('student_number', Input::old('student_number',$user->profile->student_number))}}<br>
         {{ Form::label('start_year', 'Start Year') }}
-        {{ Form::text('start_year', Input::old('start_year',$user->profile->start_year))}}<br>
+        {{ Form::text('start_year', Input::old('start_year',$user->profile->start_year)) }}<br>
 
 
         <label for="arc" class="checkbox">

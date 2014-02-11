@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Executive
@@ -16,7 +16,7 @@
             <ul class="thumbnails">
     		@foreach($executive->get_all_members($year->id) as $user)
                 <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
-                    <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}" >
+                    <img src="{{$user->image_url}}" alt="{{$user->profile->display_name}}" >
                     <center><caption>{{$user->profile->full_name}}
                     @if($user->pivot->non_executive)
                         (Assistant)

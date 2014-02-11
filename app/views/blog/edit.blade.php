@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Edit Blog Post
 @endsection
 
 @section('content')
-    {{ Form::open('rms/blog/posts/edit/' . $blog_posts->id)}}
+    {{ Form::open(array('url'=>'rms/blog/posts/edit/' . $blog_posts->id)) }}
 
     <legend>Edit Blog Post</legend>
 

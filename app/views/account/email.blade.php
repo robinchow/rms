@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Change Email
 @endsection
 
 @section('content')
-    {{ Form::open('rms/account/change_email')}}
+    {{ Form::open(array('url'=>'rms/account/change-email')) }}
 
     <legend>Change Email</legend>
 

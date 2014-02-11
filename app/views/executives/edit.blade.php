@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Edit Executive Position
 @endsection
 
 @section('content')
-    {{ Form::open('rms/executives/edit/' . $executive->id)}}
+    {{ Form::open(array('url'=>'rms/executives/edit/' . $executive->id)) }}
 
     <legend>Edit Executive Position</legend>
 

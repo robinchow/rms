@@ -1,12 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Order Merch
 @endsection
 
 @section('content')
-    {{ Form::open('rms/merch/orders/new')}}
-
+{{ Form::open(array('url'=>'rms/merch/orders/new')) }}
     <legend>Order Merch</legend>
         <p>Pay for merch by giving cash to a producer, or Direct Debit into the following account:</p>
         <p>
@@ -46,7 +45,7 @@ Transaction Name: &lt;your name&gt; MERCH<br />
   
         <p></p>
 
-        {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
+        {{ Form::submit('Place Order',array('class'=>'btn btn-primary')) }}
         {{ HTML::link('/rms/merch/orders','Cancel',array('class'=>'btn')) }}
 
     {{ Form::close() }}

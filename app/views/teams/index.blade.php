@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Teams
@@ -45,7 +45,7 @@
 
     function do_ajax(teamid, type) {
         $.ajax({
-            url:"/rms/teams/member_" + type + "_ajax/" + teamid
+            url:"/rms/teams/member-" + type + "-ajax/" + teamid
         }).done(
             function (data) {
                 finish_ajax(teamid, data);
@@ -73,7 +73,7 @@
     $output = '';
     foreach($teams as $team) {
         // Get team status
-        $status = $team->get_user_status($user->id);
+        $status = $team->get_user_status($user['id']);
         
         // Place into relevant list
         if ($status == 'head') {
@@ -100,13 +100,13 @@
 
         <tbody>
             @foreach($head as $team)
-                @include('teams.index.teamrow')->with('teamName', $team->name." (Head)")->with('interact', '')
+                @include('teams.index.teamrow', array('team' => $team, 'teamName' => $team->name." (Head)", 'interact' => ''))
             @endforeach
             @foreach($member as $team)
-                @include('teams.index.teamrow')->with('teamName', $team->name)->with('interact', 'leave')
+                @include('teams.index.teamrow', array('team' => $team, 'teamName' => $team->name, 'interact' => 'leave'))
             @endforeach
             @foreach($interest as $team)
-                @include('teams.index.teamrow')->with('teamName', $team->name." (Interested)")->with('interact', 'leave')
+                @include('teams.index.teamrow', array('team' => $team, 'teamName' => $team->name." (Interested)", 'interact' => 'leave'))
             @endforeach
         </tbody>
     </table>
@@ -126,7 +126,7 @@
 
         <tbody>
             @foreach($other as $team)
-                @include('teams.index.teamrow')->with('teamName', $team->name)->with('interact', 'join')
+                @include('teams.index.teamrow', array('team' => $team, 'teamName' => $team->name, 'interact' => 'join'))
             @endforeach
         </tbody>
     </table>

@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Edit Year
 @endsection
 
 @section('content')
-    {{ Form::open('rms/years/edit/' . $year->id)}}
+    {{ Form::open(array('url'=>'rms/years/edit/' . $year->id)) }}
 
     <legend>Edit Year</legend>
 

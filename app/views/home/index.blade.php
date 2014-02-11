@@ -1,4 +1,4 @@
-@layout('templates.home')
+@extends('templates.home')
 
 @section('title')
     @parent
@@ -29,11 +29,10 @@
 
 
 			<div id="main-content">
-				@foreach(array_reverse(array_slice(News::all(), -4, 4, true)) as $news)
-					<p><b>{{$news->title}}</b><span style="float: right;">{{date('d M Y',strtotime($news->created_at))}}</span></p>
-					<p>{{nl2br($news->post)}}</p>
-					<hr>
-				@endforeach
+                {{ implode(array_reverse(array_slice(array_map(function($item){return "
+                <p><strong>$item[title]</strong><span style='float: right;'>".date('d M Y',strtotime($item['created_at']))."</span></p>
+                <p>".nl2br($item['post'])."</p>
+                ";}, News::all()->toArray()), -4, 4, true)), "<hr/>") }}
 			</div>
 		</div>
 

@@ -11,8 +11,13 @@
     <link rel="icon" type="image/ico" href="/img/favicon32.ico">
     <meta name="description" content="">
     <meta name="author" content="">
-    {{Asset::container('bootstrapper')->styles()}}
-    {{Asset::container('bootstrapper')->scripts()}}
+    {{HTML::style('bundles/bootstrapper/css/bootstrap.min.css')}}
+    {{HTML::style('bundles/bootstrapper/css/bootstrap-responsive.min.css')}}
+    {{HTML::style('bundles/bootstrapper/css/nav-fix.css')}}
+
+    {{HTML::script('bundles/bootstrapper/js/jquery-1.8.3.min.js')}}
+    {{HTML::script('bundles/bootstrapper/js/bootstrap.min.js')}}
+
 
     {{HTML::style('css/rms.css')}}
   </head>
@@ -90,8 +95,8 @@
     @endif
     <li>{{HTML::link('rms/account','Profile')}}</li>
     <li>{{HTML::link('rms/account/edit','Edit Profile')}}</li>
-    <li>{{HTML::link('rms/account/change_password','Change Password')}}</li>
-    <li>{{HTML::link('rms/account/change_email','Change Email')}}</li>
+    <li>{{HTML::link('rms/account/change-password','Change Password')}}</li>
+    <li>{{HTML::link('rms/account/change-email','Change Email')}}</li>
 
     <li class="nav-header">Teams</li>
     <li>{{HTML::link('rms/teams','View Teams')}}</li>
@@ -154,7 +159,7 @@
     @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
       <li class="nav-header">Website Settings</li>
       <li>{{HTML::link('rms/news','News')}}</li>
-      <li>{{HTML::link('rms/blog/posts','Blog')}}</li>
+      <li>{{HTML::link('rms/blog','Blog')}}</li>
       <li>{{HTML::link('rms/faqs','FAQs')}}</li>
       <li>{{HTML::link('rms/sponsors','Sponsors')}}</li>
       @if(Auth::user()->admin)

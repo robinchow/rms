@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Teams
@@ -31,7 +31,7 @@
         <td>
             <div class="btn-group">
                 <a class="btn btn-primary" href="/rms/teams/edit/{{$team->id}}?renew=true">Edit</a>
-                @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec() or Auth::User()->can_manage_team(Year::current_year()->id, $team->id))
+                @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec() or Auth::User()->can_manage_team($team->id))
                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li>{{HTML::link('rms/teams/show/'. $team->id,'View Team')}}</li>

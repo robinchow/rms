@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - {{$user->profile->full_name}}'s Profile
@@ -6,7 +6,7 @@
 
 @section('content')
 
-	{{ Image::polaroid($user->image_url(), $user->profile->display_name,array('width'=>'200px','height'=>'200px','class'=>'pull-right')) }}
+	{{ HTML::Image($user->image_url, $user->profile->display_name,array('width'=>'200px','height'=>'200px','class'=>'pull-right')) }}
 
 	<h2>{{$user->profile->full_name}}'s Profile</h2>
 
@@ -38,7 +38,7 @@
                 $teamlist = array();
 
                 // Executives 
-                foreach($user->executives()->where_year_id($year->id)->get() as $executive) {
+                foreach($user->executives()->where('year_id', '=', $year->id)->get() as $executive) {
                     $string = "<strong>".$executive->position;
                     if($executive->pivot->non_executive) {
                         $string .= " (Assistant)";
@@ -51,7 +51,7 @@
                 $heads = array();
                 $members = array();
                 $interests = array();
-                foreach($user->teams()->where_year_id($year->id)->get() as $team) {
+                foreach($user->teams()->where('year_id', '=', $year->id)->get() as $team) {
                     $string = "";
                     if ($team->pivot->status == 'head') {
                         $heads[] = "<strong>".$team->name."</strong>";

@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Team
@@ -6,10 +6,10 @@
 
 @section('content')
 
-    <h2>{{ $team->name }}</h2>     
-    @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec() || Auth::User()->can_manage_team(Year::current_year()->id, $team->id))
+    <h2>{{ $team->name }}</h2>
+    @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec() || Auth::User()->can_manage_team($team->id))
         {{HTML::link('rms/teams/edit/'. $team->id,'Edit Team',array('class'=>'btn btn-primary', 'style'=>'float: right;'))}}
-        {{HTML::link('rms/teams/manage/'. $team->id,'Manage Team',array('class'=>'btn btn-primary', 'style'=>'float: right;'))}}        
+        {{HTML::link('rms/teams/manage/'. $team->id,'Manage Team',array('class'=>'btn btn-primary', 'style'=>'float: right;'))}}
     @endif
 
         <strong>Heads Email:</strong>
@@ -36,7 +36,7 @@
                     @endif
                         <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
                             @if($year->id == Year::current_year()->id)
-                            <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
+                            <img src="{{$user->image_url}}" alt="{{$user->profile->display_name}}">
                             @endif
                             <center><caption>{{$user->profile->full_name}}</caption></center>
                         </a></li>
@@ -60,7 +60,7 @@
                     @endif
                         <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
                             @if($year->id == Year::current_year()->id)
-                            <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
+                            <img src="{{$user->image_url}}" alt="{{$user->profile->display_name}}">
                             @endif
                             <center><caption>{{$user->profile->full_name}}</caption></center>
                         </a></li>
@@ -85,7 +85,7 @@
                     @endif
                         <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
                             @if($year->id == Year::current_year()->id)
-                            <img src="{{$user->image_url()}}" alt="{{$user->profile->display_name}}">
+                            <img src="{{$user->image_url}}" alt="{{$user->profile->display_name}}">
                             @endif
                             <center><caption>{{$user->profile->full_name}}</caption></center>
                         </a></li>

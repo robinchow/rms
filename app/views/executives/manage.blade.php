@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Manage Executive Position
@@ -9,14 +9,16 @@
     <h2>{{ $executive->position }}</h2>
 
     <legend>Add New Member</legend>
-    {{ Form::vertical_open('rms/executives/manage/' . $executive->id)}}
+    {{ Form::open(array('url'=>'rms/executives/manage/' . $executive->id)) }}
 
     	{{ Form::hidden('executive_id', $executive->id)}}
     	{{ Form::hidden('year_id', $year->id)}}
 
         {{ Form::label('user', 'User') }}
-        {{ Typeahead::create($users, null,array('name'=>'user', 'autocomplete'=>'off')) }}<br>
-
+        <input name="user" autocomplete="off"
+               type="text" data-provide="typeahead" 
+               data-source='{{ json_encode($users) }}'>
+ 
         <label for="non_executive" class="checkbox">
             {{ Form::checkbox('non_executive', 1 )}} Non Executive/Assitant
         </label>

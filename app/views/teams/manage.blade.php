@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Manage Team
@@ -6,15 +6,16 @@
 
 @section('content')
 	<h2>{{ $team->name }}</h2>
-    {{ Form::vertical_open('rms/teams/manage/' . $team->id)}}
+    {{ Form::open(array('url' => 'rms/teams/manage/' . $team->id)) }}
 	<legend>Add Member to Team</legend>
 
     	{{ Form::hidden('team_id', $team->id)}}
     	{{ Form::hidden('year_id', $year->id)}}
 
         {{ Form::label('user', 'User') }}
-        {{ Typeahead::create($users, null,array('name'=>'user', 'autocomplete'=>'off'))}}
-
+        <input name="user" autocomplete="off"
+               type="text" data-provide="typeahead" 
+               data-source='{{ json_encode($users) }}'>
         {{ Form::label('status', 'Status') }}
         {{ Form::select('status',$statuses) }}<br>
 
@@ -35,8 +36,8 @@
 			</td>
 			<td>
 				<div class="btn-group">
-				{{HTML::decode(HTML::link('rms/teams/member_remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/head' ,'<i class="icon-remove"></i>', array('class'=>'btn btn-danger')))}}
-				{{HTML::decode(HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '/member' ,'<i class="icon-arrow-right"></i>', array('class'=>'btn btn-info')))}}
+				{{HTML::decode(HTML::link('rms/teams/member-remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/head' ,'<i class="icon-remove"></i>', array('class'=>'btn btn-danger')))}}
+				{{HTML::decode(HTML::link('rms/teams/member-move/' . $user->id . '/' . $team->id .'/' . $year->id . '/member' ,'<i class="icon-arrow-right"></i>', array('class'=>'btn btn-info')))}}
 				</div>
 			</td>
 		</tr>
@@ -54,9 +55,9 @@
 			</td>
 			<td>
 				<div class="btn-group">
-				{{HTML::decode(HTML::link('rms/teams/member_remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/member' ,'<i class="icon-remove"></i>', array('class'=>'btn btn-danger')))}}
-				{{HTML::decode(HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '/head' ,'<i class="icon-arrow-left"></i>', array('class'=>'btn btn-info')))}}
-				{{HTML::decode(HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '/interest' ,'<i class="icon-arrow-right	"></i>', array('class'=>'btn btn-info')))}}
+				{{HTML::decode(HTML::link('rms/teams/member-remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/member' ,'<i class="icon-remove"></i>', array('class'=>'btn btn-danger')))}}
+				{{HTML::decode(HTML::link('rms/teams/member-move/' . $user->id . '/' . $team->id .'/' . $year->id . '/head' ,'<i class="icon-arrow-left"></i>', array('class'=>'btn btn-info')))}}
+				{{HTML::decode(HTML::link('rms/teams/member-move/' . $user->id . '/' . $team->id .'/' . $year->id . '/interest' ,'<i class="icon-arrow-right	"></i>', array('class'=>'btn btn-info')))}}
 				</div>
 			</td>
 		</tr>
@@ -77,8 +78,8 @@
 			</td>
 			<td>
 				<div class="btn-group">
-				{{HTML::decode(HTML::link('rms/teams/member_remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/interest' ,'<i class="icon-remove"></i>', array('class'=>'btn btn-danger')))}}
-				{{HTML::decode(HTML::link('rms/teams/member_move/' . $user->id . '/' . $team->id .'/' . $year->id . '/member' ,'<i class="icon-arrow-left"></i>', array('class'=>'btn btn-info')))}}
+				{{HTML::decode(HTML::link('rms/teams/member-remove/' . $user->id . '/' . $team->id .'/' . $year->id . '/interest' ,'<i class="icon-remove"></i>', array('class'=>'btn btn-danger')))}}
+				{{HTML::decode(HTML::link('rms/teams/member-move/' . $user->id . '/' . $team->id .'/' . $year->id . '/member' ,'<i class="icon-arrow-left"></i>', array('class'=>'btn btn-info')))}}
 				</div>
 			</td>
 		</tr>

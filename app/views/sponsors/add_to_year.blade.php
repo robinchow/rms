@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Add Sponsor to year
 @endsection
 
 @section('content')
-    {{ Form::open('rms/sponsors/add_to_year/'.$sponsor->id)}}
+    {{ Form::open(array('url'=>'rms/sponsors/add-to-year/'.$sponsor->id)) }}
 
     <legend>Add Sponsor to year</legend>
 

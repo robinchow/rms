@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - My Merch Orders
@@ -22,14 +22,19 @@ Transaction Name: &lt;your name&gt; MERCH<br />
 	@foreach ($orders as $order)
         <tr>
         <td>{{ HTML::link('/rms/merch/orders/show/'.$order->id,$order->created_at) }}</td>
-        <td>${{ $order->remaining() }}</td>
+        <td>${{ $order->total() }} (${{$order->amount_paid}} paid)</td>
         <td>
             <div class="btn-group">
                 <a class="btn btn-primary" href="/rms/merch/orders/show/{{$order->id}}">View</a>
-                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+
+                @if (!$order->locked())
+                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#" style="padding-top:4px;padding-bottom:12px"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li>{{HTML::link('rms/merch/orders/edit/'. $order->id,'Edit Order')}}</li>
+                <li>{{HTML::link('rms/merch/orders/user-edit/'. $order->id,'Edit Order')}}</li>
+                <li>{{HTML::link('rms/merch/orders/delete/'. $order->id,'Delete Order')}}</li>
                 </ul>
+                @endif
+
             </div>
         </td>
     	<tr>

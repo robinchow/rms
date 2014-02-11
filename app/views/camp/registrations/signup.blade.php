@@ -1,18 +1,18 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Register For Camp
 @endsection
 
 @section('content')
-    {{ Form::open('rms/camp/registrations/signup')}}
+    {{ Form::open(array('url'=>'rms/camp/registrations/signup')) }}
 
     <legend>Register for Camp</legend>
     <h4>Camp Details:</h4>
-        Camp: {{$camp->year->year}}<br>
-        Theme: {{$camp->theme}}<br>
-        Places Remaining: {{$camp->remaining}}<br>
-        Details:<br>
+        <strong>Camp:</strong> {{$camp->year->year}}<br>
+        <strong>Theme:</strong> {{$camp->theme}}<br>
+        <strong>Places Remaining:</strong> {{$camp->remaining}}<br>
+        <strong>Details:</strong><br>
         {{nl2br($camp->details)}}<br>
 
     <hr>

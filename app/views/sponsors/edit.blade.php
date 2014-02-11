@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Edit Sponsor
 @endsection
 
 @section('content')
-    {{ Form::open_for_files('rms/sponsors/edit/' . $sponsor->id)}}
+    {{ Form::open(array('url'=>'rms/sponsors/edit/' . $sponsor->id, 'files'=>true)) }}
 
     <legend>Edit Sponsor</legend>
 

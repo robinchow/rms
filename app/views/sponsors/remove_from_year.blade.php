@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Remove sponsor from year
 @endsection
 
 @section('content')
-    {{ Form::open('rms/sponsors/remove_from_year/'.$sponsor->id)}}
+    {{ Form::open(array('url'=>'rms/sponsors/remove-from-year/'.$sponsor->id)) }}
 
     <legend>Remove sponsor from year</legend>
 

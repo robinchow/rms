@@ -1,4 +1,4 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Wellbeing Nights 
@@ -26,7 +26,7 @@
                 <a class="btn btn-primary" href="/rms/wellbeing/nights/edit/{{$night->id}}">Edit</a>
                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li>{{HTML::link('rms/wellbeing/nights/edit/'. $night->id,'Edit item')}}</li>
+                    <li>{{HTML::link('rms/wellbeing/nights/delete/'. $night->id,'Delete')}}</li>
                 </ul>
             </div>
         </td>
