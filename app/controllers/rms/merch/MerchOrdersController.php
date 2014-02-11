@@ -13,7 +13,6 @@ class MerchOrdersController extends BaseController
     public function get_index()
     {
     	$orders = Auth::user()->orders()->get();
-    	var_dump(count($orders));
         return View::make('merch.orders.index')->with('orders',$orders);
     }
 
@@ -56,7 +55,6 @@ class MerchOrdersController extends BaseController
             unset($input['size']);
 
             $merch_order = MerchOrder::create($input);
-            var_dump($merch_order);
 
             foreach(MerchItem::current_merch()->get() as $item) {
                 if(intval($quantities[$item->id]) > 0) {
