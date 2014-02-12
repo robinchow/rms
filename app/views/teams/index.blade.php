@@ -22,11 +22,11 @@
 
     function loading_ajax(teamid) {
         $("#" + teamid + ".btn-group").empty().toggle(false);
-        
+
         var $ajaxcont = $("#" + teamid + ".ajax-content");
         $ajaxcont.append(
-            '<div class="progress progress-striped active">' + 
-                '<div class="bar" style="width: 100%;"></div>' + 
+            '<div class="progress progress-striped active">' +
+                '<div class="bar" style="width: 100%;"></div>' +
             '</div>'
             );
     }
@@ -74,7 +74,7 @@
     foreach($teams as $team) {
         // Get team status
         $status = $team->get_user_status($user['id']);
-        
+
         // Place into relevant list
         if ($status == 'head') {
             $head[] = $team;

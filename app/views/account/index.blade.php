@@ -20,7 +20,15 @@
 @section('content')
 	{{ HTML::image($user->image_url, $user->profile->full_name, array('width'=>'200px','height'=>'200px','class'=>'pull-right')) }}
 
-	<h2>Your Profile</h2>
+	<h2>{{$user->profile->full_name}}</h2>
+
+    @if ($user->receive_emails)
+        <p>You are subscribed to our general mailing list!</p>
+        <a class="btn" href="/rms/account/unsubscribe">Unsubscribe</a>
+    @else
+        <p>You are <strong>not</strong> subscribed to our general mailing list!</p>
+        <a class="btn btn-primary" href="/rms/account/subscribe">Subscribe</a>
+    @endif
 
 	<h3>Personal Details:</h3>
 

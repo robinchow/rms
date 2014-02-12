@@ -20,6 +20,22 @@ class UsersController extends BaseController
         return View::make('users.index')->with('users', $users);
     }
 
+    public function get_subscribe($id)
+    {
+        $user = User::find($id);
+        $user->receive_emails = True;
+        $user->save();
+        return Redirect::to("rms/users/show/$id");
+    }
+
+    public function get_unsubscribe($id)
+    {
+        $user = User::find($id);
+        $user->receive_emails = False;
+        $user->save();
+        return Redirect::to("rms/users/show/$id");
+    }
+
     public function get_search($format = '.html')
     {
         $input = Input::get();

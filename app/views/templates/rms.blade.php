@@ -109,9 +109,6 @@
 
     <li class="nav-header">Members</li>
     <li>{{HTML::link('rms/users/search', 'Search Members')}}</li>
-    @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
-      <li>{{HTML::link('rms/users','List Members')}}</li>
-    @endif
 
     <li class="nav-header">Executives</li>
     <li>{{HTML::link('rms/executives','View Executives')}}</li>

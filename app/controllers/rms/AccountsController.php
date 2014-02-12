@@ -5,7 +5,7 @@ class AccountsController extends BaseController
 
     public function __construct()
     {
-        $this->beforeFilter('auth', array('except' => array('get_login', 'post_login', 'get_signup', 'post_signup', 
+        $this->beforeFilter('auth', array('except' => array('get_login', 'post_login', 'get_signup', 'post_signup',
                                                             'get_forgot', 'post_forgot', 'get_reset_password', 'post_reset_password')));
 /*
         //Validator for old email and old pasword
@@ -33,6 +33,21 @@ class AccountsController extends BaseController
         return View::make('account.index')->with('user', $user);
     }
 
+    public function get_subscribe()
+    {
+        $user = Auth::user();
+        $user->receive_emails = True;
+        $user->save();
+        return Redirect::to('rms/account');
+    }
+
+    public function get_unsubscribe()
+    {
+        $user = Auth::user();
+        $user->receive_emails = False;
+        $user->save();
+        return Redirect::to('rms/account');
+    }
 
     /**
      * Login Form
@@ -186,7 +201,7 @@ class AccountsController extends BaseController
             //Automatic renew them for current year
             $year = Year::current_year();
             $user->years()->attach($year->id);
-            
+
 
             return Redirect::to('rms/account');//->withInput('Succesfully signed up');
         } else {

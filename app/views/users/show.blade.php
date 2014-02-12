@@ -9,6 +9,16 @@
 	{{ HTML::Image($user->image_url, $user->profile->display_name,array('width'=>'200px','height'=>'200px','class'=>'pull-right')) }}
 
 	<h2>{{$user->profile->full_name}}'s Profile</h2>
+    @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
+        @if ($user->receive_emails)
+            <p>Subscribed to our general mailing list</p>
+            <a class="btn" href="/rms/users/unsubscribe/{{$user->id}}">Unsubscribe</a>
+        @else
+            <p><strong>Not</strong> subscribed to our general mailing list</p>
+            <a class="btn btn-primary" href="/rms/users/subscribe/{{$user->id}}">Subscribe</a>
+        @endif
+
+    @endif
 
 	<h3>Personal Details:</h3>
 
