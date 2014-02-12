@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => null, 'name' => null),
+	'from' => array('address' => 'webmin.head@cserevue.org.au', 'name' => 'CSE Revue Webmin Head'),
 
 	/*
 	|--------------------------------------------------------------------------

@@ -319,22 +319,13 @@ class AccountsController extends BaseController
         $emails = explode(',',Input::get('email'));
         $errors = false;
         foreach($emails as $email){
-            $user = User::where_email($email)->first();
+            $user = User::where('email', '=', $email)->first();
             if($user) {
                 $user->reset_password_hash = Str::random(64);
                 $user->save();
-
-                Message::to($user->email)
-                ->from('webmin.head@cserevue.org.au', 'CSE Revue')
-                ->subject('Welcome to CSE Revue')
-                ->body('Hello,<br><br>You are receiving this email because you recently signed up to CSE Revue at one of our BBQs.
-                        You have been added to our website and will now receive email updates on events we are holding. To join some teams and
-                        get involved with the society, please activate your account and create yourself a password. This can be done by clicking
-                        this
-                        <a href="'.$user->reset_url().'">link</a> or copy and paste the url below in your browser<br>'.$user->reset_url().
-                        '<br><br>CSE Revue Webmin')
-                ->html(true)
-                ->send();
+                Mail::send('emails.reset_password', array('user' => $user), function($message) use ($user) {
+                    $message->to($user->email, $user->profile->full_name)->subject('Reset Account Password');
+                });
 
             } else {
                 $errors = true;
