@@ -4,11 +4,13 @@
 		<meta charset="utf-8">
 	</head>
 	<body>
-		<h2>Password Reset</h2>
-
 		<div>
-        Hello,<br/>You have requested a password reset click on the link to continue with the reset
-            <a href="{{ $user->reset_url() }}">Link</a> or copy and paste the url below in your browser<br/> {{ $user->reset_url() }}
+        Hi {{$user->profile->full_name}},<br/><br/>
+
+        You have requested a password reset. 
+        Click <a href="{{ $user->reset_url() }}">here</a> to continue to reset your password
+        or copy and paste the url below in your browser:<br/> 
+        {{ $user->reset_url() }}
         <br/>
         <br/>
         CSE Revue Webmin

@@ -355,7 +355,7 @@ class AccountsController extends BaseController
         $rules = array(
             'id' => 'required',
             'password'  => 'required|max:128|confirmed',
-            'reset_password_hash' => 'required|reset_password:'.Input::get('id'),
+            'reset_password_hash' => 'required'
         );
 
         $messages = array(
@@ -366,21 +366,25 @@ class AccountsController extends BaseController
 
         if ($validation->passes())
         {
-
             $user = User::find(Input::get('id'));
-            $user->password = Hash::make(Input::get('password'));
-            $user->reset_password_hash = '';
-            $user->save();
+            if (Input::get('reset_password_hash') == $user->reset_password_hash) {
+                $user->password = Hash::make(Input::get('password'));
+                $user->reset_password_hash = '';
+                $user->save();
 
-            Auth::login(Input::get('id'));
+                Auth::login($user);
 
-            return Redirect::to('rms/account')
-                ->with('success', 'Succesfully reset password');
+                return Redirect::to('rms/account')
+                    ->with('success', 'Succesfully reset password');
+            } else {
+                return Redirect::to('rms/account/reset-password/'. Input::get('id'). '/'. Input::get('reset_password_hash'))
+                    ->with('warning', 'Invalid secret key.');
+            }
         }
         else
         {
-            return Redirect::to('rms/account/reset_password/'. Input::get('id'). '/'. Input::get('reset_password_hash'))
-                ->with_errors($validation);
+            return Redirect::to('rms/account/reset-password/'. Input::get('id'). '/'. Input::get('reset_password_hash'))
+                ->withErrors($validation);
         }
 
         return Redirect::to('rms/account');

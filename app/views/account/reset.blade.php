@@ -1,11 +1,11 @@
-@layout('templates.rms_login')
+@extends('templates.rms_login')
 
 @section('title')
     @parent - Change Password
 @endsection
 
 @section('content')
-    {{ Form::open('rms/account/reset_password')}}
+    {{ Form::open(array('url'=>'rms/account/reset-password')) }}
 
     <legend>Reset Password</legend>
 

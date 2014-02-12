@@ -71,7 +71,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function reset_url()
     {
-        return URL::to('/rms/account/reset_password/'.$this->id.'/'.$this->reset_password_hash);
+        return URL::to('/rms/account/reset-password/'.$this->id.'/'.$this->reset_password_hash);
     }
 
     public function profile_url()
