@@ -1,4 +1,4 @@
-@layout('templates.rms_login')
+@extends('templates.rms_login')
 
 @section('title')
     @parent - Forgot Password
@@ -7,7 +7,7 @@
 
 
 @section('content')
-    {{ Form::open('rms/account/forgot') }}
+    {{ Form::open(array('url'=>'rms/account/forgot')) }}
         <h2>Forgot Password</h2>
 
         {{ Form::text('email','',array('class'=>'input-block-level','placeholder'=>'Email address' )) }}
