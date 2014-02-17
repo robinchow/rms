@@ -12,6 +12,7 @@ Route::get('rms', function() {return Redirect::to('rms/account');});
 Route::controller('rms/account', 'AccountsController');
 Route::controller('rms/teams', 'TeamsController');
 Route::controller('rms/executives', 'ExecutivesController');
+Route::controller('rms/exec', 'ExecutivesController');
 Route::controller('rms/years', 'YearsController');
 Route::controller('rms/users', 'UsersController');
 Route::controller('rms/news', 'NewsController');
