@@ -35,7 +35,7 @@
                     @if($user->pivot->non_executive)
                         (Assistant)
                         @endif
-                    - {{HTML::link('rms/executives/member_remove/' . $user->id . '/' . $executive->id .'/' . $year->id ,'Remove')}}
+                    - {{HTML::link('rms/executives/member-remove/' . $user->id . '/' . $executive->id .'/' . $year->id ,'Remove')}}
                 </li>
     		@endforeach
 	</ul>

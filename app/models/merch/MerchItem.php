@@ -1,6 +1,8 @@
 <?php
 
 class MerchItem extends Eloquent {
+    
+    protected $fillable = array('title', 'description', 'price', 'has_size', 'active');
 
 	public static function current_merch() 
     {

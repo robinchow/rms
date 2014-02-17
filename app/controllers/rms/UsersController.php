@@ -5,12 +5,12 @@ class UsersController extends BaseController
 
     public $restful = true;
 
-    public function __construct() 
+    public function __construct()
     {
-    /*
-        $this->filter('before', 'auth');
-        $this->filter('before', 'exec')->except(array('index','show','search'));
-    */
+
+        $this->beforeFilter('auth');
+        $this->beforeFilter('exec')->except(array('index','show','search'));
+
 
     }
 
@@ -65,7 +65,7 @@ class UsersController extends BaseController
                     $query->orWhere('phone','LIKE','%'.$phone_query.'%');
                 })
                 ->get();
-                
+
         } else {
             $q = '';
             $year = Year::current_year()->year;
@@ -81,7 +81,7 @@ class UsersController extends BaseController
                 ->with('years', $years)
                 ->with('results', $results);
         }
-        
+
     }
 
     public function get_show($id)
@@ -111,5 +111,5 @@ class UsersController extends BaseController
                ->with('status', 'Successful made the user an admin');
     }
 
-    
+
 }

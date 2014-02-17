@@ -38,6 +38,7 @@ class WellbeingNightsController extends BaseController
 
         $validation = Validator::make($input, $rules);
 
+        return Input::get();
 
         if($validation->passes())
         {
@@ -79,7 +80,6 @@ class WellbeingNightsController extends BaseController
 
 
         $validation = Validator::make($input, $rules);
-
 
         if($validation->passes())
         {

@@ -4,7 +4,7 @@ class MerchItemsController extends BaseController
 
     public $restful = true;
 
-    public function __construct() 
+    public function __construct()
     {
         $this->beforeFilter('auth');
         $this->beforeFilter('exec', array('except'=>'show'));
@@ -37,11 +37,11 @@ class MerchItemsController extends BaseController
         );
 
         $validation = Validator::make($input, $rules);
-        
+
 
         if($validation->passes())
         {
-            $item = Merch_item::create(Input::get());
+            $item = MerchItem::create(Input::get());
 
             return Redirect::to('rms/merch/items')
                 ->with('success', 'Successfully Added New Item');
@@ -50,7 +50,7 @@ class MerchItemsController extends BaseController
         {
             return Redirect::to('rms/merch/items/add')
                 ->withErrors($validation)
-                ->withInput(); 
+                ->withInput();
         }
 
 
@@ -58,13 +58,13 @@ class MerchItemsController extends BaseController
 
     public function get_show($id)
     {
-    	$item = Merch_item::find($id);
+    	$item = MerchItem::find($id);
         return View::make('merch.items.show')->with('item',$item);
     }
 
     public function get_edit($id)
     {
-    	$item = Merch_item::find($id);
+    	$item = MerchItem::find($id);
         return View::make('merch.items.edit')
         	->with('item',$item);
     }
@@ -85,11 +85,11 @@ class MerchItemsController extends BaseController
 
 
         $validation = Validator::make($input, $rules);
-        
+
 
         if($validation->passes())
         {
-            $item = Merch_item::update($id,$input);
+            MerchItem::find($id)->update($input);
 
             return Redirect::to('rms/merch/items')
                 ->with('success', 'Successfully Edited a Item');
@@ -98,7 +98,7 @@ class MerchItemsController extends BaseController
         {
             return Redirect::to('rms/merch/items/edit/'.$id)
                 ->withErrors($validation)
-                ->withInput(); 
+                ->withInput();
         }
 
 
@@ -107,7 +107,7 @@ class MerchItemsController extends BaseController
 
     public function get_delete($id)
     {
-        $item = Merch_item::find($id)->delete();
+        $item = MerchItem::find($id)->delete();
         return Redirect::to('rms/merch/items')
                 ->with('success', 'Successfully Removed Item');
     }

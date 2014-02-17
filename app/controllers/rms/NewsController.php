@@ -39,7 +39,7 @@ class NewsController extends BaseController
 
         if($validation->passes())
         {
-            $news = News::update($id, Input::get());
+            News::find($id)->update(Input::get());
 
             return Redirect::to('rms/news')
                 ->with('success', 'Successfully Edited News Post');

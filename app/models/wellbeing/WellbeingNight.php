@@ -19,15 +19,15 @@ class WellbeingNight extends Eloquent {
         return $this->belongsTo('Year');
     }
 
-    public function get_date()
+    public function getDateAttribute()
     {
-        return date('d-m-Y', strtotime($this->get_attribute('date')));
+        return date('d-m-Y', strtotime($this->attributes['date']));
     }
 
-    public function set_date($date)
+    public function setDateAttribute($date)
     {
         $date = date('Y-m-d 00:00:00', strtotime($date));
-        $this->set_attribute('date', $date);
+        $this->attributes['date'] = $date;
     }
 
     public function count() {

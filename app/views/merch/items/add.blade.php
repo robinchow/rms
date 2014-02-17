@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Add New Item
 @endsection
 
 @section('content')
-    {{ Form::open('rms/merch/items/add')}}
+    {{ Form::open(array('url'=>'rms/merch/items/add')) }}
 
     <legend>Add New Item</legend>
 

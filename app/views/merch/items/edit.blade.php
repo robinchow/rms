@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Edit Item
 @endsection
 
 @section('content')
-    {{ Form::open('rms/merch/items/edit/'. $item->id)}}
+    {{ Form::open(array('url'=>'rms/merch/items/edit/'. $item->id)) }}
 
     <legend>Edit Item</legend>
         {{ Form::label('title', 'Title') }}

@@ -1,11 +1,11 @@
-@layout('templates.rms')
+@extends('templates.rms')
 
 @section('title')
     @parent - Order Wellbeing
 @endsection
 
 @section('content')
-    {{ Form::open('rms/wellbeing/orders/new')}}
+    {{ Form::open(array('url'=>'rms/wellbeing/orders/new')) }}
 
     <legend>Order Wellbeing</legend>
         <p>Pay for wellbeing by giving cash to a producer on the night, or Direct Debit into the following account:</p>

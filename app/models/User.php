@@ -143,7 +143,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             ->join('years', 'years.id', '=', 'executive_user.year_id')
             ->where('executive_user.user_id', '=', $this->id)
             ->where('year_id', '=', Year::current_year()->id)
-            ->where_in('position', array('Producers', 'Secretary'))
+            ->whereIn('position', array('Producers', 'Secretary'))
             ->count();
 
     }
