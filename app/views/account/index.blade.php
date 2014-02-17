@@ -7,7 +7,7 @@
 	@if($user->needs_to_renew)
 	<div class="alert alert-warning">
 		<h1>You Need to renew</h1>
-		{{ Form::open('rms/account/renew')}}
+		{{ Form::open(array('url'=>'rms/account/renew')) }}
 
 		Click the button below if you would like to renew for {{Year::current_year()->year}}<br><br>
 		{{ Form::submit('Renew', array('class'=>'btn btn-primary')) }}
@@ -19,8 +19,8 @@
 
 @section('content')
 	{{ HTML::image($user->image_url, $user->profile->full_name, array('width'=>'200px','height'=>'200px','class'=>'pull-right')) }}
-
-	<h2>{{$user->profile->full_name}}</h2>
+	
+    <h2>{{$user->profile->full_name}}</h2>
 
     @if ($user->receive_emails)
         <p>You are subscribed to our general mailing list!</p>
@@ -57,7 +57,7 @@
                 // Generate the list for this year
                 $teamlist = array();
 
-                // Executives 
+                // Executives
                 foreach($user->executives()->where('year_id', '=', $year->id)->get() as $executive) {
                     $string = "<strong>".$executive->position;
                     if($executive->pivot->non_executive) {
@@ -98,7 +98,7 @@
 	<p>
         <b>Bold</b> = Team Head<br>
         Normal = Member<br>
-        <i>Italics</i> = Interested 
+        <i>Italics</i> = Interested
 	</p>
 
 @endsection

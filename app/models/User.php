@@ -105,7 +105,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
 
-    public function get_needs_to_renew()
+    public function getNeedsToRenewAttribute()
     {
         $year = Year::current_year();
         $needs_to_renew = true;

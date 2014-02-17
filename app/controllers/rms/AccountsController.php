@@ -176,6 +176,7 @@ class AccountsController extends BaseController
             $user = new User;
             $user->email = Input::get('email');
             $user->password = Hash::make(Input::get('password'));
+            $user->receive_emails = 1;
             $user->save();
 
             Auth::loginUsingId($user->id);
