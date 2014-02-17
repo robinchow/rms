@@ -5,7 +5,7 @@
     <title>
         @section('title')
             CSE Revue - RMS
-        @yield_section
+        @show
     </title>
     <link rel="icon" type="image/ico" href="/img/favicon32.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
