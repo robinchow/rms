@@ -28,7 +28,7 @@
 			<li>{{$member->profile->full_name}}</li>
 		@endforeach
 		</ul>
-		<p>Emails: {{$exec->get_mailing_list()}}</p>
+		<p>Emails: {{$exec->mailing_list()}}</p>
 	@endforeach
 </div>
 </div>
