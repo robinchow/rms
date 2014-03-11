@@ -8,7 +8,13 @@
 
 
 // RMS Routes
+
 Route::get('rms', function() {return Redirect::to('rms/account');});
+
+Route::get('allteams', function() {
+    return View::make('allteams.index');
+});
+
 Route::controller('rms/account', 'AccountsController');
 Route::controller('rms/teams', 'TeamsController');
 Route::controller('rms/executives', 'ExecutivesController');
@@ -29,6 +35,7 @@ Route::controller('rms/merch/orders', 'MerchOrdersController');
 
 Route::controller('rms/wellbeing/nights', 'WellbeingNightsController');
 Route::controller('rms/wellbeing/orders', 'WellbeingOrdersController');
+
 
 // Public Routes
 
