@@ -19,7 +19,9 @@
 	<p>Click a team name for more information:</p>
 	<ul>
 	@foreach($teams as $team)
-		<li>{{HTML::link('/home/teams/'.$team->id,$team->name)}}</li>
+		@if($team->privacy != 1)
+			<li>{{HTML::link('/home/teams/'.$team->id,$team->name)}}</li>
+		@endif
 	@endforeach
 	</ul>
 </div>
