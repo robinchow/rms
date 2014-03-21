@@ -14,6 +14,9 @@ Route::get('rms', function() {return Redirect::to('rms/account');});
 Route::get('allteams', function() {
     return View::make('allteams.index');
 });
+Route::get('revuemail', function() {
+    return View::make('revuemail.index');
+});
 
 Route::controller('rms/account', 'AccountsController');
 Route::controller('rms/teams', 'TeamsController');
