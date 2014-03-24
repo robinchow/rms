@@ -103,7 +103,6 @@ class AccountsController extends BaseController
         //Validate Input have to validate the image still
         $rules = array(
             'full_name' => 'required|max:128',
-            'display_name' => 'alpha_dash|required|max:128|unique:profiles,display_name,' . $profile->id,
             'dob' => 'required',
             'gender' => 'required|in:O,M,F',
             'phone' => 'required|max:10',
@@ -114,7 +113,6 @@ class AccountsController extends BaseController
         );
 
         $validation = Validator::make(Input::all(), $rules);
-
         if ($validation->passes())
         {
             Input::merge(array('privacy' => Input::get('privacy',0)));
@@ -136,8 +134,8 @@ class AccountsController extends BaseController
         else
         {
             return Redirect::to('rms/account/edit')
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
 
 
