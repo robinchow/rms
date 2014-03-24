@@ -193,7 +193,7 @@ class AccountsController extends BaseController
                 $image_name = preg_replace('/.*\.(.+)/', $user->id.".$1", $original_name);
                 Input::file('image')->move(base_path() .'/public/img/profile', $image_name);
                 Input::merge(array('image' => $image_name));
-
+                $profile->image = $image_name;
             }
             $user->profile()->save($profile);
             $user->save();
