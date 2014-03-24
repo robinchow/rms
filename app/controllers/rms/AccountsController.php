@@ -177,15 +177,6 @@ class AccountsController extends BaseController
             $user->receive_emails = 1;
             $user->save();
 
-            Auth::loginUsingId($user->id);
-            //Create Profile
-
-            if(Input::hasFile('image')) {
-                $image_name = preg_replace('/.*\.(.+)/', $profile->user_id.".$1", Input::file('image')->getClientOriginalName());
-                Input::file('image')->move(base_path() .'/public/img/profile', $image_name);
-                Input::merge(array('image' => $image_name));
-
-            }
             $profile_data = Input::get();
             unset($profile_data['email']);
             unset($profile_data['password']);
@@ -193,6 +184,17 @@ class AccountsController extends BaseController
 
             $profile = new Profile($profile_data);
 
+
+            Auth::loginUsingId($user->id);
+            //Create Profile
+
+            if(Input::hasFile('image')) {
+                $original_name = Input::file('image')->getClientOriginalName();
+                $image_name = preg_replace('/.*\.(.+)/', $user->id.".$1", $original_name);
+                Input::file('image')->move(base_path() .'/public/img/profile', $image_name);
+                Input::merge(array('image' => $image_name));
+
+            }
             $user->profile()->save($profile);
             $user->save();
 
