@@ -9,7 +9,9 @@
     {{HTML::script('js/bootstrap-datepicker.js')}}
     <script type="text/javascript">
             $(function() {
-                $('#dob').datepicker();
+                $('#dob').datepicker({
+                    format: 'dd-mm-yyyy'
+                });
         });
     </script>
 	<div class="row">
@@ -92,10 +94,7 @@
         <div class="control-group {{ $errors->has('dob') ? 'error' : '' }}">
             {{ Form::label('dob', 'DOB', array('class'=>'control-label')) }}
             <div class="controls">
-            <div class="input-append date" id="dob" data-date="{{Input::old('dob','01-01-2000')}}" data-date-format="dd-mm-yyyy">
-                <input name="dob" class="span2" size="16" type="text" value="{{Input::old('dob','01-01-2000')}}" readonly="">
-                <span class="add-on"><i class="icon-calendar"></i></span>
-            </div>
+                <input id="dob" class="span2" size="16" type="text" value="{{Input::old('dob','01-01-2000')}}">
             @if ($errors->has('dob'))
                 {{ $errors->first('dob', ' <span class="help-inline">:message</span>')}}
             @endif
