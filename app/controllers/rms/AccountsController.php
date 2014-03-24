@@ -340,7 +340,7 @@ class AccountsController extends BaseController
                 $user->reset_password_hash = Str::random(64);
                 $user->save();
                 Mail::send('emails.reset_password', array('user' => $user), function($message) use ($user) {
-                    $message->to($user->email, $user->profile->full_name)->subject('Reset Account Password');
+                    $message->to($user->email, $user->profile->full_name)->subject('[CSE Revue] Welcome to CSE Revue!');
                 });
 
             } else {
