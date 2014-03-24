@@ -94,7 +94,7 @@
         <div class="control-group {{ $errors->has('dob') ? 'error' : '' }}">
             {{ Form::label('dob', 'DOB', array('class'=>'control-label')) }}
             <div class="controls">
-                <input id="dob" class="span2" size="16" type="text" value="{{Input::old('dob','01-01-2000')}}">
+                <input id="dob" name="dob" class="span2" size="16" type="text" value="{{Input::old('dob','01-01-2000')}}">
             @if ($errors->has('dob'))
                 {{ $errors->first('dob', ' <span class="help-inline">:message</span>')}}
             @endif
