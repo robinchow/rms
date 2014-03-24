@@ -9,7 +9,7 @@ class UsersController extends BaseController
     {
 
         $this->beforeFilter('auth');
-        $this->beforeFilter('exec', array('except' => array('index','show','search')));
+        $this->beforeFilter('exec', array('except' => array('get_index','get_show','get_search')));
 
 
     }
