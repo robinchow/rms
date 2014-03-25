@@ -8,7 +8,7 @@ class ExecutivesController extends BaseController
     public function __construct()
     {
         $this->beforeFilter('auth');
-        $this->beforeFilter('exec', array('except' => array('index','show')));
+        $this->beforeFilter('exec', array('except' => array('get_index','get_show')));
 
     }
 
