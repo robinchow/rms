@@ -47,7 +47,7 @@ class Team extends Eloquent {
 		$year_users = array();
 		foreach($all_users as $user) 
 		{
-			if ($user->pivot->year_id == $year_id && $user->pivot->status == $status )
+			if ($user->pivot->year_id == $year_id && $user->pivot->status == $status && $user->profile != null)
 			{
 				$year_users[] = $user;
 			}
