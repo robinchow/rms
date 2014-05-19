@@ -35,7 +35,6 @@ class TeamsController extends BaseController
 
     public function post_add()
     {
-
         $input = Input::get();
 
         $rules = array(
@@ -64,8 +63,8 @@ class TeamsController extends BaseController
         else
         {
             return Redirect::to('rms/teams/add')
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
 
 
