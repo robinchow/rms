@@ -30,7 +30,6 @@ class TeamsController extends BaseController
 
     public function post_add()
     {
-
         $input = Input::get();
 
         $rules = array(
