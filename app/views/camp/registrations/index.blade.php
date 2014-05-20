@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<h2>Regos</h2>
+<h2>Camp Registrations</h2>
 @if ( count($regos) > 0 )
     <table class="table table-bordered table-striped">
         <tr>

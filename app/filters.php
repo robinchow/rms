@@ -127,3 +127,9 @@ Route::filter('manage_team', function()
 	$team_id = Request::segment(4);
 	if (!Auth::User()->can_manage_team($team_id)) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
 });
+
+
+Route::filter('signed_up_for_camp', function()
+{
+	if (Auth::user()->has_signed_up_for_camp()) return Redirect::to('rms/camp/registrations/edit');
+});

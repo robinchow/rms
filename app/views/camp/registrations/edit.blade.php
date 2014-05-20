@@ -57,11 +57,12 @@
         {{ Form::label('leave_from', 'Leaving From') }}
         {{ Form::select('leave_from', array('Anywhere' => 'Anywhere', 'UNSW' => 'UNSW', 'Central' => 'Central', 'North Shore' => 'North Shore', 'Inner West' => 'Inner West' ) , Input::old('leave_from', $rego->leave_from) )}}
 
-		<!-- {{ Form::label('song_requests', 'Song Requests') }}
-        {{ Form::textarea('song_requests',Input::old('song_requests', $rego->song_requests))}} --><br>
-
-
-
+        {{ Form::label('car_pool', 'Car Pool Preferences') }}
+        <p>If you have preference for who you want to be in your car on the way to 
+        <br>camp, let us know and we'll do our best to accommodate your interests. 
+        <br>Or if you're feeling lucky, leave this blank.</p>
+        {{ Form::text('car_pool',Input::old('car_pool', $rego->car_pool))}}<br>
+        <br>
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
 
     {{ Form::close() }}

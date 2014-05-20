@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddReceiveEmailsToUserTable extends Migration {
+class AddCarPoolFieldToCamp extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,9 @@ class AddReceiveEmailsToUserTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('users', function(Blueprint $table)
+		Schema::table('camp_registrations', function(Blueprint $table)
 		{
-            $table->boolean('receive_emails');
+			$table->string('car_pool');
 		});
 	}
 
@@ -25,9 +25,9 @@ class AddReceiveEmailsToUserTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('users', function(Blueprint $table)
+		Schema::table('camp_registrations', function(Blueprint $table)
 		{
-			$table->dropColumn('receive_emails');
+			$table->dropColumn('car_pool');
 		});
 	}
 

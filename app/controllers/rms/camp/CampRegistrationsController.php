@@ -7,6 +7,7 @@ class CampRegistrationsController extends BaseController
     public function __construct()
     {
         $this->beforeFilter('auth');
+        $this->beforeFilter('signed_up_for_camp', array('only' => 'get_signup'));
         $this->beforeFilter('exec', array('except' => array('get_signup', 'post_signup', 'get_edit', 'post_edit')));
     }
 
@@ -58,8 +59,7 @@ class CampRegistrationsController extends BaseController
                     ->with('regos',$regos)
                     ->with('arc_count',$arc_count)
                     ->with('paid_count',$paid_count)
-                    ->with('arc_paid_count',$arc_paid_count)
-                    ->with('song_list', $song_list);
+                    ->with('arc_paid_count',$arc_paid_count);
     }
 
     public function get_signup()
@@ -96,8 +96,6 @@ class CampRegistrationsController extends BaseController
                 ->withErrors($validation)
                 ->withInput();
         }
-
-
     }
 
     public function get_edit()
@@ -173,5 +171,4 @@ class CampRegistrationsController extends BaseController
         return Redirect::to('rms/camp/registrations')
                 ->with('success', 'Successfully Removed Camp Registration');
     }
-
 }
