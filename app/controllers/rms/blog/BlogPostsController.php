@@ -55,8 +55,8 @@ class BlogPostsController extends BaseController
         else
         {
             return Redirect::to('rms/blog/posts/edit/' . $id)
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
     }
 
@@ -88,8 +88,8 @@ class BlogPostsController extends BaseController
         else
         {
             return Redirect::to('rms/blog/posts/add')
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
 
 

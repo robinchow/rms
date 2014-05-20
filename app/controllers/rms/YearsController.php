@@ -54,8 +54,8 @@ class YearsController extends BaseController
         else
         {
             return Redirect::to('rms/years/add/')
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
     }
 
@@ -88,8 +88,8 @@ class YearsController extends BaseController
         else 
         {
             return Redirect::to('rms/years/edit/'.$id)
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
 
         }
     }

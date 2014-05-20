@@ -96,8 +96,8 @@ class CampSettingsController extends BaseController
         else
         {
             return Redirect::to('rms/camp/settings/edit/'.$id)
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput(); 
         }
 
 

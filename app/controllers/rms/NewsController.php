@@ -47,8 +47,8 @@ class NewsController extends BaseController
         else
         {
             return Redirect::to('rms/news/edit/' . $id)
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
     }
 
@@ -83,8 +83,8 @@ class NewsController extends BaseController
         else
         {
             return Redirect::to('rms/news/add')
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
 
 

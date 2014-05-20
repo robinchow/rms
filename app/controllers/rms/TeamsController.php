@@ -64,8 +64,8 @@ class TeamsController extends BaseController
         else
         {
             return Redirect::to('rms/teams/add')
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
 
 
@@ -127,8 +127,8 @@ class TeamsController extends BaseController
         else
         {
             return Redirect::to('rms/teams/edit/'. $id)
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
 
     }

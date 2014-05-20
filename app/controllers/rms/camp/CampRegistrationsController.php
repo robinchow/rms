@@ -93,8 +93,8 @@ class CampRegistrationsController extends BaseController
         else
         {
             return Redirect::to('rms/camp/registrations/signup')
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
 
 
@@ -137,8 +137,8 @@ class CampRegistrationsController extends BaseController
         else
         {
             return Redirect::to('rms/camp/registrations/edit')
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
 
     }

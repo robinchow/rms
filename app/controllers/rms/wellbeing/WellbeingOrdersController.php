@@ -68,8 +68,8 @@ class WellbeingOrdersController extends BaseController
         else
         {
             return Redirect::to('rms/wellbeing/orders/new')
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput(); 
         }
        
 
@@ -157,8 +157,8 @@ class WellbeingOrdersController extends BaseController
         else
         {
             return Redirect::to('rms/wellbeing/orders/edit')
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput(); 
         }
 
         

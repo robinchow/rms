@@ -60,8 +60,8 @@ class SponsorsController extends BaseController
         else
         {
             return Redirect::to('rms/sponsors/edit/'.$id)
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput(); 
         }
     }
 

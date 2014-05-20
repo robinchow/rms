@@ -49,8 +49,8 @@ class FaqsController extends BaseController
         else
         {
             return Redirect::to('rms/faqs/edit/'.$id)
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput(); 
         }
     }
 
@@ -83,8 +83,8 @@ class FaqsController extends BaseController
         else
         {
             return Redirect::to('rms/faqs/add/')
-                ->with_errors($validation)
-                ->with_input(); 
+                ->withErrors($validation)
+                ->withInput(); 
         }
 
 

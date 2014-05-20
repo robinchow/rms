@@ -50,8 +50,8 @@ class WellbeingNightsController extends BaseController
         else
         {
             return Redirect::to('rms/wellbeing/nights/add')
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
 
 

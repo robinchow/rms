@@ -45,8 +45,8 @@ class ExecutivesController extends BaseController
         else
         {
             return Redirect::to('rms/executives/add')
-                ->with_errors($validation)
-                ->with_input();
+                ->withErrors($validation)
+                ->withInput();
         }
 
     }
