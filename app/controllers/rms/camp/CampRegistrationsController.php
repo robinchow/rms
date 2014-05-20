@@ -72,9 +72,10 @@ class CampRegistrationsController extends BaseController
     {
 
         $input = Input::get();
-
+        $year = Year::current_year()->id;
+        $camp_setting_id = Input::get('camp_setting_id');;
         $rules = array(
-            'user_id' => 'required|unique:camp_registrations',
+            'user_id' => "required|unique:camp_registrations,user_id,NULL,id,camp_setting_id,$camp_setting_id",
             'camp_setting_id' => 'required',
             'car_places' => 'integer',
         );
@@ -120,6 +121,12 @@ class CampRegistrationsController extends BaseController
     {
         $input = Input::get();
 
+        $camp = CampSetting::where('year_id' , '=' , Year::current_year()->id);
+
+        $camp_reg = DB::table('camp_registrations')
+            ->where('camp_setting_id', '=', $camp->first()->id)
+            ->where('user_id', '=', Auth::user()->id);
+
         $rules = array(
             'id' => 'required',
             'car_places' => 'integer',
@@ -128,7 +135,7 @@ class CampRegistrationsController extends BaseController
         $validation = Validator::make($input, $rules);
         if($validation->passes())
         {
-            $camp_reg = CampRegistration::update(Input::get('id'), Input::get());
+            $camp_reg->update(Input::except('_token'));
 
             return Redirect::to('rms/camp/registrations/edit')
                 ->with('success', 'Successfully Edited registration for Camp');
