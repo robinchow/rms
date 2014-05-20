@@ -56,7 +56,8 @@
 
 
 		{{ Form::label('song_requests', 'Song Requests') }}
-        {{ Form::textarea('song_requests',Input::old('song_requests'))}}<br>
+        <p>This year we're trialling CSESoc's Forte app for song requests. If you would like to suggest songs, please go to <a href="http://forte.csesoc.com.au/playlists/6R4t0I7U">forte.csesoc.com.au/playlists/6R4t0I7U</a> to suggest new songs or vote for existing songs.</p>
+        <!-- {{ Form::textarea('song_requests',Input::old('song_requests'))}} --><br>
 
 
 
