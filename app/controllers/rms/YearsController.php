@@ -7,10 +7,11 @@ class YearsController extends BaseController
 
     public function __construct() 
     {
-    /*
-        $this->filter('before', 'auth');
-        $this->filter('before', 'admin')->except(array('index','show'));
-*/
+    
+        $this->beforeFilter('auth');
+        $this->beforeFilter('exec');
+        $this->beforeFilter('admin', array('except' => array('get_index','get_show', 'post_index', 'post_show')));
+
     }
 
     public function get_index()

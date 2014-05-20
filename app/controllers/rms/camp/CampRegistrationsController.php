@@ -7,8 +7,7 @@ class CampRegistrationsController extends BaseController
     public function __construct()
     {
         $this->beforeFilter('auth');
-        $this->beforeFilter('exec', array('except' => array('signup', 'edit')));
-
+        $this->beforeFilter('exec', array('except' => array('get_signup', 'post_signup', 'get_edit', 'post_edit')));
     }
 
     public function get_index()

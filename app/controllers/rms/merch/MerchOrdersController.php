@@ -7,7 +7,7 @@ class MerchOrdersController extends BaseController
     public function __construct()
     {
         $this->beforeFilter('auth');
-        $this->beforeFilter('exec', array('only' => array('exec', 'edit', 'delete')));
+        $this->beforeFilter('exec', array('only' => array('get_admin', 'get_edit', 'delete')));
     }
 
     public function get_index()

@@ -7,7 +7,7 @@ class MerchItemsController extends BaseController
     public function __construct()
     {
         $this->beforeFilter('auth');
-        $this->beforeFilter('exec', array('except'=>'show'));
+        $this->beforeFilter('exec', array('except'=>'get_show'));
 
     }
 

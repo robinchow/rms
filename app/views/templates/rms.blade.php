@@ -156,9 +156,7 @@
       <li>{{HTML::link('rms/blog','Blog')}}</li>
       <li>{{HTML::link('rms/faqs','FAQs')}}</li>
       <li>{{HTML::link('rms/sponsors','Sponsors')}}</li>
-      @if(Auth::user()->admin)
-        <li>{{HTML::link('rms/years','Years')}}</li>
-      @endif
+      <li>{{HTML::link('rms/years','Years')}}</li>
     @else
       <li class="nav-header">User Content</li>
       <li>{{HTML::link('rms/news','News')}}</li>
