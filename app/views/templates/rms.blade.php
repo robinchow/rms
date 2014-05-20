@@ -90,9 +90,6 @@
     <div class="well sidebar-nav">
     <ul class="nav nav-list">
     <li class="nav-header">My Account</li>
-    @if(Auth::user()->needs_to_renew)
-    <li>{{HTML::link('rms/account/renew','Renew')}}</li>
-    @endif
     <li>{{HTML::link('rms/account','Profile')}}</li>
     <li>{{HTML::link('rms/account/edit','Edit Profile')}}</li>
     <li>{{HTML::link('rms/account/change-password','Change Password')}}</li>

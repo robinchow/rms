@@ -7,15 +7,10 @@ class TeamsController extends BaseController
 
     public function __construct()
     {
-    /*
-        $this->filter('before', 'auth');
-        $this->filter('before', 'manage_team')
-            ->only(array('edit','manage'));
-        $this->filter('before', 'exec')
-            ->only(array('delete'));
-        $this->filter('before', 'exec')
-            ->only(array('renew'));
-        */
+        $this->beforeFilter('auth');
+        $this->beforeFilter('view_team', array('only' => 'get_show'));
+        $this->beforeFilter('manage_team', array('only' => array('get_edit', 'get_manage', 'post_edit', 'post_manage')));
+        $this->beforeFilter('exec', array('only' => array('get_delete', 'get_renew')));
     }
 
     public function get_index($current='current')

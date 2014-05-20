@@ -108,16 +108,22 @@ Route::filter('auth', function()
 
 Route::filter('exec', function()
 {
-	if (!Auth::User()->admin && !Auth::User()->is_currently_part_of_exec()) return Redirect::to('rms/account/login')->with('warning','You are not permitted access. Please login as an admin');
+	if (!Auth::User()->admin && !Auth::User()->is_currently_part_of_exec()) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
 });
 
 Route::filter('admin', function()
 {
-	if (!Auth::User()->admin) return Redirect::to('rms/account/login')->with('warning','You are not permitted access. Please login as an admin');
+	if (!Auth::User()->admin) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
+});
+
+Route::filter('view_team', function() {
+	$team_id = Request::segment(4);
+	$team = Team::find($team_id);
+	if($team->privacy == 1 && !Auth::User()->is_part_of_team(Year::current_year()->id, $team_id)) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
 });
 
 Route::filter('manage_team', function()
 {
-	$team_id = Request::route()->parameters[1];
-	if (!Auth::User()->can_manage_team($team_id)) return Redirect::to('rms/account/login')->with('warning','You are not a admin');
+	$team_id = Request::segment(4);
+	if (!Auth::User()->can_manage_team($team_id)) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
 });

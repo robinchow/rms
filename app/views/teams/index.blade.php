@@ -126,7 +126,9 @@
 
         <tbody>
             @foreach($other as $team)
-                @include('teams.index.teamrow', array('team' => $team, 'teamName' => $team->name, 'interact' => 'join'))
+                @if($team->privacy != 1 or $user->is_currently_part_of_exec() or $user->admin)
+                    @include('teams.index.teamrow', array('team' => $team, 'teamName' => $team->name, 'interact' => 'join'))
+                @endif
             @endforeach
         </tbody>
     </table>
@@ -134,7 +136,7 @@
 	<p>No Teams<p>
 @endif
 
-@if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec())
+@if($user->admin || $user->is_currently_part_of_exec())
 {{HTML::link('rms/teams/add','Add Team',array('class'=>'btn btn-primary'))}}
 @endif
 {{HTML::link('rms/teams/index/archive','Archives',array('class'=>'btn btn-primary'))}}
