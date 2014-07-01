@@ -15,12 +15,14 @@
             <th>Leaving From</th>
             <th>Arc</th>
             <th>Paid</th>
+            <th>Has medical</th>
+            <th>Has dietary</th>
             <th>Tools</th>
         </tr>
-	@foreach ($regos as $rego)
+    @foreach ($regos as $rego)
         <tr>
-    	<th>{{ HTML::link('/rms/camp/registrations/show/'.$rego->id,$rego->user->profile->full_name ) }}</td>
-    	<td>
+        <th>{{ HTML::link('/rms/camp/registrations/show/'.$rego->id,$rego->user->profile->full_name ) }}</td>
+        <td>
             @if($rego->car)
                 Yes
             @else
@@ -44,6 +46,20 @@
             @endif
         </td>
         <td>
+            @if($rego->medical)
+                Yes
+            @else
+                No          
+            @endif
+        </td>
+        <td>
+            @if($rego->dietary)
+                Yes
+            @else
+                No          
+            @endif
+        </td>
+        <td>
             <div class="btn-group">
                 <a class="btn btn-primary" href="/rms/camp/registrations/show/{{$rego->id}}">View</a>
                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
@@ -58,19 +74,16 @@
                 </ul>
             </div>
         </td>
-    	<tr>
-	@endforeach
+        <tr>
+    @endforeach
         </tbody>
     </table>
     Total Arc:{{ $arc_count}}<br>
     Total : {{count($regos)}}<br>
     Total Arc Paid: {{$arc_paid_count}}<br>
     Total Paid: {{$paid_count}}<br>
-
-    <h3>Song List</h3>
-    {{ $song_list }}
 @else
-	<p>No Regos</p>
+    <p>No Regos</p>
 @endif
 
 

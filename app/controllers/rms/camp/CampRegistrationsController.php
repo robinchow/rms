@@ -8,7 +8,7 @@ class CampRegistrationsController extends BaseController
     {
         $this->beforeFilter('auth');
         $this->beforeFilter('signed_up_for_camp', array('only' => 'get_signup'));
-        $this->beforeFilter('exec', array('except' => array('get_signup', 'post_signup', 'get_edit', 'post_edit')));
+        $this->beforeFilter('orgs', array('except' => array('get_signup', 'post_signup', 'get_edit', 'post_edit')));
     }
 
     public function get_index()

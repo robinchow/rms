@@ -135,6 +135,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $count!=0;
     }
 
+    // If you're a head of a team that's set to public, you should be on orgs
+    public function is_on_orgs()
+    {
+        $teams = DB::table('teams')->where('privacy', '=', '0')->lists('id');
+        foreach ($teams as $team) {
+            $count = DB::table('team_user')->where('team_id', '=', $team)
+                                        ->where('year_id', '=', Year::current_year()->id)
+                                        ->where('status', '=', 'head')
+                                        ->where('user_id', '=', $this->id)
+                                        ->get();
+            if(count($count) != 0) return true;
+        }
+        return false;
+    }
+
     // only the secretary or a producer may add news items
     public function can_add_news()
     {
@@ -146,14 +161,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             ->whereIn('position', array('Producers', 'Secretary'))
             ->count();
 
-    }
-
-    public function is_head_of_team($year_id, $team_id) {
-        $count = DB::table('team_user')->where('team_id', '=', $team_id)
-                    ->where('year_id', '=', $year_id)
-                    ->where('status', '=', 'head')
-                    ->where('user_id', '=', $this->id)->count();
-        return $count!=0;
     }
 
     public function is_part_of_team($year_id, $team_id)

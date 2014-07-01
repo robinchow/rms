@@ -12,13 +12,13 @@
 
 App::before(function($request)
 {
-	//
+    //
 });
 
 
 App::after(function($request, $response)
 {
-	//
+    //
 });
 */
 
@@ -34,13 +34,13 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('login');
+    if (Auth::guest()) return Redirect::guest('login');
 });
 
 
 Route::filter('auth.basic', function()
 {
-	return Auth::basic();
+    return Auth::basic();
 });
 
 */
@@ -56,7 +56,7 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+    if (Auth::check()) return Redirect::to('/');
 });
 */
 
@@ -72,64 +72,82 @@ Route::filter('guest', function()
 
 Route::filter('csrf', function()
 {
-	if (Session::token() != Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
+    if (Session::token() != Input::get('_token'))
+    {
+        throw new Illuminate\Session\TokenMismatchException;
+    }
 });
 
 
 */
 Route::filter('before', function()
 {
-	// Do stuff before every request to your application...
+    // Do stuff before every request to your application...
 });
 
 Route::filter('after', function($response)
 {
-	// Do stuff after every request to your application...
+    // Do stuff after every request to your application...
 });
 
 Route::filter('csrf', function()
 {
-	if (Request::forged()) return Response::error('500');
+    if (Request::forged()) return Response::error('500');
 });
 
 
 Route::filter('auth', function()
 {
-	if (Auth::guest())
-	{
-		// Save the attempted URL
-		Session::put('pre_login_url', URL::current());
-		return Redirect::to('rms/account/login')->with('warning','You must login in to access this area of the site');
-	}
+    if (Auth::guest())
+    {
+        // Save the attempted URL
+        Session::put('pre_login_url', URL::current());
+        return Redirect::to('rms/account/login')->with('warning','You must login in to access this area of the site');
+    }
 });
 
 Route::filter('exec', function()
 {
-	if (!Auth::User()->admin && !Auth::User()->is_currently_part_of_exec()) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
+    if (!Auth::User()->admin && !Auth::User()->is_currently_part_of_exec()) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
 });
 
 Route::filter('admin', function()
 {
-	if (!Auth::User()->admin) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
+    if (!Auth::User()->admin) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
 });
 
 Route::filter('view_team', function() {
-	$team_id = Request::segment(4);
-	$team = Team::find($team_id);
-	if($team->privacy == 1 && !Auth::User()->is_part_of_team(Year::current_year()->id, $team_id)) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
+    $team_id = Request::segment(4);
+    $team = Team::find($team_id);
+    if($team->privacy == 1 && !Auth::User()->is_part_of_team(Year::current_year()->id, $team_id)) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
 });
 
 Route::filter('manage_team', function()
 {
-	$team_id = Request::segment(4);
-	if (!Auth::User()->can_manage_team($team_id)) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
+    $team_id = Request::segment(4);
+    if (!Auth::User()->can_manage_team($team_id)) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
 });
 
 
 Route::filter('signed_up_for_camp', function()
 {
-	if (Auth::user()->has_signed_up_for_camp()) return Redirect::to('rms/camp/registrations/edit');
+    if (Auth::user()->has_signed_up_for_camp()) return Redirect::to('rms/camp/registrations/edit');
+});
+
+Route::filter('orgs', function()
+{
+    $on_orgs = false;
+    $teams = DB::table('teams')->where('privacy', '=', '0')->lists('id');
+    foreach ($teams as $team) {
+        $count = DB::table('team_user')->where('team_id', '=', $team)
+                                    ->where('year_id', '=', Year::current_year()->id)
+                                    ->where('status', '=', 'head')
+                                    ->where('user_id', '=', Auth::User()->id)
+                                    ->get();
+        if(count($count) != 0) {
+            $on_orgs = true;
+            break;
+        }
+    }
+    if (!Auth::User()->admin && !Auth::User()->is_currently_part_of_exec() && !$on_orgs) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
 });
