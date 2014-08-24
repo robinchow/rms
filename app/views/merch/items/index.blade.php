@@ -27,6 +27,11 @@
                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li>{{HTML::link('rms/merch/items/edit/'. $item->id,'Edit item')}}</li>
+                    @if ($item->active)
+                        <li>{{HTML::link('rms/merch/items/deactivate/'. $item->id,'Deactivate item')}}</li>
+                    @else
+                        <li>{{HTML::link('rms/merch/items/activate/'. $item->id,'Activate item')}}</li>
+                    @endif
                     <li>{{HTML::link('rms/merch/items/delete/'. $item->id,'Delete item')}}</li>
                 </ul>
             </div>

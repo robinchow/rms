@@ -110,4 +110,22 @@ class MerchItemsController extends BaseController
         return Redirect::to('rms/merch/items')
                 ->with('success', 'Successfully Removed Item');
     }
+
+    public function get_deactivate($id) {
+        $item = MerchItem::find($id);
+        $item->active = 0;
+        $item->save();
+        return Redirect::to('rms/merch/items')
+                ->with('success', 'Successfully Deactivated Item');
+    }
+    public function get_activate($id) {
+        $item = MerchItem::find($id);
+        $item->active = 1;
+        $item->save();
+        return Redirect::to('rms/merch/items')
+                ->with('success', 'Successfully Activated Item');
+    }
+
+
+
 }
