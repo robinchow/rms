@@ -97,7 +97,7 @@ class MerchOrdersController extends BaseController
         if($year) {
 
             $orders = MerchOrder::where('year_id', '=', $year->id)->get();
-            $items = MerchItem::all();
+            $items = MerchItem::current_merch();
 
             $sizes = array('8'=>'8','10'=>'10','12'=>'12','14'=>'14','XS'=>'XS','S'=>'S','M'=>'M','L'=>'L','XL'=>'XL','XXL'=>'XXL');
             return View::make('merch.orders.admin')
@@ -172,4 +172,5 @@ class MerchOrdersController extends BaseController
         return Redirect::to('rms/merch/orders')
                 ->with('success', 'Successfully Removed Order');
     }
+
 }

@@ -35,7 +35,7 @@
         $ {{ Form::text('special_price',Input::old('special_price'))}}<br>
 
 
-        {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
+        {{ Form::submit('Save Changes',array('class'=>'btn btn-primary')) }}
         {{ HTML::link('/rms/wellbeing/nights','Cancel',array('class'=>'btn')) }}
 
     {{ Form::close() }}
