@@ -32,7 +32,6 @@ class MerchItemsController extends BaseController
 
         $rules = array(
             'title'  => 'required',
-            'description' => 'required',
             'price'  => 'required',
         );
 

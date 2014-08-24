@@ -13,7 +13,8 @@ class WellbeingNightsController extends BaseController
 
     public function get_index()
     {
-    	$nights = WellbeingNight::orderBy('date')->get();
+        $nights = WellbeingNight::current_nights()->orderBy('date')->get();
+//    	$nights = WellbeingNight::orderBy('date')->get();
         return View::make('wellbeing.nights.index')->with('nights',$nights);
     }
 
@@ -37,8 +38,6 @@ class WellbeingNightsController extends BaseController
         );
 
         $validation = Validator::make($input, $rules);
-
-        return Input::get();
 
         if($validation->passes())
         {
