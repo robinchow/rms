@@ -6,7 +6,7 @@ class MerchItem extends Eloquent {
 
 	public static function current_merch() 
     {
-        return MerchItem::where('active', '=', 1);
+        return MerchItem::where('active', '=', 1)->get();
     }
 
     public function orders()
