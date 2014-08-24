@@ -36,7 +36,7 @@ Transaction Name: &lt;your name&gt; MERCH<br />
                     @endif
                 </td>
                 <td>
-                    {{ Form::text('quantity['.$item->id.']') }}
+                    {{ Form::text('quantity['.$item->id.']', 0) }}
                 </td>
                 <tr>
             @endforeach
