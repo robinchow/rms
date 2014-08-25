@@ -12,7 +12,7 @@ class CreateWellbeingBundleNightsTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('wellbeing_bundle_nights', function($table) {
+        Schema::create('wellbeing_bundle_night', function($table) {
 		    $table->increments('id');
             $table->integer('wellbeing_night_id');
             $table->integer('wellbeing_bundle_id');
@@ -28,7 +28,7 @@ class CreateWellbeingBundleNightsTable extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('wellbeing_bundle_nights');
+	    Schema::drop('wellbeing_bundle_night');
 	}
 
 }
