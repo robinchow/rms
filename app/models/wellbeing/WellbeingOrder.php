@@ -10,17 +10,43 @@ class WellbeingOrder extends Eloquent {
         return $this->belongsTo('User');
     }
 
+    public static function current_orders() {
+        return WellbeingOrder::where('year_id', '=', Year::current_year()->id);
+    }
 
     public function nights()
     {
         return $this->belongsToMany('WellbeingNight', 'wellbeing_night_order');
     }
 
+    public function bundles()
+    {
+        return $this->belongsToMany('WellbeingBundle', 'wellbeing_bundle_order');
+    }
+
+    public function bundle()
+    {
+        return $this->bundles()->first();
+    }
+
+
     public function year()
     {
         return $this->belongsTo('Year');
     }
 
+    public function price()
+    {
+        if ($this->bundle() == null) {
+            $price = 0;
+            foreach ($this->nights()->get() as $night) {
+                $price += $night->price;
+            }
+            return $price;
+        } else {
+            return $this->bundle()->price;
+        }
+    }
 
     public function total() 
     {

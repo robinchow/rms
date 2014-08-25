@@ -143,6 +143,7 @@
       <li>{{HTML::link('rms/wellbeing/orders/','My Order')}}</li>
 
     @if(Auth::user()->admin || Auth::user()->is_currently_part_of_exec() || Auth::user()->is_on_orgs())
+      <li>{{HTML::link('rms/wellbeing/bundles','Bundles')}}</li>
       <li>{{HTML::link('rms/wellbeing/nights','Nights')}}</li>
       <li>{{HTML::link('rms/wellbeing/orders/admin','All Orders')}}</li>
 

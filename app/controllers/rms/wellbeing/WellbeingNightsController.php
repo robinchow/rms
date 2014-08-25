@@ -14,7 +14,6 @@ class WellbeingNightsController extends BaseController
     public function get_index()
     {
         $nights = WellbeingNight::current_nights()->orderBy('date')->get();
-//    	$nights = WellbeingNight::orderBy('date')->get();
         return View::make('wellbeing.nights.index')->with('nights',$nights);
     }
 
@@ -33,7 +32,6 @@ class WellbeingNightsController extends BaseController
             'year_id'  => 'required',
             'date' => 'required',
             'price'  => 'required|numeric',
-            'special_price'  => 'required|numeric',
 
         );
 
@@ -73,7 +71,6 @@ class WellbeingNightsController extends BaseController
             'year_id'  => 'required',
             'date' => 'required',
             'price'  => 'required|numeric',
-            'special_price'  => 'required|numeric',
 
         );
 

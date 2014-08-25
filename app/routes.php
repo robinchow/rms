@@ -38,6 +38,7 @@ Route::controller('rms/merch/orders', 'MerchOrdersController');
 
 Route::controller('rms/wellbeing/nights', 'WellbeingNightsController');
 Route::controller('rms/wellbeing/orders', 'WellbeingOrdersController');
+Route::controller('rms/wellbeing/bundles', 'WellbeingBundlesController');
 
 
 // Public Routes

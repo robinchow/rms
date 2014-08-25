@@ -14,6 +14,32 @@ class WellbeingNight extends Eloquent {
         return $this->belongsToMany('WellbeingOrder', 'wellbeing_night_order');
     }
 
+    public function bundle_orders()
+    {
+        $myorders = array();
+        $orders = WellbeingOrder::current_orders()->get();
+        foreach ($orders as $order) {
+            if ($order->bundle() != null) {
+                foreach ($order->bundle()->nights()->get() as $night) {
+                    if ($night->id == $this->id) {
+                        $myorders[] = $order;
+                    }
+                }
+            }
+        }
+
+        return $myorders;
+    }
+
+    public function all_orders()
+    {
+        $orders = $this->bundle_orders();
+        foreach ($this->orders as $order) {
+            $orders[] = $order;
+        }
+        return $orders;
+    }
+
     public function year()
     {
         return $this->belongsTo('Year');
@@ -21,7 +47,7 @@ class WellbeingNight extends Eloquent {
 
     public function getDateAttribute()
     {
-        return date('d-m-Y', strtotime($this->attributes['date']));
+        return date('D d-m-Y', strtotime($this->attributes['date']));
     }
 
     public function setDateAttribute($date)
@@ -31,6 +57,18 @@ class WellbeingNight extends Eloquent {
     }
 
     public function count() {
-        return $this->orders()->count();
+        $total = 0;
+        $orders = WellbeingOrder::current_orders()->get();
+        foreach ($orders as $order) {
+            if ($order->bundle() != null) {
+                foreach ($order->bundle()->nights()->get() as $night) {
+                    if ($night->id == $this->id) {
+                        $total++;
+                    }
+                }
+            }
+        }
+
+        return $this->orders()->count() + $total;
     }
 }

@@ -25,8 +25,9 @@ class WellbeingOrdersController extends BaseController
 
     public function get_new()
     {
+        $bundles = WellbeingBundle::current_bundles()->get();
         $nights = WellbeingNight::current_nights()->get();
-        return View::make('wellbeing.orders.new')->with('nights', $nights);
+        return View::make('wellbeing.orders.new')->with('nights', $nights)->with('bundles', $bundles);
     }
 
     public function post_new()
@@ -45,23 +46,33 @@ class WellbeingOrdersController extends BaseController
 
         if($validation->passes())
         {
-            $yes = Input::get('yes');
 
-            unset($input['yes']);
+            $bundle_id = Input::get('bundle');
 
-            $wellbeing_order = WellbeingOrder::create($input);
+            if ($bundle_id == 'custom') {
+                
+                $yes = Input::get('yes');
 
-            if($yes) {
-                foreach(WellbeingNight::current_nights()->get() as $night) {
-                    if(intval($yes[$night->id]) == 1) {
-                        $wellbeing_order->nights()->attach($night->id);
+                unset($input['yes']);
+
+                $wellbeing_order = WellbeingOrder::create($input);
+                if($yes) {
+                    foreach(WellbeingNight::current_nights()->get() as $night) {
+                        if (array_key_exists($night->id, $yes)) {
+                            if(intval($yes[$night->id]) == 1) {
+                                $wellbeing_order->nights()->attach($night->id);
+                            }
+                        }
                     }
                 }
+
+            } else {
+
+                $bundle = WellbeingBundle::find($bundle_id);
+                $order = WellbeingOrder::create($input);
+                $order->bundles()->attach($bundle);
+
             }
-
-
-
-
             return Redirect::to('rms/wellbeing/orders/')
                 ->with('success', 'Successfully Created Order');
         }
@@ -85,8 +96,9 @@ class WellbeingOrdersController extends BaseController
 
         if($year) {
             $nights = WellbeingNight::current_nights()->get();
+            $orders = WellbeingOrder::current_orders()->get();
 
-            return View::make('wellbeing.orders.admin')->with('nights', $nights)->with('year', $year);
+            return View::make('wellbeing.orders.admin')->with('nights', $nights)->with('year', $year)->with('orders', $orders);
  
 
         } else {
@@ -111,8 +123,23 @@ class WellbeingOrdersController extends BaseController
                 $mynights[$night->id] = 1;
         }
 
-        return View::make('wellbeing.orders.edit')->with('order', $order)->with('nights', $nights)->with('mynights', $mynights);
+        return View::make('wellbeing.orders.edit')
+            ->with('order', $order)
+            ->with('nights', $nights)
+            ->with('mynights', $mynights)
+            ->with('bundle', $order->bundles()->first());
         
+    }
+
+    public function get_delete()
+    {
+        $id = Auth::User()->wellbeing_orders_year(Year::current_year()->id)->first()->id;
+        $order = WellbeingOrder::find($id);
+        $order->nights()->detach();
+        $order->bundles()->detach();
+        $order->delete();
+        return Redirect::to('rms/wellbeing/orders/')
+            ->with('success', 'Successfully Cancelled Order');
     }
 
     public function post_edit($id)
@@ -165,8 +192,4 @@ class WellbeingOrdersController extends BaseController
     }
 
 
-    public function get_delete($id)
-    {
-       
-    }
 }
