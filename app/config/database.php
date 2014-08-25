@@ -55,10 +55,10 @@ return array(
 		'mysql' => array(
 			'driver'   => 'mysql',
 
-            'host'     => $_SERVER['db_host'],
-			'database' => $_SERVER['db_name'],
-			'username' => $_SERVER['secret_db_user'],
-			'password' => $_SERVER['secret_db_pass'],
+            'host'     => 'localhost', #$_SERVER['db_host'],
+			'database' => 'rms', #$_SERVER['db_name'],
+			'username' => 'steve', #$_SERVER['secret_db_user'],
+			'password' => 'password', #$_SERVER['secret_db_pass'],
 
             'collation' => 'utf8_unicode_ci',
 			'charset'  => 'utf8',
