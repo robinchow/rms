@@ -12,7 +12,7 @@
             <th>Date</th>
             <th>Year</th>
             <th>Price</th>
-            <th>Special Price</th>
+            <th>Description</th>
             <th>Tools</th>
         </tr>
 	@foreach ($nights as $night)
@@ -20,7 +20,7 @@
     	<th>{{  $night->date }}</td>
         <td>{{  $night->year->year}} </td>
         <td>${{ $night->price }}</td>
-        <td>${{ $night->special_price }}</td>
+        <td>{{ $night->description }}</td>
         <td>
             <div class="btn-group">
                 <a class="btn btn-primary" href="/rms/wellbeing/nights/edit/{{$night->id}}">Edit</a>

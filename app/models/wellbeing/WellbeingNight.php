@@ -2,7 +2,7 @@
 
 class WellbeingNight extends Eloquent {
 
-    protected $fillable = array('year_id', 'date', 'price', 'special_price');
+    protected $fillable = array('year_id', 'date', 'price', 'special_price', 'description');
 
 	public static function current_nights()
     {
