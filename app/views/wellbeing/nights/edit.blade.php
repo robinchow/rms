@@ -32,7 +32,7 @@
         $ {{ Form::text('price',Input::old('price', $night->price))}}<br>
 
         {{ Form::label('description', 'Description') }}
-        $ {{ Form::text('description',Input::old('description', $night->description))}}<br>
+        {{ Form::text('description',Input::old('description', $night->description))}}<br>
 
 
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
