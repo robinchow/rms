@@ -18,7 +18,7 @@ class MerchOrdersController extends BaseController
 
     public function get_new()
     {
-        $merch = MerchItem::current_merch()->get();
+        $merch = MerchItem::current_merch();
         return View::make('merch.orders.new')->with('merch', $merch);
     }
 
