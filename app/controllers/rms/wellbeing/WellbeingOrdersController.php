@@ -56,6 +56,12 @@ class WellbeingOrdersController extends BaseController
                 unset($input['yes']);
 
                 $wellbeing_order = WellbeingOrder::create($input);
+
+                if (count($yes) < 1) {
+                    return Redirect::to('rms/wellbeing/orders/new')
+                        ->withErrors('You must select at least one night.');
+                }
+
                 if($yes) {
                     foreach(WellbeingNight::current_nights()->get() as $night) {
                         if (array_key_exists($night->id, $yes)) {

@@ -19,7 +19,7 @@
         <td>{{$order->user->profile->full_name}}</td>
         <td>
         @if ($order->bundle() == null)
-        Custom Selection ({{count($order->nights())}} nights)
+        Custom Selection ({{count($order->nights)}} nights)
         @else
         {{$order->bundle()->name}}
         @endif

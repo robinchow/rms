@@ -39,7 +39,7 @@ class WellbeingOrder extends Eloquent {
     {
         if ($this->bundle() == null) {
             $price = 0;
-            foreach ($this->nights()->get() as $night) {
+            foreach ($this->nights as $night) {
                 $price += $night->price;
             }
             return $price;
