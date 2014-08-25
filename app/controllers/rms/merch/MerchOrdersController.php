@@ -56,7 +56,7 @@ class MerchOrdersController extends BaseController
 
             $merch_order = MerchOrder::create($input);
 
-            foreach(MerchItem::current_merch()->get() as $item) {
+            foreach(MerchItem::current_merch() as $item) {
                 if(intval($quantities[$item->id]) > 0) {
                     $merch_order->items()->attach($item->id, array('quantity' => $quantities[$item->id], 'size'=>$sizes[$item->id]));
                 }
