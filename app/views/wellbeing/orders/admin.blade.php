@@ -27,8 +27,8 @@
         <td>{{$order->dietary_requirements}}</td>
         <td>${{$order->price()}}</td>
     </tr>
-    </table>
     @endforeach
+    </table>
 @else
 	<p>No Nights</p>
 @endif
