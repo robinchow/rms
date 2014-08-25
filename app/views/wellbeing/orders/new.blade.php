@@ -30,7 +30,7 @@ Transaction Name: &lt;your name&gt; WELLBEING<br />
                 <td>{{$bundle->name}}</td>
                 <td><ul>
                 @foreach ($bundle->nights()->get() as $night)
-                    <li>{{ $night->date }}</li>
+                    <li>{{ $night->date }} ({{$night->description}})</li>
                 @endforeach
                 </ul></td>
                 <td>$<span class='fixed-price-container' data-price = '{{$bundle->price}}'></span></td>
@@ -53,12 +53,14 @@ Transaction Name: &lt;your name&gt; WELLBEING<br />
             <table class="table table-bordered table-striped">
                 <tr>
                     <th>Date</th>
+                    <th>Description</th>
                     <th>Price per Night</th>
                     <th>Yes/No</th>
                 </tr>
             @foreach ($nights as $night)
                 <tr>
-                <th>{{ $night->date }}</td>
+                <td>{{ $night->date }}</td>
+                <td>{{ $night->description }}</td>
                 <td>$<span class='price'>{{ $night->price}}</span></td>
                 <td>
                     <label for="yes" class="checkbox">

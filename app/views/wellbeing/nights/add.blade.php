@@ -31,8 +31,8 @@
         {{ Form::label('price', 'Price') }}
         $ {{ Form::text('price',Input::old('price'))}}<br>
 
-        {{ Form::label('special_price', 'Special Price') }}
-        $ {{ Form::text('special_price',Input::old('special_price'))}}<br>
+        {{ Form::label('description', 'Description') }}
+        $ {{ Form::text('description',Input::old('description'))}}<br>
 
 
         {{ Form::submit('Save Changes',array('class'=>'btn btn-primary')) }}
