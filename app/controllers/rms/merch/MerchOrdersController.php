@@ -154,7 +154,7 @@ class MerchOrdersController extends BaseController
                 $item->pivot->save();
             }
 
-            return Redirect::to('rms/merch/orders/admin')
+            return Redirect::to('rms/merch/orders/')
                ->with('success', 'Successfully Edited Order');
         }
         else

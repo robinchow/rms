@@ -6,9 +6,9 @@
 
 @section('content')
 {{ Form::open(array('url'=>'rms/merch/orders/edit')) }}
+{{ Form::hidden('order_id',$order->id)}}
     @if (!$is_user)
     <legend>Add Payment</legend>
-        {{ Form::hidden('order_id',$order->id)}}
 
         Total: ${{ $order->total() }}
 
