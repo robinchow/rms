@@ -17,6 +17,10 @@ Transaction Name: &lt;your name&gt; MERCH<br />
         {{ Form::hidden('year_id', Year::current_year()->id)}}
         {{ Form::hidden('user_id', Auth::User()->id)}}
 
+        @if (count($merch) == 0)
+            <p>Merch orders are currently closed.</p>
+        @else
+
             <table class="table table-bordered table-striped">
                 <tr>
                     <th>Name</th>
@@ -42,7 +46,7 @@ Transaction Name: &lt;your name&gt; MERCH<br />
             @endforeach
                 </tbody>
             </table>
-  
+        @endif
         <p></p>
 
         {{ Form::submit('Place Order',array('class'=>'btn btn-primary')) }}
