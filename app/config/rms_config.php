@@ -2,7 +2,7 @@
 
 return array(
 
- 'current_year' => 2014,
+ 'current_year' => 2015,
 
 
 );
