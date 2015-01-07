@@ -84,7 +84,7 @@ class TeamsController extends BaseController
     public function post_edit($id)
     {
         // renew the team if necessary
-        if (Auth::User()->admin) {
+        if (Auth::User()->admin || Auth::User()->is_currently_part_of_exec()) {
             $team = Team::find($id);
             if (!$team->is_active()) {
                 if (Input::get('renew')) {
