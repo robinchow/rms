@@ -28,7 +28,7 @@
                 <th>{{ HTML::link('/rms/merch/items/show/'.$item->id,$item->title) }}</td>
                 <td>${{ $item->price}}</td>
                 <td>@if($item->has_size)
-                        {{ Form::select('size['.$item->id.']', array('8'=>'8','10'=>'10','12'=>'12','14'=>'14','16'=>'16', '18'=>'18', 'XS'=>'XS','S'=>'S','M'=>'M','L'=>'L','XL'=>'XL','XXL'=>'XXL'))  }}
+                        {{ Form::select('size['.$item->id.']', array('8'=>'8','10'=>'10','12'=>'12','14'=>'14','16'=>'16', '18'=>'18', 'XS'=>'XS','S'=>'S','M'=>'M','L'=>'L','XL'=>'XL','XXL'=>'XXL'), $item->pivot->size)  }}
                     @else
                         N/A
                         {{ Form::hidden('size['.$item->id.']', 'N/A') }}
