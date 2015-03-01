@@ -12,17 +12,16 @@
             </div>
             <div id="main-content">
                 <p>The Computer Science and Engineering (CSE) Revue is a live comedy sketch show held during September at the University of New South Wales (UNSW). Produced and directed by members of the society, the show serves to highlight the technical and creative talents of UNSW students, as well as an opportunity for students to further develop their university experience.</p>
-                <p>Read more about us here.</p>
-            <center>
-                <object>
-                    <param name="movie" value="http://www.youtube.com/v/-xSsJNpeF1Y">
-                    <param name="wmode" value="transparent">
-                    <embed src="http://www.youtube.com/v/NK_co7s6Ct4" type="application/x-shockwave-flash" wmode="transparent" width="445" height="310">
-                </object>
-            </center>
+                <center>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/rb8JKLDDXh0" frameborder="0" allowfullscreen></iframe>
+                </center>
                 <br>
+                <p>Last year's CSE Revue was titled "Game of Codes", which delivered a raucous parody of the much beloved series "Game of Thrones", with the occasional CSE joke to spice it up.</p>
+                <p>This show attracted well over 1000 audience members across four nights and left the audience in stitches. With high energy sketches and caricature portrayals of Ned Stark, King Joffrey and the Dragon Queen herself, all brought together on stage in a gamer-esque setting, laughter ensued.</p>
+                <p>Filled with dancing, singing and comedic sketches, the show is presented by individuals of various backgrounds (and can I say, educational codes). CSE Revue promises a mix of acting, socialising and all 'round general fun; it is a great way to experience Uni life and meet others.</p>
+                <p>Perhaps you'll be forced to dance until your legs fall off or deliver lines that'll shock audiences but you are guaranteed to have fun and make friends in this creative production experience.</p>
             </div>
-            
+
             <div id="main-title">
                 <h2>Latest News&nbsp;</h2> 
             </div>
