@@ -119,7 +119,7 @@ Route::filter('admin', function()
 Route::filter('view_team', function() {
     $team_id = Request::segment(4);
     $team = Team::find($team_id);
-    if($team->privacy == 1 && !Auth::User()->is_part_of_team(Year::current_year()->id, $team_id)) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
+    if(!Auth::User()->admin && !Auth::User()->is_currently_part_of_exec() && $team->privacy == 1 && !Auth::User()->is_part_of_team(Year::current_year()->id, $team_id)) return Redirect::to('rms/account')->with('warning','You are not permitted access. Please login as an admin');
 });
 
 Route::filter('manage_team', function()
