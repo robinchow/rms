@@ -21,7 +21,7 @@ class Year extends Eloquent {
 
     public function sponsors()
     {
-        return $this->belongsToMany('Sponsor');
+        return $this->belongsToMany('Sponsor', 'sponsor_year')->withPivot('year_id','sponsor_level');
     }
 
     public function wellbeing_orders()

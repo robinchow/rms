@@ -12,6 +12,7 @@ This is a list of all the sponsors we have ever acquired.
 		<tr>
 			<th>Name</th>
 			<th>Image</th>
+			<th>Description</th>
 			<th>Years</th>
 			<th>Tools</th>
 		</tr>
@@ -19,10 +20,11 @@ This is a list of all the sponsors we have ever acquired.
 		<tr>
 			<td>{{ HTML::link($sponsor->url,$sponsor->name)}}</td>
 			<td><img src="/img/sponsor/{{ $sponsor->image }}" width="100px" height="100px"/></td>
+			<td>{{$sponsor->description}}
 			<td>
 				<ul>
 				@foreach($sponsor->years as $year)
-					<li>{{$year->year}}</li>
+					<li>{{$year->year}} - {{$year->pivot->sponsor_level}}</li>
 				@endforeach
 				</ul>
 

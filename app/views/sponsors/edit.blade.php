@@ -19,10 +19,11 @@
         {{ Form::label('url', 'Website URL') }}
         {{ Form::text('url', Input::old('url',$sponsor->url))}}<br>
 
+        {{ Form::label('description', 'Description') }}
+        {{ Form::textarea('description', $sponsor->description) }}<br>
+
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}
         {{ HTML::link('/rms/sponsors','Cancel',array('class'=>'btn')) }}
-
-
 
     {{ Form::close() }}
       

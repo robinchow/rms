@@ -36,7 +36,8 @@ class SponsorsController extends BaseController
         $rules = array(
             'name'  => 'required',
             'url'  => 'required|url',
-            'image' => 'image'
+            'image' => 'image',
+            'description' => 'required',
         );
 
         $validation = Validator::make($input, $rules);
@@ -79,12 +80,11 @@ class SponsorsController extends BaseController
     {
 
         $year_id = Input::get('year_id');
+        $sponsor_level = Input::get('sponsor_level');
 
         $sponsor = Sponsor::find($id);
 
-        $sponsor->years()->attach($year_id);
-
-
+        $sponsor->years()->attach($year_id, array('sponsor_level' => $sponsor_level));
 
         return Redirect::to('rms/sponsors')
                 ->with('success', 'Successfully Added to a sponsor to year');
@@ -126,28 +126,26 @@ class SponsorsController extends BaseController
         $rules = array(
             'name'  => 'required',
             'url'  => 'required|url',
-            'image' => 'image'
-
+            'image' => 'image',
+            'description' => 'required',
         );
 
-        $validation = Validator::make($input, $rules);
-        
+        $validation = Validator::make($input, $rules);        
 
         if($validation->passes())
         {
-
             $sponsor = new Sponsor;
             $sponsor->name = Input::get('name');
             $sponsor->url = Input::get('url');
-            $sponsor->save();
+            $sponsor->description = Input::get('description');
 
-            if(Input::hasFile('image')) {
+            if(Input::hasFile('image')) 
+            {
                 $image_name = preg_replace('/.*\.(.+)/', $sponsor->id.".$1", Input::file('image')->getClientOriginalName());
                 Input::file('image')->move(base_path() . '/public/img/sponsor', $image_name);
                 $sponsor->image = $image_name;
-                $sponsor->save();
             }
-            
+            $sponsor->save();
 
             return Redirect::to('rms/sponsors')
                 ->with('success', 'Successfully Added New Sponsor: '.$sponsor->name);
