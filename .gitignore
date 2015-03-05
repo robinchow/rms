@@ -8,4 +8,5 @@
 public/img/profile/*
 public/img/sponsor/*
 
-
+.env.php
+vendor/*

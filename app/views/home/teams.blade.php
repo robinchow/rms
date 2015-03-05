@@ -20,7 +20,7 @@
     @foreach($teams as $team)
         @if($team->privacy != 1)
             <div style="padding-left: 20px;"><h4><a onclick="toggleTeam({{$team->id}})">{{$team->name}}</a></h4></div>
-            <div id="team-{{$team->id}}" style="display: none;">{{nl2br($team->description)}}</div>
+            <div style="padding-left: 20px;" id="team-{{$team->id}}" style="display: none;">{{nl2br($team->description)}}</div>
         @endif
     @endforeach
 </div>
