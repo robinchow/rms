@@ -46,7 +46,6 @@ Route::controller('rms/wellbeing/bundles', 'WellbeingBundlesController');
 Route::controller('home', 'HomeController');
 Route::controller('/', 'HomeController');
 
-
 /*
 Route::controller('rms.years');
 Route::controller('rms.executives');
