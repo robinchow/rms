@@ -14,7 +14,8 @@
 
     <div class="row">
     <div class="span10 offset1" id="main-content">
-        <h4>Here are the sponsors for CSE Revue {{$year->year}}:</h4>
+        <p>Sponsorship of the CSE Revue Society gives us the chance to provide better events for our society as well as helping us present a quality show for the wider UNSW community. </p>
+        <p>It is only through the generous support of the organisations below that a major student production such as CSE Revue continues to provide opportunities for students to broaden their tertiary education experience.</p>
         <table class="table table-no-border">            
         @foreach($sponsors as $sponsor)
             <tr>
