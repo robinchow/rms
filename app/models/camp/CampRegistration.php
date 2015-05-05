@@ -4,7 +4,7 @@ class CampRegistration extends Eloquent {
 
     protected $fillable = array('camp_setting_id', 'user_id', 'medical', 'medical_conditions', 
                                 'dietary', 'dietary_requirements', 'car', 'car_places',
-                                'leave_from', 'song_requests', 'paid');
+                                'leave_from', 'song_requests', 'paid', 'car_pool');
 
 	public function camp_setting()
 	{
