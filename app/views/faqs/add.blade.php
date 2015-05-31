@@ -12,7 +12,7 @@
         {{ Form::label('question', 'Question') }}
         {{ Form::text('question',Input::old('question'))}}<br>
 
-		{{ Form::label('answer', 'Answer') }}
+        {{ Form::label('answer', 'Answer') }}
         {{ Form::textarea('answer',Input::old('answer'))}}<br>
 
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}

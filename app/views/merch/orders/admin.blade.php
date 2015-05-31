@@ -17,7 +17,7 @@
             <th>Size</th>
             <th>Quantity</th>
         </tr>
-	@foreach ($orders as $order)
+    @foreach ($orders as $order)
         <tr>
             <th colspan="2">{{ HTML::link('/rms/merch/orders/show/'.$order->id,$order->user->profile->full_name.' - '.$order->id) }}
                     {{ HTML::link('/rms/merch/orders/edit/'.$order->id,'Edit Order/Add Payment',array('class'=>'btn pull-right')) }}
@@ -30,9 +30,9 @@
             <td>{{ $oi->title }}</td>
             <td>{{ $oi->pivot->size }}</td>
             <td>{{ $oi->pivot->quantity }}</td>
-        	<tr>
+            <tr>
         @endforeach
-	@endforeach
+    @endforeach
         </tbody>
     </table>
 
@@ -65,7 +65,7 @@
     @endif
 
 @else
-	<p>No Orders</p>
+    <p>No Orders</p>
 @endif
 
 

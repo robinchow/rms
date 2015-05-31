@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Such 404 - wow</title>
+    <title>Such 404 - wow</title>
     <style>
     body {
         background-image: url("<?= URL::to("img/doge.jpg") ?>");

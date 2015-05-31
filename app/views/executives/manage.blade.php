@@ -11,8 +11,8 @@
     <legend>Add New Member</legend>
     {{ Form::open(array('url'=>'rms/executives/manage/' . $executive->id)) }}
 
-    	{{ Form::hidden('executive_id', $executive->id)}}
-    	{{ Form::hidden('year_id', $year->id)}}
+        {{ Form::hidden('executive_id', $executive->id)}}
+        {{ Form::hidden('year_id', $year->id)}}
 
         {{ Form::label('user', 'User') }}
         <input name="user" autocomplete="off"
@@ -28,17 +28,17 @@
     {{ Form::close() }}
       
 
-	<h3>Current Members ({{$year->year}})</h3>
-	<ul>
-	@foreach($executive->get_all_members($year->id) as $user)
-    			<li><a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a>
+    <h3>Current Members ({{$year->year}})</h3>
+    <ul>
+    @foreach($executive->get_all_members($year->id) as $user)
+                <li><a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a>
                     @if($user->pivot->non_executive)
                         (Assistant)
                         @endif
                     - {{HTML::link('rms/executives/member-remove/' . $user->id . '/' . $executive->id .'/' . $year->id ,'Remove')}}
                 </li>
-    		@endforeach
-	</ul>
+            @endforeach
+    </ul>
 
 
 

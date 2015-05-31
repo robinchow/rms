@@ -16,11 +16,11 @@
             <th>Active</th>
             <th>Tools</th>
         </tr>
-	@foreach ($teams as $team)
+    @foreach ($teams as $team)
         <tr>
-    	<th>{{ HTML::link('/rms/teams/show/'.$team->id,$team->name) }}</td>
-    	<td>{{ $team->mailing_list }}</td>
-    	<td>{{$team->privacy_string}}</td>
+        <th>{{ HTML::link('/rms/teams/show/'.$team->id,$team->name) }}</td>
+        <td>{{ $team->mailing_list }}</td>
+        <td>{{$team->privacy_string}}</td>
             <td>
             @if($team->is_active())
                 <i class="icon-ok"></i>
@@ -42,12 +42,12 @@
                 @endif
             </div>
         </td>
-    	<tr>
-	@endforeach
+        <tr>
+    @endforeach
         </tbody>
     </table>
 @else
-	No Teams
+    No Teams
 @endif
 
 {{HTML::link('rms/teams/add','Add Team',array('class'=>'btn btn-primary'))}}

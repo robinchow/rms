@@ -14,9 +14,9 @@
             <th>Price</th>
             <th>Tools</th>
         </tr>
-	@foreach ($bundles as $bundle)
+    @foreach ($bundles as $bundle)
         <tr>
-    	<th>{{  $bundle->name }}</td>
+        <th>{{  $bundle->name }}</td>
         <td>{{  $bundle->year->year }} </td>
         <td>${{ $bundle->price }}</td>
         <td>
@@ -29,12 +29,12 @@
                 </ul>
             </div>
         </td>
-    	<tr>
-	@endforeach
+        <tr>
+    @endforeach
         </tbody>
     </table>
 @else
-	<p>No Bundles</p>
+    <p>No Bundles</p>
 @endif
 
 {{HTML::link('rms/wellbeing/bundles/add','Add New Bundle',array('class'=>'btn btn-primary'))}}

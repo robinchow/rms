@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-US">
-	<head>
-		<meta charset="utf-8">
-	</head>
-	<body>
-		<div>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div>
         Hi {{$user->profile->full_name}},<br/><br/>
 
         You have requested a password reset. 
@@ -14,6 +14,6 @@
         <br/>
         <br/>
         CSE Revue Webmin
-		</div>
-	</body>
+        </div>
+    </body>
 </html>

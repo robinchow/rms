@@ -30,7 +30,7 @@
     @endforeach
     </table>
 @else
-	<p>No Nights</p>
+    <p>No Nights</p>
 @endif
 
 
@@ -41,7 +41,7 @@
             <th>Total Count</th>
             <th>Dietary Requirements</th>
         </tr>
-	@foreach ($nights as $night)
+    @foreach ($nights as $night)
         <tr>
             <th>{{ $night->date }}</td>
             <td>{{ $night->count() }}</td>
@@ -55,11 +55,11 @@
                 @endforeach
             </td>
         </tr>
-	@endforeach
+    @endforeach
         </tbody>
     </table>
 @else
-	<p>No Nights</p>
+    <p>No Nights</p>
 @endif
 
 

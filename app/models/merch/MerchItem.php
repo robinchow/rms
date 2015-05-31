@@ -4,7 +4,7 @@ class MerchItem extends Eloquent {
     
     protected $fillable = array('title', 'description', 'price', 'has_size', 'active');
 
-	public static function current_merch() 
+    public static function current_merch() 
     {
         return MerchItem::where('active', '=', 1)->get();
     }
@@ -16,16 +16,16 @@ class MerchItem extends Eloquent {
 
     public function quantities($year_id, $size) 
     {
-    	$quantity = 0;
-    	$orders = $this->orders;
-    	foreach($orders as $oi) {
-    		if($oi->pivot->size == $size 
+        $quantity = 0;
+        $orders = $this->orders;
+        foreach($orders as $oi) {
+            if($oi->pivot->size == $size 
             && $oi->year_id == $year_id) {
-    			$quantity += $oi->pivot->quantity;
-    		}
-    	}
+                $quantity += $oi->pivot->quantity;
+            }
+        }
 
 
-    	return $quantity;
+        return $quantity;
     }
 }

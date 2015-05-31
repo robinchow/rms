@@ -6,19 +6,19 @@ class CampRegistration extends Eloquent {
                                 'dietary', 'dietary_requirements', 'car', 'car_places',
                                 'leave_from', 'song_requests', 'paid', 'car_pool');
 
-	public function camp_setting()
-	{
-		return $this->belongsTo('CampSetting');
-	}
+    public function camp_setting()
+    {
+        return $this->belongsTo('CampSetting');
+    }
 
     public function getCampSettingAttribute() {
         return $this->camp_setting()->first();
     }
 
-	public function user()
-	{
-		return $this->belongsTo('User');
-	}
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
 
 
     public function format_song_requests()

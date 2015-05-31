@@ -4,7 +4,7 @@ class WellbeingNight extends Eloquent {
 
     protected $fillable = array('year_id', 'date', 'price', 'special_price', 'description');
 
-	public static function current_nights()
+    public static function current_nights()
     {
         return WellbeingNight::where('year_id', '=', Year::current_year()->id);
     }

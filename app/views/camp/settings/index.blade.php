@@ -15,10 +15,10 @@
             <th>Visible</th>
             <th>Tools</th>
         </tr>
-	@foreach ($camps as $camp)
+    @foreach ($camps as $camp)
         <tr>
-    	<th>{{ HTML::link('/rms/camp/settings/show/'.$camp->id,$camp->year->year . ": " . $camp->theme) }}</td>
-    	<td>{{ $camp->places }}</td>
+        <th>{{ HTML::link('/rms/camp/settings/show/'.$camp->id,$camp->year->year . ": " . $camp->theme) }}</td>
+        <td>{{ $camp->places }}</td>
         <td>{{ $camp->remaining }}</td>
         <td>{{ $camp->visible }}</td>
         <td>
@@ -32,12 +32,12 @@
                 </ul>
             </div>
         </td>
-    	<tr>
-	@endforeach
+        <tr>
+    @endforeach
         </tbody>
     </table>
 @else
-	<p>No Camps</p>
+    <p>No Camps</p>
 @endif
 
 {{HTML::link('rms/camp/settings/add','Add New Camp',array('class'=>'btn btn-primary'))}}

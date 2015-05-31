@@ -15,10 +15,10 @@
             <th>Active</th>
             <th>Tools</th>
         </tr>
-	@foreach ($items as $item)
+    @foreach ($items as $item)
         <tr>
-    	<th>{{ HTML::link('/rms/merch/items/show/'.$item->id,$item->title) }}</td>
-    	<td>{{ $item->description }}</td>
+        <th>{{ HTML::link('/rms/merch/items/show/'.$item->id,$item->title) }}</td>
+        <td>{{ $item->description }}</td>
         <td>${{ $item->price }}</td>
         <td>{{ $item->active }}</td>
         <td>
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </td>
-    	<tr>
-	@endforeach
+        <tr>
+    @endforeach
         </tbody>
     </table>
 @else
-	<p>No Items</p>
+    <p>No Items</p>
 @endif
 
 {{HTML::link('rms/merch/items/add','Add New Item',array('class'=>'btn btn-primary'))}}

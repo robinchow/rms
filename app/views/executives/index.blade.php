@@ -13,10 +13,10 @@
             <th>Mailing List</th>
             <th>Tools</th>
         </tr>
-	@foreach ($executives as $executive)
+    @foreach ($executives as $executive)
         <tr>
-    	   <td>{{ HTML::link('/rms/executives/show/'.$executive->id,$executive->position) }}</td>
-    	   <td>{{ $executive->mailing_list }}</td>
+           <td>{{ HTML::link('/rms/executives/show/'.$executive->id,$executive->position) }}</td>
+           <td>{{ $executive->mailing_list }}</td>
            <td>
                 <div class="btn-group">
                     <a class="btn btn-primary" href="/rms/executives/show/{{$executive->id}}">View</a>
@@ -29,11 +29,11 @@
                     </ul>
                 </div>
            </td>
-    	</tr>
-	@endforeach
+        </tr>
+    @endforeach
     </table>
 @else
-	No Executives
+    No Executives
 @endif
 
 {{HTML::link('rms/executives/add','Add Executive Position',array('class'=>'btn btn-primary'))}}

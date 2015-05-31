@@ -51,7 +51,7 @@
     <td>${{ $item->price}}</td>
     <td>{{ $item->pivot->size }}</td>
     <td>{{ $item->pivot->quantity }}</td>
-	<td>${{ $item->price * $item->pivot->quantity}}</td>
+    <td>${{ $item->price * $item->pivot->quantity}}</td>
     </tr>
 @endforeach
  <tr>

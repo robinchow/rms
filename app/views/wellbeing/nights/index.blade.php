@@ -15,9 +15,9 @@
             <th>Description</th>
             <th>Tools</th>
         </tr>
-	@foreach ($nights as $night)
+    @foreach ($nights as $night)
         <tr>
-    	<th>{{  $night->date }}</td>
+        <th>{{  $night->date }}</td>
         <td>{{  $night->year->year}} </td>
         <td>${{ $night->price }}</td>
         <td>{{ $night->description }}</td>
@@ -30,12 +30,12 @@
                 </ul>
             </div>
         </td>
-    	<tr>
-	@endforeach
+        <tr>
+    @endforeach
         </tbody>
     </table>
 @else
-	<p>No Nights</p>
+    <p>No Nights</p>
 @endif
 
 {{HTML::link('rms/wellbeing/nights/add','Add New Night',array('class'=>'btn btn-primary'))}}

@@ -13,7 +13,7 @@ class MerchItemsController extends BaseController
 
     public function get_index()
     {
-    	$items = MerchItem::All();
+        $items = MerchItem::All();
         return View::make('merch.items.index')->with('items',$items);
     }
 
@@ -57,15 +57,15 @@ class MerchItemsController extends BaseController
 
     public function get_show($id)
     {
-    	$item = MerchItem::find($id);
+        $item = MerchItem::find($id);
         return View::make('merch.items.show')->with('item',$item);
     }
 
     public function get_edit($id)
     {
-    	$item = MerchItem::find($id);
+        $item = MerchItem::find($id);
         return View::make('merch.items.edit')
-        	->with('item',$item);
+            ->with('item',$item);
     }
 
     public function post_edit($id)
