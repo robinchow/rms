@@ -19,7 +19,7 @@ class WellbeingNightsController extends BaseController
 
     public function get_add()
     {
-    	$years = Year::lists('year', 'id');
+        $years = Year::lists('year', 'id');
         return View::make('wellbeing.nights.add')->with('years', $years);
     }
 
@@ -56,10 +56,10 @@ class WellbeingNightsController extends BaseController
 
     public function get_edit($id)
     {
-    	$night = WellbeingNight::find($id);
-    	  $years = Year::lists('year', 'id');
+        $night = WellbeingNight::find($id);
+          $years = Year::lists('year', 'id');
         return View::make('wellbeing.nights.edit')
-        	->with('night',$night)->with('years', $years);
+            ->with('night',$night)->with('years', $years);
     }
 
     public function post_edit($id)

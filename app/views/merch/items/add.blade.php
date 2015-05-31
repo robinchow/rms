@@ -12,7 +12,7 @@
         {{ Form::label('title', 'Title') }}
         {{ Form::text('title',Input::old('title'))}}<br>
 
-		{{ Form::label('description', 'Description') }}
+        {{ Form::label('description', 'Description') }}
         {{ Form::textarea('description',Input::old('description'))}}<br>
 
         {{ Form::label('price', 'Price') }}

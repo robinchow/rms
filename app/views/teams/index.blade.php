@@ -111,7 +111,7 @@
         </tbody>
     </table>
 @else
-	<p>No Teams<p>
+    <p>No Teams<p>
 @endif
 
 <h4>Other teams</h4>
@@ -133,7 +133,7 @@
         </tbody>
     </table>
 @else
-	<p>No Teams<p>
+    <p>No Teams<p>
 @endif
 
 @if($user->admin || $user->is_currently_part_of_exec())

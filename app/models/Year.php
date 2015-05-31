@@ -14,7 +14,7 @@ class Year extends Eloquent {
         return $this->belongsToMany('Team');
     }
 
-	public function users()
+    public function users()
     {
         return $this->belongsToMany('User');
     }

@@ -12,7 +12,7 @@ class MerchOrdersController extends BaseController
 
     public function get_index()
     {
-    	$orders = Auth::user()->orders()->get();
+        $orders = Auth::user()->orders()->get();
         return View::make('merch.orders.index')->with('orders',$orders);
     }
 

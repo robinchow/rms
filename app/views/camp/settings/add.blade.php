@@ -17,7 +17,7 @@
         {{ Form::label('places', 'Places') }}
         {{ Form::text('places',Input::old('places'))}}<br>
 
-		{{ Form::label('details', 'Details') }}
+        {{ Form::label('details', 'Details') }}
         {{ Form::textarea('details',Input::old('details'))}}<br>
 
         <label for="privacy" class="checkbox">

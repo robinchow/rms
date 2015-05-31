@@ -24,7 +24,7 @@
             {{ Form::checkbox('privacy', 1 , Input::old('privacy',$team->privacy)) }} Privacy
         </label>
 
-		{{ Form::label('description', 'Description') }}
+        {{ Form::label('description', 'Description') }}
         {{ Form::textarea('description', Input::old('description',$team->description))}}<br>
 
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}

@@ -7,8 +7,8 @@
 @section('content')
 <h2>Years</h2>
 @if ( count($years) > 0 )
-	@foreach ($years as $year)
-    	<strong>{{ HTML::link('/rms/years/show/'.$year->id,$year->year.': '.$year->name ) }}</strong>
+    @foreach ($years as $year)
+        <strong>{{ HTML::link('/rms/years/show/'.$year->id,$year->year.': '.$year->name ) }}</strong>
             @if($user->admin)
                 <div class="btn-group pull-right">
                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
@@ -18,12 +18,12 @@
                     </ul>
                 </div>
             @endif
-    	
-    	<p>{{ $year->mailing_list }}</p>
-    	<hr>
-	@endforeach
+        
+        <p>{{ $year->mailing_list }}</p>
+        <hr>
+    @endforeach
 @else
-	No years
+    No years
 @endif
 
  @if($user->admin)

@@ -9,10 +9,10 @@
 
     <legend>Add a News Post</legend>
 
-		{{ Form::label('title', 'Title') }}
+        {{ Form::label('title', 'Title') }}
         {{ Form::text('title',Input::old('title'))}}<br>
 
-		{{ Form::label('post', 'Post') }}
+        {{ Form::label('post', 'Post') }}
         {{ Form::textarea('post',Input::old('post'))}}<br>
 
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}

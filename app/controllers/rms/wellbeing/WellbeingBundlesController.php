@@ -19,7 +19,7 @@ class WellbeingBundlesController extends BaseController
     }
 
     public function get_add() {
-    	$years = Year::lists('year', 'id');
+        $years = Year::lists('year', 'id');
         return View::make('wellbeing.bundles.add')->with('years', $years);
     }
     public function post_add() {

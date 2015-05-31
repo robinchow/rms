@@ -64,7 +64,7 @@ class CampRegistrationsController extends BaseController
 
     public function get_signup()
     {
-    	$camp = CampSetting::where('year_id', '=', Year::current_year()->id)->first();
+        $camp = CampSetting::where('year_id', '=', Year::current_year()->id)->first();
         return View::make('camp.registrations.signup')->with('camp',$camp);
     }
 

@@ -9,10 +9,10 @@
 
     <legend>Add a Blog Post</legend>
 
-		{{ Form::label('title', 'Title') }}
+        {{ Form::label('title', 'Title') }}
         {{ Form::text('title',Input::old('title'))}}<br>
 
-		{{ Form::label('body', 'Body') }}
+        {{ Form::label('body', 'Body') }}
         {{ Form::textarea('body',Input::old('body'))}}<br>
 
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}

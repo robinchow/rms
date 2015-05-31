@@ -19,7 +19,7 @@
             {{ Form::checkbox('privacy', 1,Input::old('privacy') ) }} Privacy
         </label>
 
-		{{ Form::label('description', 'Description') }}
+        {{ Form::label('description', 'Description') }}
         {{ Form::textarea('description',Input::old('description'))}}<br>
 
         {{ Form::submit('Save changes',array('class'=>'btn btn-primary')) }}

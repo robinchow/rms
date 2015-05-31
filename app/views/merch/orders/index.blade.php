@@ -19,7 +19,7 @@ Transaction Name: &lt;your name&gt; MERCH<br />
             <th>Cost</th>
             <th>Tools</th>
         </tr>
-	@foreach ($orders as $order)
+    @foreach ($orders as $order)
         <tr>
         <td>{{ HTML::link('/rms/merch/orders/show/'.$order->id,$order->created_at) }}</td>
         <td>${{ $order->total() }} (${{$order->amount_paid}} paid)</td>
@@ -37,12 +37,12 @@ Transaction Name: &lt;your name&gt; MERCH<br />
 
             </div>
         </td>
-    	<tr>
-	@endforeach
+        <tr>
+    @endforeach
         </tbody>
     </table>
 @else
-	<p>No Orders</p>
+    <p>No Orders</p>
 @endif
 
 {{HTML::link('rms/merch/orders/new','Order Merch',array('class'=>'btn btn-primary'))}}

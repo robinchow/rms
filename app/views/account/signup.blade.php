@@ -14,12 +14,12 @@
                 });
         });
     </script>
-	<div class="row">
+    <div class="row">
 
     <div class="span10 offset1" id="main-title">
     <h2>Join</h2>
-	</div>
-	</div>
+    </div>
+    </div>
 
     <div class="row">
 

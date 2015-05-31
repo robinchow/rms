@@ -21,7 +21,7 @@
         {{ Form::label('year_id', 'Year') }}
         {{ Form::select('year_id', $years, Input::old('year_id', $night->year->id)) }}<br>
 
-		{{ Form::label('date', 'Date') }}
+        {{ Form::label('date', 'Date') }}
         <div class="input-append date" id="date" data-date="{{Input::old('date', $night->date)}}" data-date-format="dd-mm-yyyy">
             <input name="date" class="span2" size="16" type="text" value="{{Input::old('date', $night->date)}}" readonly="">
             <span class="add-on"><i class="icon-calendar"></i></span>

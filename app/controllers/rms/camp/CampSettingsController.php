@@ -11,13 +11,13 @@ class CampSettingsController extends BaseController
 
     public function get_index()
     {
-    	$camps = CampSetting::All();
+        $camps = CampSetting::All();
         return View::make('camp.settings.index')->with('camps',$camps);
     }
 
     public function get_add()
     {
-    	$years = Year::lists('year', 'id');
+        $years = Year::lists('year', 'id');
         return View::make('camp.settings.add')->with('years',$years);
     }
 
@@ -56,17 +56,17 @@ class CampSettingsController extends BaseController
 
     public function get_show($id)
     {
-    	$camp = CampSetting::find($id);
+        $camp = CampSetting::find($id);
         return View::make('camp.settings.show')->with('camp',$camp);
     }
 
     public function get_edit($id)
     {
-    	$years = Year::lists('year', 'id');
-    	$camp = CampSetting::find($id);
+        $years = Year::lists('year', 'id');
+        $camp = CampSetting::find($id);
         return View::make('camp.settings.edit')
-        	->with('camp',$camp)
-        	->with('years',$years);
+            ->with('camp',$camp)
+            ->with('years',$years);
     }
 
     public function post_edit($id)

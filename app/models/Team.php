@@ -16,7 +16,7 @@ class Team extends Eloquent {
         return count($result) != 0;
     }
 
-	public function users()
+    public function users()
     {
         return $this->belongsToMany('User')->withPivot('year_id','status');
     }
@@ -27,33 +27,38 @@ class Team extends Eloquent {
     }
 
     public function getPrivacyStringAttribute()
-	{
-		return ($this->privacy ? 'Private' : 'Public');
-	}
+    {
+        return ($this->privacy ? 'Private' : 'Public');
+    }
 
-	public function getMailingListAttribute() 
-	{
-		return $this->alias . '@cserevue.org.au';
-	}
+    public function getMailingListAttribute() 
+    {
+        return $this->alias . '@cserevue.org.au';
+    }
 
-	public function getHeadsEmailAttribute() 
-	{
-		return $this->alias . '.head@cserevue.org.au';
-	}
+    public function getHeadsEmailAttribute() 
+    {
+        return $this->alias . '.head@cserevue.org.au';
+    }
 
-	public function get_members($year_id, $status) 
-	{
-		$all_users = $this->users;
-		$year_users = array();
-		foreach($all_users as $user) 
-		{
-			if ($user->pivot->year_id == $year_id && $user->pivot->status == $status && $user->profile != null)
-			{
-				$year_users[] = $user;
-			}
-		}
-		return $year_users;
-	}
+    public function getInterestEmailAttribute() 
+    {
+        return $this->alias . '.interest@cserevue.org.au';
+    }
+
+    public function get_members($year_id, $status) 
+    {
+        $all_users = $this->users;
+        $year_users = array();
+        foreach($all_users as $user) 
+        {
+            if ($user->pivot->year_id == $year_id && $user->pivot->status == $status && $user->profile != null)
+            {
+                $year_users[] = $user;
+            }
+        }
+        return $year_users;
+    }
 
     // Returns array of heads for this team by id
     public function get_heads($year_id) {

@@ -1,16 +1,16 @@
 <?php
 
 class SeedNews {
-	/**
-	 * Make changes to the database.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		DB::table('news')->insert(array(
-			'title' => "AD and AP,Website Redesign",
-		    'post'  => "----------------------------------------------- 
+    /**
+     * Make changes to the database.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        DB::table('news')->insert(array(
+            'title' => "AD and AP,Website Redesign",
+            'post'  => "----------------------------------------------- 
 Assistant Director and Producer 
 ----------------------------------------------- 
 We’re seeking applications for the positions of assistant director and assistant producer. 
@@ -28,17 +28,17 @@ If you’re interested, then reply to newexec@cserevue.org.au saying so. We’ll
 Thanks Guys! 
 Your Uber Keen New Exec 
 Stevebob, Jack, Jigar, Maddi, Matt, Sam and Pierre",
-		));
-	}
+        ));
+    }
 
-	/**
-	 * Revert the changes to the database.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		DB::table('news')->delete();
-	}
+    /**
+     * Revert the changes to the database.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        DB::table('news')->delete();
+    }
 
 }
