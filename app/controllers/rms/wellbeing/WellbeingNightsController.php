@@ -57,7 +57,7 @@ class WellbeingNightsController extends BaseController
     public function get_edit($id)
     {
         $night = WellbeingNight::find($id);
-          $years = Year::lists('year', 'id');
+        $years = Year::lists('year', 'id');
         return View::make('wellbeing.nights.edit')
             ->with('night',$night)->with('years', $years);
     }
