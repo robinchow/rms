@@ -35,6 +35,9 @@
     <b>Song Requests</b>
     <p>{{ $rego->format_song_requests() }}</p>
 
+    <b>Car pool</b>
+    <p>{{ $rego->car_pool }}</p>
+
     <b>Paid</b>
     <p>{{ $rego->paid}}</p>
 
