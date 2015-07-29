@@ -49,6 +49,36 @@ class WellbeingBundlesController extends BaseController
         }
     }
 
+    public function get_edit($id) {
+        $years = Year::lists('year', 'id');
+        $bundle = WellbeingBundle::find($id);
+        return View::make('wellbeing.bundles.edit')->with('years', $years)
+                                                   ->with('bundle', $bundle);
+    }
+    public function post_edit($id) {
+
+        $input = Input::get();
+        $rules = array(
+            'year_id' => 'required',
+            'name'    => 'required',
+            'price'   => 'required'
+        );
+
+        $validation = Validator::make($input, $rules);
+
+        if ($validation->passes()) {
+            $bundle = WellbeingBundle::find($id);
+            $bundle->update(Input::all());
+
+            return Redirect::to('rms/wellbeing/bundles')
+                ->with('success', 'Successfully Edited Bundle: ' . $bundle->name);
+        } else {
+            return Redirect::to('rms/wellbeing/bundles/edit/' . $id)
+                ->withErrors($validation)
+                ->withInput();
+        }
+    }
+
     public function get_delete($id)
     {
         WellbeingBundle::find($id)->delete();
