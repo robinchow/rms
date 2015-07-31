@@ -10,7 +10,7 @@
     <table class="table table-bordered table-striped" id="camp_registrations">
         <thead>
             <tr>
-                <th>Camp</th>
+                <th>Name</th>
                 <th>Car</th>
                 <th>Car Places</th>
                 <th>Leaving From</th>
@@ -64,7 +64,7 @@
                         @endif
                     </td>
                     <td>
-                        {{ $rego->car_pool }}
+                        {{{ $rego->car_pool }}}
                     </td>
                     <td>
                         <div class="btn-group">
@@ -90,6 +90,15 @@
     Total Arc Paid: {{$arc_paid_count}}<br>
     Total Paid: {{$paid_count}}<br>
 @else
-    <p>No Regos</p>
+    <p>No camp registrations have been made</p>
 @endif
+
+
+<script>
+    $("#camp_registrations").dataTable({
+        paging: false,
+        searching: false,
+        bInfo: false
+    });
+</script>
 @endsection

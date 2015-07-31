@@ -42,9 +42,9 @@
             @endif
                 <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
                 @if($year->id == Year::current_year()->id)
-                    <img src="{{$user->image_url}}" alt="{{$user->profile->display_name}}">
+                    <img src="{{$user->image_url}}" alt="{{{$user->profile->display_name}}}">
                     @endif
-                    <center><caption>{{$user->profile->full_name}}</caption></center>
+                    <center><caption>{{{$user->profile->full_name}}}</caption></center>
                 </a></li>
 
 
@@ -66,9 +66,9 @@
             @endif
             <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
                 @if($year->id == Year::current_year()->id)
-                    <img src="{{$user->image_url}}" alt="{{$user->profile->display_name}}">
+                    <img src="{{$user->image_url}}" alt="{{{$user->profile->display_name}}}">
                 @endif
-                <center><caption>{{$user->profile->full_name}}</caption></center>
+                <center><caption>{{{$user->profile->full_name}}}</caption></center>
             </a></li>
         @endforeach
         @if(count($team->get_members($year->id,'member'))>0)
@@ -89,9 +89,9 @@
                 @endif
                 <li class="span2"><a href="/rms/users/show/{{$user->id}}" class="thumbnail">
                 @if($year->id == Year::current_year()->id)
-                    <img src="{{$user->image_url}}" alt="{{$user->profile->display_name}}">
+                    <img src="{{$user->image_url}}" alt="{{{$user->profile->display_name}}}">
                 @endif
-                <center><caption>{{$user->profile->full_name}}</caption></center>
+                <center><caption>{{{$user->profile->full_name}}}</caption></center>
                 </a></li>
             @endforeach
             @if(count($team->get_members($year->id,'interest'))>0)

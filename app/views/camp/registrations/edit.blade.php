@@ -26,10 +26,10 @@
     <hr>
         <h4>Personal Details:</h4>
         {{ Form::hidden('id',$rego->id)}}
-        Full Name: {{ Auth::User()->profile->full_name }}<br>
-        DOB: {{ Auth::User()->profile->dob }}<br>
-        Phone: {{ Auth::User()->profile->number }}<br>
-        Gender: {{ Auth::User()->profile->gender }}<br>
+        Full Name: {{{ Auth::User()->profile->full_name }}}<br>
+        DOB: {{{ Auth::User()->profile->dob }}}<br>
+        Phone: {{{ Auth::User()->profile->number }}}<br>
+        Gender: {{{ Auth::User()->profile->gender }}}<br>
     <hr>
         <h4>Camp Related Details:</h4>
         <label for="medical" class="checkbox">

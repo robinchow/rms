@@ -15,8 +15,8 @@
         </tr>
     @foreach ($users->results as $user)
         <tr>
-            <td>{{$user->profile->full_name}}</td>
-            <td>{{$user->profile->display_name}}</td>
+            <td>{{{$user->profile->full_name}}}</td>
+            <td>{{{$user->profile->display_name}}}</td>
             <td>
                 @if($user->admin)
                     <i class="icon-ok"></i>

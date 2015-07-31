@@ -5,7 +5,7 @@
     </head>
     <body>
         <div>
-        Hi {{$user->profile->full_name}},<br/><br/>
+        Hi {{{$user->profile->full_name}}},<br/><br/>
 
         You have requested a password reset. 
         Click <a href="{{ $user->reset_url() }}">here</a> to continue to reset your password

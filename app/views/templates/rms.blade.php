@@ -13,11 +13,11 @@
     <meta name="author" content="">
     {{HTML::style('bundles/bootstrapper/css/bootstrap.min.css')}}
     {{HTML::style('bundles/bootstrapper/css/bootstrap-responsive.min.css')}}
-    {{HTML::style('bundles/bootstrapper/css/nav-fix.css')}}
+    {{HTML::style('css/jquery.dataTables.min.css')}}
 
     {{HTML::script('bundles/bootstrapper/js/jquery-1.8.3.min.js')}}
     {{HTML::script('bundles/bootstrapper/js/bootstrap.min.js')}}
-
+    {{HTML::script('js/jquery.dataTables.min.js')}}
 
     {{HTML::style('css/rms.css')}}
   </head>
@@ -109,7 +109,6 @@
 
     <li class="nav-header">Executives</li>
     <li>{{HTML::link('rms/executives','View Executives')}}</li>
-</li>
     
     <li class="nav-header">Camp</li>
     @if(Year::current_year()->camp_active())

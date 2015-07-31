@@ -32,7 +32,7 @@
     @foreach($team->get_members($year->id,'head') as $user)
         <tr>
             <td>
-                <a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a>
+                <a href="/rms/users/show/{{$user->id}}">{{{$user->profile->full_name}}}</a>
             </td>
             <td>
                 <div class="btn-group">
@@ -51,7 +51,7 @@
     @foreach($team->get_members($year->id,'member') as $user)
         <tr>
             <td>
-                <a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a>
+                <a href="/rms/users/show/{{$user->id}}">{{{$user->profile->full_name}}}</a>
             </td>
             <td>
                 <div class="btn-group">
@@ -74,7 +74,7 @@
     @foreach($team->get_members($year->id,'interest') as $user)
         <tr>
             <td>
-                <a href="/rms/users/show/{{$user->id}}">{{$user->profile->full_name}}</a>
+                <a href="/rms/users/show/{{$user->id}}">{{{$user->profile->full_name}}}</a>
             </td>
             <td>
                 <div class="btn-group">

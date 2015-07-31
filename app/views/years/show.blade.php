@@ -15,7 +15,7 @@
         <h4>Members:</h4>
         <ul>
         @foreach($year->users as $user)
-            <li><a href="{{$user->profile_url()}}">{{$user->profile->full_name}}</a></li>
+            <li><a href="{{$user->profile_url()}}">{{{$user->profile->full_name}}}</a></li>
         @endforeach
     </ul>
       

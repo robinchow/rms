@@ -24,7 +24,7 @@
         {{$order->bundle()->name}}
         @endif
         </td>
-        <td>{{$order->dietary_requirements}}</td>
+        <td>{{{$order->dietary_requirements}}}</td>
         <td>${{$order->price()}}</td>
     </tr>
     @endforeach
@@ -49,7 +49,7 @@
                 @foreach ($night->all_orders() as $order)
 
                     @if($order->dietary_requirements != "")
-                        <strong>{{$order->user->profile->full_name }}: </strong>{{ $order->dietary_requirements}}, <br>
+                        <strong>{{{$order->user->profile->full_name }}}: </strong>{{{ $order->dietary_requirements}}}, <br>
                     @endif
 
                 @endforeach
