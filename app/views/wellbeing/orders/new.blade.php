@@ -75,6 +75,7 @@ Transaction Name: &lt;your name&gt; WELLBEING<br />
         <p><strong>Total: </strong>$<span class='wellbeing-total'>50</span></p>
 
         <h3>Dietary Requirements</h3>
+        <p>(Leave blank if N/A)</p>
         <div>
         {{ Form::textarea('dietary_requirements', Input::old('dietary_requirements'))}}
         </div>
