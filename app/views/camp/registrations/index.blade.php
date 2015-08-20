@@ -81,6 +81,7 @@
                             </ul>
                         </div>
                     </td>
+                    <td style="display: none"></td>
                 <tr>
             @endforeach
         </tbody>
@@ -92,7 +93,6 @@
 @else
     <p>No camp registrations have been made</p>
 @endif
-
 
 <script>
     $("#camp_registrations").dataTable({
