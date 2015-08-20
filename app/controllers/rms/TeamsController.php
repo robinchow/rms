@@ -16,7 +16,14 @@ class TeamsController extends BaseController
     public function get_index($current='current')
     {
         if($current=='archive') {
-            $teams = Team::all();
+            $teams = Team::all()->sortBy(function($team) {
+                // sortBy can
+                if(null !== $team->years->first()) {
+                    return $team->years->first()->id;
+                } else {
+                    return 0;
+                }
+            })->reverse();
         } else {
             $teams = Team::all_active()->get();
         }
@@ -305,7 +312,13 @@ class TeamsController extends BaseController
 
     public function get_renew()
     {
-        $teams = Team::all();
+        $teams = Team::all()->sortBy(function($team) {
+            if(null !== $team->years->first()) {
+                return -($team->years->first()->id);
+            } else {
+                return 0;
+            }
+        });
         return View::make('teams.renew')->with('teams', $teams);
     }
 
