@@ -13,6 +13,7 @@
             <th>Bundle</th>
             <th>Dietary Requirements</th>
             <th>Owed</th>
+            <th>Actions</th>
         </tr>
     @foreach ($orders as $order)
     <tr>
@@ -25,7 +26,8 @@
         @endif
         </td>
         <td>{{{$order->dietary_requirements}}}</td>
-        <td>${{$order->price()}}</td>
+        <td>${{$order->price() - $order->paid}}</td>
+        <td><a class="btn btn-primary" href="/rms/wellbeing/orders/paid/{{$order->id}}">Mark as paid</a></td>
     </tr>
     @endforeach
     </table>

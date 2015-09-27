@@ -120,7 +120,7 @@ class WellbeingOrdersController extends BaseController
         $order = WellbeingOrder::find($order);
 
         $mynights = array();
-        foreach($nights as $night) 
+        foreach($nights as $night)
         {
                 $mynights[$night->id] = 0;
         }
@@ -152,7 +152,6 @@ class WellbeingOrdersController extends BaseController
     {
         $input = Input::get();
 
-
         $rules = array(
             'year_id'  => 'required',
             'user_id' => 'required',
@@ -160,7 +159,6 @@ class WellbeingOrdersController extends BaseController
 
         $validation = Validator::make($input, $rules);
         
-
         if($validation->passes())
         {
             $yes = Input::get('yes');
@@ -168,9 +166,7 @@ class WellbeingOrdersController extends BaseController
             unset($input['yes']);
 
             $wellbeing_order = WellbeingOrder::find($id);
-
             $wellbeing_order->update($input);
-
             $wellbeing_order->nights()->detach();
 
             if($yes) {
@@ -180,10 +176,6 @@ class WellbeingOrdersController extends BaseController
                     }
                 }
             }
-
-
-
-
             return Redirect::to('rms/wellbeing/orders/')
                 ->with('success', 'Successfully Edited Order');
         }
@@ -193,9 +185,52 @@ class WellbeingOrdersController extends BaseController
                 ->withErrors($validation)
                 ->withInput(); 
         }
+    }
 
+    public function get_paid($id)
+    {
+        $order = WellbeingOrder::find($id);
+
+        return View::make('wellbeing.orders.paid')
+            ->with('order', $order);
         
     }
 
+    public function post_paid($id)
+    {
+        $input = Input::get();
 
+        $rules = array(
+            'paid'  => 'required|numeric',
+        );
+
+        $validation = Validator::make($input, $rules);
+        
+        if($validation->passes())
+        {
+            $yes = Input::get('yes');
+
+            unset($input['yes']);
+
+            $wellbeing_order = WellbeingOrder::find($id);
+            $wellbeing_order->update($input);
+            $wellbeing_order->nights()->detach();
+
+            if($yes) {
+                foreach(WellbeingNight::current_nights()->get() as $night) {
+                    if(array_key_exists($night->id, $yes)) {
+                        $wellbeing_order->nights()->attach($night->id);
+                    }
+                }
+            }
+            return Redirect::to('rms/wellbeing/orders/admin')
+                ->with('success', 'Successfully Edited Order');
+        }
+        else
+        {
+            return Redirect::to('rms/wellbeing/orders/paid/{{$id}}')
+                ->withErrors($validation)
+                ->withInput(); 
+        }
+    }
 }
